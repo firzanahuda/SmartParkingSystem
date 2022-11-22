@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SmartParkingSystem</string>
+    <string name="login">Login</string>
+    <string name="UserName">UserName</string>
+    <string name="password">Password</string>
+    <string name="UserIc">Ic Number</string>
+    <string name="signuphere">Create a new account? Sign Up</string>
+    <string name="signup">Sign Up</string>
+    <string name="fullname">Full Name</string>
+    <string name="icnumber">Ic Number</string>
+    <string name="email">Email</string>
+    <string name="loginhere">"Have an account already ? Log In "</string>
+    <string name="Welcome">Welcome !</string>
+    <string name="home">Home</string>
+    <string name="HomePage">Home Page</string>
+</resources>
