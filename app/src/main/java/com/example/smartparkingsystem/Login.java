@@ -17,22 +17,23 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 public class Login extends AppCompatActivity {
 
-    TextInputEditText textInputEditTextIcnumber, textInputEditTextPassword;
+    TextInputEditText textInputEditTextUsername, textInputEditTextPassword;
     Button buttonLogin;
     TextView textViewSignUp;
     ProgressBar progressbar;
-    Button buttonHome;
+    TextView textViewforgotpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        textInputEditTextIcnumber = findViewById(R.id.useric);
+        textInputEditTextUsername = findViewById(R.id.username);
         textInputEditTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.buttonLogin);
         textViewSignUp = findViewById(R.id.signUpText);
         progressbar = findViewById(R.id.progress);
+        textViewforgotpass = findViewById(R.id.forgotPassText);
 
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,13 +44,22 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        textViewforgotpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String icnumber, password;
-                icnumber = String.valueOf(textInputEditTextIcnumber.getText());
+                String username, password;
+                username = String.valueOf(textInputEditTextUsername.getText());
                 password = String.valueOf(textInputEditTextPassword.getText());
-                if(!icnumber.equals("") && !password.equals("")) {
+                if(!username.equals("") && !password.equals("")) {
                     progressbar.setVisibility(View.VISIBLE);
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
@@ -58,11 +68,11 @@ public class Login extends AppCompatActivity {
                             //Starting Write and Read data with URL
                             //Creating array for parameters
                             String[] field = new String[2];
-                            field[0] = "icnumber";
+                            field[0] = "username";
                             field[1] = "password";
                             //Creating array for data
                             String[] data = new String[2];
-                            data[0] = icnumber;
+                            data[0] = username;
                             data[1] = password;
 
                             PutData putData = new PutData("http://192.168.0.100/loginregister/login.php", "POST", field, data);
@@ -91,8 +101,4 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void goToMainActivity (View view){
-        Intent intent = new Intent (this, MainActivity.class);
-        startActivity(intent);
-    }
 }

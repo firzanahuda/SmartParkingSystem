@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login"
-    android:background="@drawable/gradient">
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/textView"
@@ -32,20 +32,21 @@
         tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutUserIc"
+            android:id="@+id/textInputLayoutUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:hint="@string/UserIc"
-            android:background="#D7DDE8"
+            android:layout_marginTop="100dp"
+            android:hint="@string/Username"
+            android:background="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/useric"
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_username"
@@ -61,8 +62,8 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:hint="@string/password"
-            android:background="#D7DDE8"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUserIc"
+            android:background="#FFFFFF"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUserName"
             tools:layout_editor_absoluteX="0dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -87,23 +88,12 @@
 
         <Button
             android:id="@+id/buttonLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="343dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/rounded_corner"
             android:text="@string/login"
-            android:background="#D7DDE8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progress" />
-
-        <Button
-            android:id="@+id/buttonHome"
-            android:layout_width="65dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="70dp"
-            android:background="#D7DDE8"
-            android:onClick="goToMainActivity"
-            android:drawableTop="@drawable/ic_home"
+            style="@style/WhiteText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progress" />
@@ -112,12 +102,27 @@
             android:id="@+id/signUpText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppinsmedium"
             android:text="@string/signuphere"
+            style="@style/GreenText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+            tools:targetApi="jelly_bean" />
+
+        <TextView
+            android:id="@+id/forgotPassText"
+            style="@style/GreenText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="@string/forgotpass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.88"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword"
             tools:targetApi="jelly_bean" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
