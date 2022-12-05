@@ -3,18 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/home"
-        android:title="Home"
-        android:icon="@drawable/ic_home" />
+        android:id="@+id/activity"
+        android:title="Activity"
+        android:icon="@drawable/ic_home"
+        />
 
 
     <item
         android:id="@+id/booking"
         android:title="Booking"
-        android:icon="@drawable/ic_booking" />
+        android:icon="@drawable/ic_booking"
+        />
+
+    <item
+        android:id="@+id/retrieve"
+        android:title="Retrieve"
+        android:icon="@drawable/ic_retrieve"
+        />
 
     <item
         android:id="@+id/account"
-        android:title="MyAccount"
-        android:icon="@drawable/ic_myaccount"/>
+        android:title="Account"
+        android:icon="@drawable/ic_myaccount"
+        />
 </menu>

@@ -31,7 +31,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
             android:exported="false"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <meta-data
@@ -39,7 +39,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>

@@ -1,37 +1,64 @@
 package com.example.smartparkingsystem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    Button buttonSignup;
-    Button buttonLogin;
-    TextView textViewHome;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonSignup = findViewById(R.id.btnSignUp);
-        textViewHome = findViewById(R.id.textViewHome);
-        buttonLogin = findViewById(R.id.btnLogin);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new FragmentHome()).commit();
 
     }
 
-    public void goToLoginActivity (View view){
-        Intent intent = new Intent (this, Login.class);
-        startActivity(intent);
-    }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
 
-    public void goToSignupActivity (View view){
-        Intent intent = new Intent (this, Registration.class);
-        startActivity(intent);
-    }
+                    switch (item.getItemId()){
+                        case R.id.activity:
+                            selectedFragment = new FragmentHome();
+                            break;
+                        case R.id.booking:
+                            selectedFragment = new FragmentBooking();
+                            break;
+                        case R.id.retrieve:
+                            selectedFragment = new FragmentRetrieve();
+                            break;
+                        case R.id.account:
+                            selectedFragment = new FragmentAccount();
+                            break;
+                    }
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            selectedFragment).commit();
+
+                    return true;
+                }
+            };
+
 }
