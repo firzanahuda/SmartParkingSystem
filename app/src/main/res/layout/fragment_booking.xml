@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".FragmentBooking">
 
-    <TextView
-        android:id="@+id/textViewBooking"
-        style="@style/PurpleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/poppinsbold"
-        android:text="Booking Page"
-        android:textSize="30sp" />
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/maps"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        >
+
+    </androidx.fragment.app.FragmentContainerView>
+
 
 </RelativeLayout>
