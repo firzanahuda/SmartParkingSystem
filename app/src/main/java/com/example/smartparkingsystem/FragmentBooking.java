@@ -1,10 +1,12 @@
 package com.example.smartparkingsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,7 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Use the {@link FragmentBooking#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentBooking extends Fragment implements OnMapReadyCallback {
+public class FragmentBooking extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +61,16 @@ public class FragmentBooking extends Fragment implements OnMapReadyCallback {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                Intent intent = new Intent(getContext(), MapsActivity.class);
+                startActivity(intent);
+
+            }
+        },10);
+
     }
 
 
@@ -69,8 +81,4 @@ public class FragmentBooking extends Fragment implements OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_booking, container, false);
     }
 
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-
-    }
 }
