@@ -13,14 +13,14 @@ public class ConSql {
 
     @SuppressLint("NewApi")
     public Connection conclass() {
-        String ip = "172.1.2.2", port = "1433", db = "mytestdb", username = "sa", password = "yourpass";
+        String ip = "127.0.0.1", port = "1433", db = "Workshop2", username = "SQLWorkshop", password = "SQLWorkshop123";
         StrictMode.ThreadPolicy a = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(a);
         String connectURL = null;
 
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            connectURL = "jdbc:jtds:sqlserver://" + ip + ":" + port + ";databasename=" + db + ";user=" + username + ";"+"password=" + password + ";";
+            connectURL = "jdbc:jtds:sqlserver://" +ip+ ":" +port+ ";databasename=" + db + ";user=" + username + ";"+"password=" + password + ";";
             con = DriverManager.getConnection(connectURL);
         } catch (Exception e) {
             Log.e("Error :", e.getMessage());
