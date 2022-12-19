@@ -36,10 +36,10 @@ public class Registration extends AppCompatActivity {
         textViewLogin = findViewById(R.id.loginText);
         progressbar = findViewById(R.id.progress);
 
-        /*final CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox);
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox);
         if (checkBox.isChecked()) {
             checkBox.setChecked(false);
-        }*/
+        }
 
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override

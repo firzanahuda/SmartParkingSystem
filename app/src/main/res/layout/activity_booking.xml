@@ -7,19 +7,21 @@
     tools:context=".Booking">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".StudentMainActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputCarPlate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="30dp"
             android:hint="Insert Car Plate"
             android:background="#FFFFFF"
@@ -57,15 +59,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_car"
-                android:inputType="textPassword"
                 android:fontFamily="@font/poppinsmedium"
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputStart"
-            android:layout_width="166dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
@@ -82,15 +83,14 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:fontFamily="@font/poppinsmedium"
-                android:inputType="textPassword"
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputEnd"
-            android:layout_width="166dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="215dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
             android:background="#FFFFFF"
@@ -98,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputVehicle">
+            app:layout_constraintTop_toBottomOf="@+id/textInputStart">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/end"
@@ -106,17 +106,16 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:fontFamily="@font/poppinsmedium"
-                android:inputType="textPassword"
                 tools:targetApi="jelly_bean" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/textViewBooking"
-            android:layout_width="343dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="60dp"
+            android:id="@+id/buttonViewBooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:background="@drawable/button"
             android:text="View Booking Details"
             style="@style/WhiteText"
@@ -124,6 +123,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputEnd" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvStud"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            tools:layout_editor_absoluteY="437dp" />
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
