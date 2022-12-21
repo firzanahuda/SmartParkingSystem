@@ -17,6 +17,20 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".StartDate"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".EndDate"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CurrentActivity"
             android:exported="false">
             <meta-data
@@ -38,7 +52,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Registration"
+            android:name=".Booking"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -61,7 +75,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Registration"
             android:exported="false"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <meta-data
@@ -77,7 +91,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Booking"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>

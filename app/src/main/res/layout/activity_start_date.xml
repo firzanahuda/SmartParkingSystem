@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFBB86FC"
     tools:context=".StartDate">
 
     <TextView
-        android:id="@+id/myDate"
+        android:id="@+id/datestart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
@@ -16,7 +15,7 @@
         android:gravity="center"
         android:text="Mark Your Date"
         android:textSize="30sp"
-        style="@style/WhiteText"
+        style="@style/PurpleText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +23,7 @@
         tools:targetApi="jelly_bean" />
 
     <Button
-        android:id="@+id/buttonSave"
+        android:id="@+id/Save"
         style="@style/WhiteText"
         android:layout_width="200dp"
         android:layout_height="56dp"
@@ -33,14 +32,14 @@
         android:layout_marginEnd="106dp"
         android:layout_marginBottom="129dp"
         android:background="@drawable/button"
-        android:text="Save"
+        android:text="Confirmed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+        app:layout_constraintTop_toBottomOf="@+id/calendar" />
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="320dp"
         android:layout_marginStart="31dp"
@@ -48,10 +47,10 @@
         android:layout_marginEnd="31dp"
         android:layout_marginBottom="50dp"
         android:background="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSave"
+        app:layout_constraintBottom_toTopOf="@+id/Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myDate">
+        app:layout_constraintTop_toBottomOf="@+id/datestart">
 
     </CalendarView>
 

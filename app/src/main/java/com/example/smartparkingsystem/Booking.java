@@ -1,27 +1,34 @@
 package com.example.smartparkingsystem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.smartparkingsystem.databinding.ActivityBookingBinding;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 
@@ -30,6 +37,9 @@ public class Booking extends AppCompatActivity {
     TextInputEditText textInputCarPlate, textInputVehicle, textInputStart, textInputEnd;
     Button buttonViewBooking;
     LinearLayout linearLayout;
+    TextView tvStart, tvEnd;
+    int startHour, startMinute, endHour, endMinute;
+
     private BookingClass bookings;
     private Vector<BookingClass> booking;
     private ActivityBookingBinding binding;
@@ -52,15 +62,27 @@ public class Booking extends AppCompatActivity {
         textInputStart = findViewById(R.id.start);
         textInputEnd = findViewById(R.id.end);
         buttonViewBooking = findViewById(R.id.buttonViewBooking);
+        tvStart = findViewById(R.id.startTime);
+        tvEnd = findViewById(R.id.endTime);
 
-        binding.buttonViewBooking.setOnClickListener(this:: fnAdd);
+        binding.buttonViewBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    fnAdd();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         binding.start.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
                 if(hasFocus){
-                    fnInvokeDatePicker();
+                    Intent intent = new Intent(Booking.this, StartDate.class);
+                    startActivityForResult(intent, 1);
                 }
 
                 if(!hasFocus){
@@ -72,7 +94,8 @@ public class Booking extends AppCompatActivity {
         binding.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fnInvokeDatePicker();
+                Intent intent = new Intent(Booking.this, StartDate.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -81,7 +104,8 @@ public class Booking extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
 
                 if(hasFocus){
-                    fnInvokeDatePickerEnd();
+                    Intent intent = new Intent(Booking.this, EndDate.class);
+                    startActivityForResult(intent, 2);
                 }
 
                 if(!hasFocus){
@@ -93,7 +117,22 @@ public class Booking extends AppCompatActivity {
         binding.end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fnInvokeDatePickerEnd();
+                Intent intent = new Intent(Booking.this, EndDate.class);
+                startActivityForResult(intent, 2);
+            }
+        });
+
+        tvStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fnInvokeTimePicker();
+            }
+        });
+
+        tvEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fnInvokeTimePickerEnd();
             }
         });
 
@@ -103,6 +142,87 @@ public class Booking extends AppCompatActivity {
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(binding.rcvStud);
 
+    }
+
+    private void fnInvokeTimePickerEnd(){
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                Booking.this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        endHour = hourOfDay;
+                        endMinute = minute;
+                        String time = endHour + ":" + endMinute;
+                        SimpleDateFormat f24Hours = new SimpleDateFormat(
+                                "HH:mm"
+                        );
+                        try {
+                            Date dateEnd= f24Hours.parse(time);
+                            SimpleDateFormat f12Hours = new SimpleDateFormat(
+                                    "hh:mm:aa"
+                            );
+                            tvEnd.setText(f12Hours.format(dateEnd));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },12,0,false
+        );
+
+        timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        timePickerDialog.show();
+
+
+    }
+
+    private void fnInvokeTimePicker(){
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                Booking.this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        startHour = hourOfDay;
+                        startMinute = minute;
+                        String time = startHour + ":" + startMinute;
+                        SimpleDateFormat f24Hours = new SimpleDateFormat(
+                                "HH:mm"
+                        );
+                        try {
+                            Date dateStart = f24Hours.parse(time);
+                            SimpleDateFormat f12Hours = new SimpleDateFormat(
+                                    "hh:mm:aa"
+                            );
+                            tvStart.setText(f12Hours.format(dateStart));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },12,0,false
+        );
+
+        timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        timePickerDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==1){
+            if(resultCode == RESULT_OK){
+                String result = data.getStringExtra("result");
+                textInputStart.setText(result);
+            }
+        }
+
+        if(requestCode==2){
+            if(resultCode == RESULT_OK){
+                String result = data.getStringExtra("resultEnd");
+                textInputEnd.setText(result);
+            }
+        }
     }
 
     ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
@@ -122,55 +242,48 @@ public class Booking extends AppCompatActivity {
     private void fnFormValidation() {
     }
 
-    private void fnInvokeDatePicker()
-    {
-        final Calendar cldr = Calendar.getInstance();
-        int day = cldr.get(Calendar.DAY_OF_MONTH);
-        int month = cldr.get(Calendar.MONTH);
-        int year = cldr.get(Calendar.YEAR);
-        // date picker dialog
-
-        datePicker = new DatePickerDialog(Booking.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                binding.start.setText(dayOfMonth + "/" + (month+1) + "/" + year);
-            }
-        },year,month,day);
-        datePicker.show();
-    }
-
-    private void fnInvokeDatePickerEnd()
-    {
-        final Calendar cldr = Calendar.getInstance();
-        int day = cldr.get(Calendar.DAY_OF_MONTH);
-        int month = cldr.get(Calendar.MONTH);
-        int year = cldr.get(Calendar.YEAR);
-        // date picker dialog
-
-        datePicker = new DatePickerDialog(Booking.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                binding.end.setText(dayOfMonth + "/" + (month+1) + "/" + year);
-            }
-        },year,month,day);
-        datePicker.show();
-    }
-
-    private void fnAdd(View view)
-    {
+    private void fnAdd() throws ParseException {
         textInputCarPlate = findViewById(R.id.carPlate);
         textInputVehicle = findViewById(R.id.vehicle);
         textInputStart = findViewById(R.id.start);
         textInputEnd = findViewById(R.id.end);
+        tvStart = findViewById(R.id.startTime);
+        tvEnd = findViewById(R.id.endTime);
 
-        String carPlate, vehicle, start, end;
+        String carPlate, vehicle, start, end, startTime, endTime;
 
         carPlate = String.valueOf(textInputCarPlate.getText().toString());
         vehicle = String.valueOf(textInputVehicle.getText().toString());
         start = String.valueOf(textInputStart.getText().toString());
         end = String.valueOf(textInputEnd.getText().toString());
+        startTime = String.valueOf(tvStart.getText().toString());
+        endTime = String.valueOf(tvEnd.getText().toString());
 
-        bookings = new BookingClass(carPlate,vehicle,start,end);
+        // Creating a SimpleDateFormat object
+        // to parse time in the format HH:MM:SS
+        SimpleDateFormat simpleDateFormat
+                = new SimpleDateFormat("HH:mm");
+
+        // Parsing the Time Period
+        Date dateStart = simpleDateFormat.parse(startTime);
+        Date dateEnd = simpleDateFormat.parse(endTime);
+
+        // Calculating the difference in milliseconds
+        long differenceInMilliSeconds
+                = Math.abs(dateEnd.getTime() - dateStart.getTime());
+
+        // Calculating the difference in Hours
+        long differenceInHours
+                = (differenceInMilliSeconds / (60 * 60 * 1000))
+                % 24;
+
+        // Calculating the difference in Minutes
+        long differenceInMinutes
+                = (differenceInMilliSeconds / (60 * 1000)) % 60;
+
+        String duration = differenceInHours + " hours " + differenceInMinutes + " minutes ";
+
+        bookings = new BookingClass(carPlate,vehicle,start,end, duration);
 
         booking.add(bookings);
         adapter.notifyItemInserted(booking.size());
@@ -183,17 +296,19 @@ public class Booking extends AppCompatActivity {
                 public void run() {
                     //Starting Write and Read data with URL
                     //Creating array for parameters
-                    String[] field = new String[4];
+                    String[] field = new String[5];
                     field[0] = "carPlate";
                     field[1] = "vehicle";
                     field[2] = "start";
                     field[3] = "end";
+                    field[4] = "duration";
                     //Creating array for data
-                    String[] data = new String[4];
+                    String[] data = new String[5];
                     data[0] = carPlate;
                     data[1] = vehicle;
                     data[2] = start;
                     data[3] = end;
+                    data[4] = duration;
 
                     PutData putData = new PutData("http://192.168.8.122/loginregister/booking.php", "POST", field, data);
                     if (putData.startPut()) {

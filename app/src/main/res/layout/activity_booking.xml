@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Booking">
 
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp"
-        tools:context=".StudentMainActivity">
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputCarPlate"
             android:layout_width="match_parent"
@@ -63,74 +53,129 @@
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputStart"
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:background="#FFFFFF"
+        android:hint="Start Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputVehicle">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:background="#FFFFFF"
-            android:hint="Start Date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputVehicle">
+            android:drawableEnd="@drawable/ic_calendar"
+            android:fontFamily="@font/poppinsmedium"
+            tools:targetApi="jelly_bean" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/start"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:fontFamily="@font/poppinsmedium"
-                tools:targetApi="jelly_bean" />
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputEnd"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="#FFFFFF"
+        android:hint="End Date"
+        app:layout_constraintBottom_toTopOf="@+id/buttonViewBooking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputStart">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:background="#FFFFFF"
-            android:hint="End Date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputStart">
+            android:drawableEnd="@drawable/ic_calendar"
+            android:fontFamily="@font/poppinsmedium"
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:fontFamily="@font/poppinsmedium"
-                tools:targetApi="jelly_bean" />
+            tools:targetApi="jelly_bean" />
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/buttonViewBooking"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textViewTime"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonViewBooking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEnd">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/startTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/button"
-            android:text="View Booking Details"
-            style="@style/WhiteText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEnd" />
+            android:layout_height="50dp"
+            android:hint="Start Time"
+            android:layout_weight="50"
+            android:background="@drawable/border"
+            android:drawableEnd="@drawable/ic_timer"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"></TextView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvStud"
+        <TextView
+            android:id="@+id/endTime"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            tools:layout_editor_absoluteY="437dp" />
+            android:layout_height="50dp"
+            android:layout_weight="50"
+            android:hint="End Time"
+            android:background="@drawable/border"
+            android:drawableEnd="@drawable/ic_timer"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"></TextView>
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonViewBooking"
+        style="@style/WhiteText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/squarepurple"
+        android:text="View Booking Details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEnd" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvStud"
+        android:layout_width="413dp"
+        android:layout_height="246dp"
+        android:layout_marginTop="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonViewBooking" />
+
 
 
 

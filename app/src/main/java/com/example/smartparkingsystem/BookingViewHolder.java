@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class BookingViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView lblInputCarPlate, lblInputVehicle, lblInputStart, lblInputEnd;
+    private final TextView lblInputCarPlate, lblInputVehicle, lblInputStart, lblInputEnd, lblDuration;
 
     public BookingViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -16,6 +16,7 @@ public class BookingViewHolder extends RecyclerView.ViewHolder {
         this.lblInputVehicle = itemView.findViewById(R.id.lblInputVehicle);
         this.lblInputStart = itemView.findViewById(R.id.lblInputStart);
         this.lblInputEnd = itemView.findViewById(R.id.lblInputEnd);
+        this.lblDuration = itemView.findViewById(R.id.lblDuration);
     }
 
 
@@ -25,6 +26,7 @@ public class BookingViewHolder extends RecyclerView.ViewHolder {
         lblInputVehicle.setText(bookingClass.getTextInputVehicle());
         lblInputStart.setText(bookingClass.getTextInputStart());
         lblInputEnd.setText(bookingClass.getTextInputEnd());
+        lblDuration.setText(bookingClass.getDuration());
 
     }
 

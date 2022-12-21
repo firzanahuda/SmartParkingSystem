@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="413dp"
+    android:layout_height="370dp"
+    tools:context=".BookFragment">
+
+    <TextView
+        android:id="@+id/textParking"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/button"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/textcontent1"
+        android:layout_width="352dp"
+        android:layout_height="47dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="30dp"
+        android:text="RM2/HR             Bukit Beruang Station"
+        android:textSize="18sp"
+        style="@style/PurpleText"
+        android:gravity="center"
+        android:fontFamily="@font/poppinsbold"
+        android:background="@drawable/squarewhite"></TextView>
+
+    <TextView
+        android:id="@+id/textcontent3"
+        android:layout_width="352dp"
+        android:layout_height="47dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginRight="30dp"
+        android:text="Availability : YES"
+        android:textSize="18sp"
+        style="@style/PurpleText"
+        android:gravity="center"
+        android:fontFamily="@font/poppinsbold"
+        android:background="@drawable/squarewhite"></TextView>
+
+    <TextView
+        android:id="@+id/textcontent2"
+        android:layout_width="352dp"
+        android:layout_height="47dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginRight="30dp"
+        android:text="************************************"
+        android:textSize="18sp"
+        style="@style/PurpleText"
+        android:gravity="center"
+        android:fontFamily="@font/poppinsbold"
+        android:background="@drawable/squarewhite"></TextView>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="231dp"
+        android:layout_height="131dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:src="@drawable/parking" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonBook"
+        style="@style/WhiteText"
+        android:layout_width="343dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="270dp"
+        android:background="#3E0959"
+        android:layout_marginLeft="35dp"
+        android:text="Book Now" />
+
+
+</FrameLayout>
