@@ -23,4 +23,7 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="googleAPI">AIzaSyAzIAXPaHjNyrPHgN64Lze-VH--Qdc9Jc0</string>
     <string name="search">Searching...</string>
+    <string name="current">Current</string>
+    <string name="history">History</string>
+    <string name="upcoming">Upcoming</string>
 </resources>

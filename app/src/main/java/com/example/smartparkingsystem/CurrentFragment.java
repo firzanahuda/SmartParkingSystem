@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentAccount#newInstance} factory method to
+ * Use the {@link CurrentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentAccount extends Fragment {
+public class CurrentFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class FragmentAccount extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentAccount() {
+    public CurrentFragment() {
         // Required empty public constructor
     }
 
@@ -34,20 +34,16 @@ public class FragmentAccount extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentAccount.
+     * @return A new instance of fragment CurrentFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentAccount newInstance(String param1, String param2) {
-        FragmentAccount fragment = new FragmentAccount();
+    public static CurrentFragment newInstance(String param1, String param2) {
+        CurrentFragment fragment = new CurrentFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public static Fragment newInstance() {
-        return null;
     }
 
     @Override
@@ -63,6 +59,6 @@ public class FragmentAccount extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        return inflater.inflate(R.layout.fragment_current, container, false);
     }
 }

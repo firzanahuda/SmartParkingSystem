@@ -6,14 +6,12 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.navigation.NavigationBarView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +24,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new FragmentHome()).commit();
+        Intent mIntent = getIntent();
+        int intValue = mIntent.getIntExtra("intVariableName", 0);
+
+        if(intValue == 1){
+            bottomNavigationView.setSelectedItemId(R.id.account);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FragmentAccount()).commit();
+        }else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FragmentHome()).commit();
+        }
 
     }
 

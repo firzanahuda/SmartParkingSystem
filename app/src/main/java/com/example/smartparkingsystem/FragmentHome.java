@@ -2,17 +2,17 @@ package com.example.smartparkingsystem;
 
 import android.os.Bundle;
 
+
 import androidx.fragment.app.Fragment;
 
+import androidx.viewpager2.widget.ViewPager2;
+
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.android.material.tabs.TabLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentHome#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentHome extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -34,7 +34,7 @@ public class FragmentHome extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentHome.
+     * @return A new instance of fragment HomeLandlordFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static FragmentHome newInstance(String param1, String param2) {
@@ -55,10 +55,54 @@ public class FragmentHome extends Fragment {
         }
     }
 
+
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    ActivityAdapter activityAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        tabLayout = v.findViewById(R.id.tab_layout);
+        viewPager2 = v.findViewById(R.id.view_pager);
+        activityAdapter = new ActivityAdapter(this);
+        viewPager2.setAdapter(activityAdapter);
+        
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tabLayout.getTabAt(position).select();
+            }
+        });
+
+
+        return v;
     }
-}
+
+    }
+
+
+
