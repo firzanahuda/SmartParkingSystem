@@ -6,14 +6,274 @@
     tools:context=".FragmentAccount"
     android:id="@+id/fragmentAccount">
 
-    <TextView
-        android:id="@+id/textViewBooking"
-        style="@style/PurpleText"
-        android:layout_width="wrap_content"
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/poppinsbold"
-        android:text="Account"
-        android:textSize="30sp" />
+        android:layout_below="@+id/layout_toolbar"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:paddingTop="15dp">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/ic_myaccount"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:textSize="20sp"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#340691"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="220dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_username"/>
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:textSize="17sp"
+            style="@style/PurpleText"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/firstName"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="255dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="270dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_username"/>
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Last Name"
+            android:textSize="17sp"
+            style="@style/PurpleText"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/lastName"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="305dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="320dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_phone"/>
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="No Phone"
+            android:textSize="17sp"
+            style="@style/PurpleText"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/noPhone"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="355dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="370dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_numberic"/>
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="IC Number"
+            android:textSize="17sp"
+            style="@style/PurpleText"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/noIC"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="405dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="420dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_car"/>
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Car Plate"
+            android:textSize="17sp"
+            style="@style/PurpleText"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/carPlate"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="455dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/edtProfilebtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:background="@drawable/squarepurple"
+        android:layout_marginRight="130dp"
+        android:layout_marginLeft="130dp"
+        android:text="Edit Profile"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsmedium"
+        android:textAllCaps="false"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="570dp"
+        android:background="@drawable/squarepurple"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:text="Change Password"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsmedium"
+        android:textAllCaps="false"/>
+
+
+
+
 
 </RelativeLayout>

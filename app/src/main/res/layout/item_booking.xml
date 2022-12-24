@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/linear_layout"
-    android:background="@color/purple_200"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
 
@@ -12,40 +12,61 @@
         android:id="@+id/lblInputCarPlate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        style="@style/PurpleText"
         android:gravity="center"
+        android:fontFamily="@font/poppinsmedium"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/border"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/lblInputVehicle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        style="@style/PurpleText"
+        android:fontFamily="@font/poppinsmedium"
         android:gravity="center"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/border"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/lblInputStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        style="@style/PurpleText"
+        android:fontFamily="@font/poppinsmedium"
         android:gravity="center"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/border"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/lblInputEnd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        style="@style/PurpleText"
+        android:fontFamily="@font/poppinsmedium"
         android:gravity="center"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/border"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/lblDuration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:gravity="center"
+        android:fontFamily="@font/poppinsmedium"
+        style="@style/PurpleText"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/border"
         android:text="TextView" />
 
 

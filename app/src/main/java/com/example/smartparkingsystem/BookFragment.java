@@ -65,17 +65,19 @@ public class BookFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        /*getActivity().findViewById(R.id.buttonBook).setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.fragment_book,
+                container, false);
+        buttonBook = (Button) view.findViewById(R.id.btn_book);
+        buttonBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getContext(), Booking.class);
                 startActivity(intent);
 
             }
-        });*/
+        });
 
-        return inflater.inflate(R.layout.fragment_book, container, false);
+        return view;
     }
 
 
