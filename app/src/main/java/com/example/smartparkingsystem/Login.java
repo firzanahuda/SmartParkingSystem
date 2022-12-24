@@ -107,6 +107,10 @@ public class Login extends AppCompatActivity {
                 String username, password;
                 username = String.valueOf(textInputEditTextUsername.getText());
                 password = String.valueOf(textInputEditTextPassword.getText());
+
+                Intent intent = new Intent(getApplicationContext(), CreateAccount.class);
+                intent.putExtra("username", username);
+
                 if(!username.equals("") && !password.equals("")) {
                     progressbar.setVisibility(View.VISIBLE);
                     Handler handler = new Handler(Looper.getMainLooper());

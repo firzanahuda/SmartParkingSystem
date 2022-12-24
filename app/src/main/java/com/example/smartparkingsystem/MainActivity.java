@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(intValue == 1){
             bottomNavigationView.setSelectedItemId(R.id.account);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FragmentAccount()).commit();
+            Intent intent = new Intent(getApplicationContext(), CreateAccount.class);
+            startActivity(intent);
         }else{
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FragmentHome()).commit();

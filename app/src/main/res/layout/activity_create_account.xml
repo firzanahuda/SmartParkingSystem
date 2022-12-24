@@ -1,33 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".CreateAccount">
 
-    <include layout="@layout/toolbar" />
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_toolbar"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:paddingTop="15dp">
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:src="@drawable/ic_myaccount" />
+        android:padding="20dp"
+        tools:context=".StudentMainActivity">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/poppinsbold"
+            android:gravity="center"
+            android:text="Create Your Profile"
+            android:textSize="27sp"
+            style="@style/PurpleText" />
+
+        <EditText
+            android:id="@+id/edtFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/edtLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/edtNoPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Phone Number"
+            android:inputType="textPhonetic" />
+        <EditText
+            android:id="@+id/edtNoIC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="IC Number"
+            android:inputType="textPhonetic" />
+
+        <TextView
+            android:id="@+id/carNumber"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number of car:" />
+
+        <Spinner
+            android:id="@+id/spnState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/number_arrays" />
+
+        <EditText
+            android:id="@+id/carPlateNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Car Plate Number 1"
+            android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/carPlateNum2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Car Plate Number 2"
+            android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/carPlateNum3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Car Plate Number 3"
+            android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/carPlateNum4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Car Plate Number 4"
+            android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/carPlateNum5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Car Plate Number 5"
+            android:inputType="textPersonName" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:layout_gravity="center"/>
+
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

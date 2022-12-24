@@ -59,8 +59,6 @@ public class Registration extends AppCompatActivity {
                 confirmpass = String.valueOf(textInputEditTextConfirmPass.getText());
                 username = String.valueOf(textInputEditTextUsername.getText());
 
-
-
                 if(!username.equals("") && !confirmpass.equals("") && !email.equals("") && !password.equals("")) {
                     progressbar.setVisibility(View.VISIBLE);
                     Handler handler = new Handler(Looper.getMainLooper());
