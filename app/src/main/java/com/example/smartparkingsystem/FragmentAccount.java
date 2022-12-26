@@ -7,6 +7,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +26,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FragmentAccount extends Fragment {
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,10 +73,60 @@ public class FragmentAccount extends Fragment {
         }
     }
 
+    TextView firstName, lastName, noPhone, noIC, carPlate;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        View v = inflater.inflate(R.layout.fragment_account, container, false);
+        firstName = v.findViewById(R.id.firstName);
+        lastName = v.findViewById(R.id.lastName);
+        noPhone = v.findViewById(R.id.noPhone);
+        noIC = v.findViewById(R.id.noIC);
+        carPlate = v.findViewById(R.id.carPlate);
+
+        return v;
     }
+/*
+    private void getData() {
+
+        String url = Config.DATA_URL + editTextvalue.getText().toString().trim();
+
+        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                showJSONS(response);
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
+    }
+
+    private void showJSONS(String response) {
+        String name = "";
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
+            JSONObject collegeData = result.getJSONObject(0);
+            name = collegeData.getString(Config.KEY_NAME);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        textViewdatashow.setText("" + name);
+    }
+}*/
 }

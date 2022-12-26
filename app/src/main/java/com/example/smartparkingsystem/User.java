@@ -5,8 +5,7 @@ public class User {
     private String firstName, lastName, phoneNum, icNum, carNumber, carPlate, carPlate2, carPlate3, carPlate4, carPlate5, username;
 
     public User(String firstName, String lastName, String phoneNum, String icNum, String carNumber,
-                String carPlate, String carPlate2, String carPlate3, String carPlate4, String carPlate5,
-                String username) {
+                String carPlate, String carPlate2, String carPlate3, String carPlate4, String carPlate5) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNum = phoneNum;
@@ -17,8 +16,12 @@ public class User {
         this.carPlate4 = carPlate4;
         this.carPlate5 = carPlate5;
         this.carPlate = carPlate;
-        this.username = username;
     }
+
+    public User() {
+        super();
+    }
+
 
     public String getFirstName() {
         return firstName;

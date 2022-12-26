@@ -28,7 +28,7 @@
     <string name="upcoming">Upcoming</string>
 
     <string-array name="number_arrays">
-        <item>0</item>
+        <item>Please choose.....</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

@@ -26,11 +26,14 @@ public class CreateAccount extends AppCompatActivity {
         binding = ActivityCreateAccountBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
         binding.fabAdd.setOnClickListener(this:: fnAdd );
         users = new Vector<>();
     }
 
     private void fnAdd(View view) {
+
         String firstName = binding.edtFirstName.getText().toString();
         String lastName = binding.edtLastName.getText().toString();
         String noPhone = binding.edtNoPhone.getText().toString();
@@ -42,17 +45,17 @@ public class CreateAccount extends AppCompatActivity {
         String carPlate4 = binding.carPlateNum4.getText().toString();
         String carPlate5 = binding.carPlateNum5.getText().toString();
 
-
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-
         user = new User(firstName, lastName, noPhone, noIC, carNumber, carPlate1, carPlate2,
-                carPlate3, carPlate4, carPlate5, username);
+                carPlate3, carPlate4, carPlate5);
 
         users.add(user);
 
+        User user2 = new User();
+        String username = user2.getUsername();
+
         if (!firstName.equals("") && !lastName.equals("") && !noPhone.equals("") && !noIC.equals("")
-                && !carNumber.equals("") && !carPlate1.equals("")) {
+                && !carNumber.equals("") && !carPlate1.equals("") ) {
+
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(new Runnable() {
                 @Override
@@ -60,36 +63,36 @@ public class CreateAccount extends AppCompatActivity {
                     //Starting Write and Read data with URL
                     //Creating array for parameters
                     String[] field = new String[5];
-                    field[0] = "username";
-                    field[1] = "firstName";
-                    field[2] = "lastName";
-                    field[3] = "noPhone";
-                    field[4] = "noIC";
+                    field[0] = "firstName";
+                    field[1] = "lastName";
+                    field[2] = "noPhone";
+                    field[3] = "noIC";
+                    field[4] = "username";
                     //Creating array for data
                     String[] data = new String[5];
-                    data[0] = username;
-                    data[1] = firstName;
-                    data[2] = lastName;
-                    data[3] = noPhone;
-                    data[4] = noIC;
+                    data[0] = firstName;
+                    data[1] = lastName;
+                    data[2] = noPhone;
+                    data[3] = noIC;
+                    data[4] = username;
 
                     String[] fieldVehicle = new String[7];
-                    fieldVehicle[0] = "username";
-                    fieldVehicle[1] = "carPlate1";
-                    fieldVehicle[2] = "carPlate2";
-                    fieldVehicle[3] = "carPlate3";
-                    fieldVehicle[4] = "carPlate4";
-                    fieldVehicle[5] = "carPlate5";
-                    fieldVehicle[6] = "carNumber";
+                    fieldVehicle[0] = "carPlate1";
+                    fieldVehicle[1] = "carPlate2";
+                    fieldVehicle[2] = "carPlate3";
+                    fieldVehicle[3] = "carPlate4";
+                    fieldVehicle[4] = "carPlate5";
+                    fieldVehicle[5] = "carNumber";
+                    fieldVehicle[6] = "username";
 
                     String[] dataVehicle = new String[7];
-                    dataVehicle[0] = username;
-                    dataVehicle[1] = carPlate1;
-                    dataVehicle[2] = carPlate2;
-                    dataVehicle[3] = carPlate3;
-                    dataVehicle[4] = carPlate4;
-                    dataVehicle[5] = carPlate5;
-                    dataVehicle[6] = carNumber;
+                    dataVehicle[0] = carPlate1;
+                    dataVehicle[1] = carPlate2;
+                    dataVehicle[2] = carPlate3;
+                    dataVehicle[3] = carPlate4;
+                    dataVehicle[4] = carPlate5;
+                    dataVehicle[5] = carNumber;
+                    dataVehicle[6] = username;
 
 
                     PutData putData = new PutData("http://192.168.8.122/loginregister/profile.php", "POST", field, data);
@@ -105,7 +108,7 @@ public class CreateAccount extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();*/
                                 } else {
-                                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Successfully Completing Your Profile", Toast.LENGTH_SHORT).show();
                                 }
 
                             }
