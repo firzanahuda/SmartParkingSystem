@@ -16,18 +16,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.smartparkingsystem.databinding.ActivityBookingBinding;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -39,6 +52,8 @@ public class Booking extends AppCompatActivity {
     LinearLayout linearLayout;
     TextView tvStart, tvEnd;
     int startHour, startMinute, endHour, endMinute;
+    private User user;
+    String username;
 
     private BookingClass bookings;
     private Vector<BookingClass> booking;
@@ -65,16 +80,16 @@ public class Booking extends AppCompatActivity {
         tvStart = findViewById(R.id.startTime);
         tvEnd = findViewById(R.id.endTime);
 
-        binding.buttonViewBooking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    fnAdd();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+                binding.buttonViewBooking.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            fnAdd();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
         binding.start.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -250,6 +265,8 @@ public class Booking extends AppCompatActivity {
         tvStart = findViewById(R.id.startTime);
         tvEnd = findViewById(R.id.endTime);
 
+        username = User.getInstance().getUsername();
+
         String carPlate, vehicle, start, end, startTime, endTime;
 
         carPlate = String.valueOf(textInputCarPlate.getText().toString());
@@ -296,19 +313,21 @@ public class Booking extends AppCompatActivity {
                 public void run() {
                     //Starting Write and Read data with URL
                     //Creating array for parameters
-                    String[] field = new String[5];
+                    String[] field = new String[6];
                     field[0] = "carPlate";
                     field[1] = "vehicle";
                     field[2] = "start";
                     field[3] = "end";
                     field[4] = "duration";
+                    field[5] = "username";
                     //Creating array for data
-                    String[] data = new String[5];
+                    String[] data = new String[6];
                     data[0] = carPlate;
                     data[1] = vehicle;
                     data[2] = start;
                     data[3] = end;
                     data[4] = duration;
+                    data[5] = username;
 
                     PutData putData = new PutData("http://192.168.8.122/loginregister/booking.php", "POST", field, data);
                     if (putData.startPut()) {

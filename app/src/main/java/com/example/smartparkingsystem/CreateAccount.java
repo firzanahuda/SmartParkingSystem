@@ -19,6 +19,7 @@ public class CreateAccount extends AppCompatActivity {
     private ActivityCreateAccountBinding binding;
     private User user;
     private Vector<User> users;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,8 @@ public class CreateAccount extends AppCompatActivity {
 
         users.add(user);
 
-        User user2 = new User();
-        String username = user2.getUsername();
+        username = User.getInstance().getUsername();
+
 
         if (!firstName.equals("") && !lastName.equals("") && !noPhone.equals("") && !noIC.equals("")
                 && !carNumber.equals("") && !carPlate1.equals("") ) {

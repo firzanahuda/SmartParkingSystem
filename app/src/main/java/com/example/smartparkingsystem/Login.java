@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class Login extends AppCompatActivity {
     ProgressBar progressbar;
     TextView textViewforgotpass;
     Dialog dialog;
+    String username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,12 +106,11 @@ public class Login extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username, password;
+
                 username = String.valueOf(textInputEditTextUsername.getText());
                 password = String.valueOf(textInputEditTextPassword.getText());
 
-                User user = new User();
-                user.setUsername(username);
+                User.getInstance().setUsername(username);
 
                 if(!username.equals("") && !password.equals("")) {
                     progressbar.setVisibility(View.VISIBLE);

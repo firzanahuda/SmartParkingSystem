@@ -4,6 +4,12 @@ public class User {
 
     private String firstName, lastName, phoneNum, icNum, carNumber, carPlate, carPlate2, carPlate3, carPlate4, carPlate5, username;
 
+    private static final User instance = new User();
+
+    public static User getInstance(){
+        return instance;
+
+    }
     public User(String firstName, String lastName, String phoneNum, String icNum, String carNumber,
                 String carPlate, String carPlate2, String carPlate3, String carPlate4, String carPlate5) {
         this.firstName = firstName;

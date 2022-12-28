@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CurrentActivity">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="381dp"
+        android:layout_height="327dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/squarepurple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/textStation"
+        style="@style/WhiteText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="Batu Beruang Station"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textStart"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Start Date"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textEnd"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="End Date"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="44dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textStartInput"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:text="Start Date"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textEndInput"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:text="End Date"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="74dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textStartTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Start Time"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textEndTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="End Time"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="104dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textStartTimeInput"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:text="Start Time"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textEndTimeInput"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:text="End Time"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="134dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textVehiclePN"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Vehicle Plate Number"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textVehicleType"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Vehicle Type"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="164dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textVehiclePNInput"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:text="Plate Number"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textVehicleTypeInput"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:text="Vehicle Type"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="194dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textParkingSlot"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Parking Slot"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="224dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textParkingSlotInput"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:text="Parking Slot"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="383dp"
+        android:layout_height="142dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="356dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/squarepurple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="324dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textNormalPrice"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Normal Price/hr"
+            android:textColor="#A4A4A4"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/inputNormalPrice"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="RM"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="374dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+            android:id="@+id/textTotalPrice"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Total"
+            android:textColor="#FF7A00"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/inputtotalPrice"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="RM"
+            android:textColor="#FF7A00"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="378dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/squareorange"
+        android:text="Pay after retrieving the vehicle"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
