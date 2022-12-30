@@ -9,11 +9,107 @@
 
     <TextView
         android:id="@+id/price"
-        android:layout_width="383dp"
-        android:layout_height="142dp"
+        android:layout_width="match_parent"
+        android:layout_height="171dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="12dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/squarepurple"></TextView>
+
+    <TextView
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="edit"
+        android:textColor="#69BB01">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="50dp"
+        android:text = "start time"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:background="@drawable/squarewhite" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/squarewhite"
+        android:id="@+id/endTime"
+        android:text = "end time"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="270dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/squarewhite"
+        android:id="@+id/duration"
+        android:text = "--- Duration ---"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="150dp"/>
+
+    <TextView
+        android:id="@+id/startDate"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="80dp"
+        android:text = "start date"
+        android:gravity="center"
+        android:textColor="#69BB01"
+        android:fontFamily="@font/poppinsbold"
+        android:background="@drawable/squarewhite" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/squarewhite"
+        android:id="@+id/endDate"
+        android:text = "end time"
+        android:gravity="center"
+        android:textColor="#69BB01"
+        android:fontFamily="@font/poppinsbold"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="270dp"/>
+
+    <TextView
+        android:id="@+id/station"
+        android:layout_width="155dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/squarewhite"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:text="Station"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/carPlate"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:layout_marginLeft="270dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/squarewhite"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:text="carplate"
+        android:textColor="#FF7A00" />
+
 
 </FrameLayout>

@@ -48,7 +48,7 @@ import java.util.Vector;
 public class Booking extends AppCompatActivity {
 
     TextInputEditText textInputCarPlate, textInputVehicle, textInputStart, textInputEnd;
-    Button buttonViewBooking;
+    Button buttonViewBooking, buttonConfirm;
     LinearLayout linearLayout;
     TextView tvStart, tvEnd;
     int startHour, startMinute, endHour, endMinute;
@@ -79,6 +79,7 @@ public class Booking extends AppCompatActivity {
         buttonViewBooking = findViewById(R.id.buttonViewBooking);
         tvStart = findViewById(R.id.startTime);
         tvEnd = findViewById(R.id.endTime);
+        buttonConfirm = findViewById(R.id.buttonConfirm);
 
                 binding.buttonViewBooking.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -88,6 +89,14 @@ public class Booking extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                    }
+                });
+
+                binding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Booking.this, BookingDisplay.class);
+                        startActivity(intent);
                     }
                 });
 

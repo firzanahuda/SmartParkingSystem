@@ -1,6 +1,8 @@
 package com.example.smartparkingsystem;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -8,10 +10,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +53,9 @@ public class Login extends AppCompatActivity {
         textViewSignUp = findViewById(R.id.signUpText);
         progressbar = findViewById(R.id.progress);
         textViewforgotpass = findViewById(R.id.forgotPassText);
+
+        textInputEditTextUsername.addTextChangedListener(loginTextWatcher);
+        textInputEditTextPassword.addTextChangedListener(loginTextWatcher);
 
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,5 +161,31 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+    private TextWatcher loginTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @SuppressLint("ResourceType")
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            String usernameInput = textInputEditTextUsername.getText().toString().trim();
+            String passwordInput = textInputEditTextPassword.getText().toString().trim();
+
+            if(!usernameInput.isEmpty() && !passwordInput.isEmpty()){
+                buttonLogin.setEnabled(true);
+                buttonLogin.setBackgroundResource(R.drawable.squarepurple);
+
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
 }

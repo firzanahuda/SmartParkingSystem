@@ -4,6 +4,13 @@ public class BookingClass {
 
     private String textInputCarPlate, textInputVehicle, textInputStart, textInputEnd, duration;
 
+    public BookingClass(String textInputStart, String textInputEnd, String textInputCarPlate, String duration){
+        this.textInputCarPlate = textInputCarPlate;
+        this.textInputStart = textInputStart;
+        this.textInputEnd = textInputEnd;
+        this.duration = duration;
+    }
+
     public BookingClass(String textInputCarPlate, String textInputVehicle, String textInputStart, String textInputEnd, String duration){
 
         this.textInputCarPlate = textInputCarPlate;
