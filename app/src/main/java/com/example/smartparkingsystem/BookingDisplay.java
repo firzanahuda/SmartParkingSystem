@@ -1,16 +1,10 @@
 package com.example.smartparkingsystem;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContextParams;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,19 +15,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +57,7 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
 
     public void retrieveData(){
 
-        String url = "http://192.168.8.122/loginregister/getData.php";
+        String url = "http://192.168.8.122/loginregister/getDataBooking.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
@@ -94,6 +80,7 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
                                     String duration = obj.getString("Duration");
                                     String startTime = obj.getString("Start_Time");
                                     String endTime = obj.getString("End_Time");
+                                    String vehicle_Type = obj.getString("Vehicle_Type");
 
 
                                     textStartInput.append(startDate);
@@ -101,6 +88,7 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
                                     textVehiclePNInput.append(carPlate);
                                     textStartTimeInput.append(startTime);
                                     textEndTimeInput.append(endTime);
+                                    textVehicleTypeInput.append(vehicle_Type);
 
 
                                     booking = new BookingClass(startDate, endDate, carPlate, duration);
@@ -128,7 +116,7 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
             username = User.getInstance().getUsername();
 
             Map<String, String> params = new HashMap< >();
-            params.put("selectFn", "fnSaveData");
+            //params.put("selectFn", "fnSaveData");
             params.put("Customer_Username", username);
 
             return params;

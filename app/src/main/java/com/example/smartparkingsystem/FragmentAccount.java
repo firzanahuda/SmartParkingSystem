@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,6 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentAccount#newInstance} factory method to
@@ -27,6 +32,8 @@ import org.json.JSONObject;
  */
 public class FragmentAccount extends Fragment {
 
+    private User user;
+    String username;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -85,48 +92,73 @@ public class FragmentAccount extends Fragment {
         noIC = v.findViewById(R.id.noIC);
         carPlate = v.findViewById(R.id.carPlate);
 
+        retrieveData();
+
         return v;
     }
-/*
-    private void getData() {
 
-        String url = Config.DATA_URL + editTextvalue.getText().toString().trim();
+    public void retrieveData(){
 
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+        String url = "http://192.168.8.122/loginregister/getDataProfile.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                showJSONS(response);
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                try{
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+                    JSONArray jsonArray = jsonObject.getJSONArray("profile");
+
+                    if(success.equals("1")){
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject obj = jsonArray.getJSONObject(i);
+
+                            String firstname = obj.getString("FirstName");
+                            String lastname = obj.getString("LastName");
+                            String phonenum = obj.getString("PhoneNum");
+                            String icnum = obj.getString("ICNum");
+
+                            firstName.append(firstname);
+                            lastName.append(lastname);
+                            noPhone.append(phonenum);
+                            noIC.append(icnum);
+
+                        }
                     }
-                });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
 
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+                username = User.getInstance().getUsername();
+
+                Map<String, String> params = new HashMap< >();
+                params.put("selectFn", "fnSaveData");
+                params.put("Customer_Username", username);
+
+                return params;
+
+            }
+
+        };
+
+
+
+        requestQueue.add(request);
     }
 
-    private void showJSONS(String response) {
-        String name = "";
 
-
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
-            JSONObject collegeData = result.getJSONObject(0);
-            name = collegeData.getString(Config.KEY_NAME);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        textViewdatashow.setText("" + name);
-    }
-}*/
 }

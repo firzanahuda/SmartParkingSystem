@@ -16,7 +16,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -24,11 +27,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.smartparkingsystem.databinding.ActivityBookingBinding;
 import com.google.android.material.textfield.TextInputEditText;
@@ -42,6 +47,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 
@@ -62,6 +69,14 @@ public class Booking extends AppCompatActivity {
     private BookingAdapter adapter;
     private DatePickerDialog datePicker;
 
+    String[] strCarPlate;
+    String[] items = {"Small", "Large"};
+    AutoCompleteTextView autoCompleteTextView, completeTextView;
+    ArrayAdapter<String> adapterItems;
+    ArrayAdapter<String> adapterCarplate;
+    String item;
+    String carplate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +88,8 @@ public class Booking extends AppCompatActivity {
         binding = ActivityBookingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        textInputCarPlate = findViewById(R.id.carPlate);
-        textInputVehicle = findViewById(R.id.vehicle);
+        //textInputCarPlate = findViewById(R.id.carPlate);
+        //textInputVehicle = findViewById(R.id.vehicle);
         textInputStart = findViewById(R.id.start);
         textInputEnd = findViewById(R.id.end);
         buttonViewBooking = findViewById(R.id.buttonViewBooking);
@@ -82,6 +97,19 @@ public class Booking extends AppCompatActivity {
         tvEnd = findViewById(R.id.endTime);
         textStartTime = findViewById(R.id.startTime);
         textEndTime = findViewById(R.id.endTime);
+
+        retrieveData();
+
+        autoCompleteTextView = findViewById(R.id.auto_complete_text);
+        adapterItems = new ArrayAdapter<String>(this,R.layout.item_list,items);
+        autoCompleteTextView.setAdapter(adapterItems);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                item = parent.getItemAtPosition(position).toString();
+            }
+        });
+
 
         buttonConfirm = findViewById(R.id.buttonConfirm);
 
@@ -171,6 +199,84 @@ public class Booking extends AppCompatActivity {
         helper.attachToRecyclerView(binding.rcvStud);
 
     }
+
+
+    public void retrieveData(){
+
+        String url = "http://192.168.8.122/loginregister/getDataCarPlate.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try{
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+                    JSONArray jsonArray = jsonObject.getJSONArray("carPlate");
+
+                    if(success.equals("1")){
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject obj = jsonArray.getJSONObject(i);
+
+                            String carPlate1 = obj.getString("Plate_Number1");
+                            String carPlate2 = obj.getString("Plate_Number2");
+                            String carPlate3 = obj.getString("Plate_Number3");
+                            String carPlate4 = obj.getString("Plate_Number4");
+                            String carPlate5 = obj.getString("Plate_Number5");
+
+                            strCarPlate = new String[5];
+                            strCarPlate[0] = carPlate1;
+                            strCarPlate[1] = carPlate2;
+                            strCarPlate[2] = carPlate3;
+                            strCarPlate[3] = carPlate4;
+                            strCarPlate[4] = carPlate5;
+
+                            completeTextView = findViewById(R.id.complete_text);
+                            adapterCarplate = new ArrayAdapter<>(Booking.this, R.layout.item_car_plate, strCarPlate);
+
+                            completeTextView.setAdapter(adapterCarplate);
+                            completeTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    carplate = parent.getItemAtPosition(position).toString();
+                                }
+                            });
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Booking.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+                username = User.getInstance().getUsername();
+
+                Map<String, String> params = new HashMap< >();
+                params.put("Customer_Username", username);
+
+                return params;
+
+            }
+
+        };
+
+        requestQueue.add(request);
+    }
+
+
+
+
 
     private void fnInvokeTimePickerEnd(){
         TimePickerDialog timePickerDialog = new TimePickerDialog(
@@ -271,8 +377,8 @@ public class Booking extends AppCompatActivity {
     }
 
     private void fnAdd() throws ParseException {
-        textInputCarPlate = findViewById(R.id.carPlate);
-        textInputVehicle = findViewById(R.id.vehicle);
+        //textInputCarPlate = findViewById(R.id.carPlate);
+        //textInputVehicle = findViewById(R.id.vehicle);
         textInputStart = findViewById(R.id.start);
         textInputEnd = findViewById(R.id.end);
         tvStart = findViewById(R.id.startTime);
@@ -282,12 +388,13 @@ public class Booking extends AppCompatActivity {
 
         String carPlate, vehicle, start, end, startTime, endTime;
 
-        carPlate = String.valueOf(textInputCarPlate.getText().toString());
-        vehicle = String.valueOf(textInputVehicle.getText().toString());
+        carPlate = carplate;
+        vehicle = item;
         start = String.valueOf(textInputStart.getText().toString());
         end = String.valueOf(textInputEnd.getText().toString());
         startTime = String.valueOf(tvStart.getText().toString());
         endTime = String.valueOf(tvEnd.getText().toString());
+
 
         // Creating a SimpleDateFormat object
         // to parse time in the format HH:MM:SS

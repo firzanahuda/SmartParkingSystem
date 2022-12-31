@@ -205,46 +205,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_marginTop="420dp">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_car"/>
-
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Car Plate"
-            android:textSize="17sp"
-            style="@style/PurpleText"
-            android:fontFamily="@font/poppinsbold"
-            android:layout_marginLeft="5dp" />
-
-        <TextView
-            android:id="@+id/carPlate"
-            style="@style/PurpleText"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:fontFamily="@font/poppinsmedium"
-            android:textSize="17sp"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#340691"
-        android:layout_marginTop="455dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/edtProfilebtn"

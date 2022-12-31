@@ -247,7 +247,6 @@
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
             android:textColor="#69BB01"
-            android:text="Vehicle Type"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -296,7 +295,7 @@
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
             android:textColor="#69BB01"
-            android:text="Parking Slot"
+            android:text="5 A001"
             android:textSize="15sp" />
 
 
