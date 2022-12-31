@@ -48,6 +48,7 @@ import java.util.Vector;
 public class Booking extends AppCompatActivity {
 
     TextInputEditText textInputCarPlate, textInputVehicle, textInputStart, textInputEnd;
+    TextView textStartTime, textEndTime;
     Button buttonViewBooking, buttonConfirm;
     LinearLayout linearLayout;
     TextView tvStart, tvEnd;
@@ -79,6 +80,9 @@ public class Booking extends AppCompatActivity {
         buttonViewBooking = findViewById(R.id.buttonViewBooking);
         tvStart = findViewById(R.id.startTime);
         tvEnd = findViewById(R.id.endTime);
+        textStartTime = findViewById(R.id.startTime);
+        textEndTime = findViewById(R.id.endTime);
+
         buttonConfirm = findViewById(R.id.buttonConfirm);
 
                 binding.buttonViewBooking.setOnClickListener(new View.OnClickListener() {
@@ -322,21 +326,25 @@ public class Booking extends AppCompatActivity {
                 public void run() {
                     //Starting Write and Read data with URL
                     //Creating array for parameters
-                    String[] field = new String[6];
+                    String[] field = new String[8];
                     field[0] = "carPlate";
                     field[1] = "vehicle";
                     field[2] = "start";
                     field[3] = "end";
                     field[4] = "duration";
                     field[5] = "username";
+                    field[6] = "startTime";
+                    field[7] = "endTime";
                     //Creating array for data
-                    String[] data = new String[6];
+                    String[] data = new String[8];
                     data[0] = carPlate;
                     data[1] = vehicle;
                     data[2] = start;
                     data[3] = end;
                     data[4] = duration;
                     data[5] = username;
+                    data[6] = startTime;
+                    data[7] = endTime;
 
                     PutData putData = new PutData("http://192.168.8.122/loginregister/booking.php", "POST", field, data);
                     if (putData.startPut()) {

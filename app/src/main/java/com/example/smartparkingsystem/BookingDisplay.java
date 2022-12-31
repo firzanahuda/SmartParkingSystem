@@ -40,7 +40,7 @@ import java.util.Map;
 
 public class BookingDisplay<HttpClient> extends AppCompatActivity {
 
-    TextView textStartInput, textEndInput, textVehiclePNInput, textVehicleTypeInput, textView;
+    TextView textStartInput, textEndInput, textVehiclePNInput, textVehicleTypeInput, textStartTimeInput, textEndTimeInput;
     FetchBookingAdapter fetchBookingAdapter;
     public static ArrayList<BookingClass> bookingClassArrayList = new ArrayList<>();
 
@@ -59,6 +59,8 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
         textEndInput = findViewById(R.id.textEndInput);
         textVehiclePNInput = findViewById(R.id.textVehiclePNInput);
         textVehicleTypeInput = findViewById(R.id.textVehicleTypeInput);
+        textEndTimeInput = findViewById(R.id.textEndTimeInput);
+        textStartTimeInput = findViewById(R.id.textStartTimeInput);
 
 
 
@@ -90,10 +92,15 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
                                     String startDate = obj.getString("Starting_Date");
                                     String endDate = obj.getString("End_Date");
                                     String duration = obj.getString("Duration");
+                                    String startTime = obj.getString("Start_Time");
+                                    String endTime = obj.getString("End_Time");
+
 
                                     textStartInput.append(startDate);
                                     textEndInput.append(endDate);
                                     textVehiclePNInput.append(carPlate);
+                                    textStartTimeInput.append(startTime);
+                                    textEndTimeInput.append(endTime);
 
 
                                     booking = new BookingClass(startDate, endDate, carPlate, duration);

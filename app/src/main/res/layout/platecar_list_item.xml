@@ -91,7 +91,6 @@
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
             android:textColor="#69BB01"
-            android:text="Start Date"
             android:textSize="15sp" />
 
 
@@ -104,7 +103,6 @@
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
             android:textColor="#69BB01"
-            android:text="End Date"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -165,7 +163,6 @@
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
             android:textColor="#69BB01"
-            android:text="Start Time"
             android:textSize="15sp" />
 
 
@@ -178,7 +175,6 @@
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
             android:textColor="#69BB01"
-            android:text="End Time"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -239,7 +235,6 @@
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
             android:textColor="#69BB01"
-            android:text="Plate Number"
             android:textSize="15sp" />
 
 

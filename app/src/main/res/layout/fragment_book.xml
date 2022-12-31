@@ -2,15 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="413dp"
-    android:layout_height="370dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".BookFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
         android:background="@android:color/white">
 
 
@@ -37,19 +36,19 @@
 
         <TextView
             android:id="@+id/textviewbook"
+            style="@style/PurpleText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="RM 2/HR "
-            style="@style/PurpleText"
             android:fontFamily="@font/poppinsbold"
-            android:textSize="16sp"
+            android:text="RM 2/HR "
             android:textAlignment="center"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
@@ -79,7 +78,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppinsmedium"
-            android:text="Batu Beruang Station"
+            android:text="Bukit Beruang Station"
             android:textAlignment="center"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -108,15 +107,18 @@
             app:layout_constraintTop_toBottomOf="@+id/station"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/rounded_corner"
             android:stateListAnimator="@null"
             android:text="Book Now"
+            style="@style/WhiteText"
             android:textAllCaps="false"
-            android:background="@drawable/rounded_corner"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textspace" />
