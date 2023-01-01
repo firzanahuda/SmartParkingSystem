@@ -1,5 +1,6 @@
 package com.example.smartparkingsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,9 @@ public class FragmentAccount extends Fragment {
 
     private User user;
     String username;
+    Button edtProfilebtn, edtPassword;
+
+    TextView nameuser;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -91,6 +96,28 @@ public class FragmentAccount extends Fragment {
         noPhone = v.findViewById(R.id.noPhone);
         noIC = v.findViewById(R.id.noIC);
         carPlate = v.findViewById(R.id.carPlate);
+        edtProfilebtn = v.findViewById(R.id.edtProfilebtn);
+        edtPassword = v.findViewById(R.id.edtPassword);
+        nameuser = v.findViewById(R.id.username);
+
+        username = User.getInstance().getUsername();
+        nameuser.append(username);
+
+        edtProfilebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), CreateAccount.class);
+                startActivity(intent);
+            }
+        });
+
+        edtPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
 
         retrieveData();
 

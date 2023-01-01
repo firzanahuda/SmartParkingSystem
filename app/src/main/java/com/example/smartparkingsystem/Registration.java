@@ -89,7 +89,7 @@ public class Registration extends AppCompatActivity {
                                         finish();
                                     }
                                     else{
-                                        Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"This Username exist!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }

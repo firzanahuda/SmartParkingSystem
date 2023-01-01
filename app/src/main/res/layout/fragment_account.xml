@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:hint="Username"
             android:textSize="20sp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:id="@+id/username"/>
 
         <View
             android:layout_width="match_parent"

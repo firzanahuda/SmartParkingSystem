@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,8 +32,6 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 import java.sql.Connection;
 
 public class Login extends AppCompatActivity {
-
-    Connection connection;
 
     TextInputEditText textInputEditTextUsername, textInputEditTextPassword;
     Button buttonLogin;
@@ -97,6 +96,7 @@ public class Login extends AppCompatActivity {
                 Intent myIntent = new Intent(Login.this, MainActivity.class);
                 myIntent.putExtra("intVariableName", intValue);
                 startActivity(myIntent);
+                finish();
             }
         });
 
@@ -108,8 +108,12 @@ public class Login extends AppCompatActivity {
                 Intent myIntent = new Intent(Login.this, MainActivity.class);
                 myIntent.putExtra("intVariableName", intValue);
                 startActivity(myIntent);
+                finish();
             }
         });
+
+
+
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +165,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
 
     private TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
