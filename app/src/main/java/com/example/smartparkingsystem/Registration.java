@@ -2,14 +2,19 @@ package com.example.smartparkingsystem;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,11 +40,14 @@ public class Registration extends AppCompatActivity {
         buttonSignUp = findViewById(R.id.buttonSignUp);
         textViewLogin = findViewById(R.id.loginText);
         progressbar = findViewById(R.id.progress);
+        checkBox = findViewById(R.id.checkbox);
 
-        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox);
-        if (checkBox.isChecked()) {
-            checkBox.setChecked(false);
-        }
+        textInputEditTextUsername.addTextChangedListener(signupTextWatcher);
+        textInputEditTextPassword.addTextChangedListener(signupTextWatcher);
+        textInputEditTextConfirmPass.addTextChangedListener(signupTextWatcher);
+        textInputEditTextEmail.addTextChangedListener(signupTextWatcher);
+
+
 
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,5 +111,47 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+
+    private TextWatcher signupTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @SuppressLint("ResourceType")
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            String usernameInput = textInputEditTextUsername.getText().toString().trim();
+            String passwordInput = textInputEditTextPassword.getText().toString().trim();
+            String emailInput = textInputEditTextEmail.getText().toString().trim();
+            String confirmPassword = textInputEditTextConfirmPass.getText().toString().trim();
+
+
+            if(!usernameInput.isEmpty() && !passwordInput.isEmpty() && !emailInput.isEmpty() && !confirmPassword.isEmpty()){
+
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            buttonSignUp.setEnabled(true);
+                            buttonSignUp.setBackgroundResource(R.drawable.squarepurple);
+
+                        } else
+                            buttonSignUp.setEnabled(false);
+                    }
+                });
+
+
+
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
 
 }
