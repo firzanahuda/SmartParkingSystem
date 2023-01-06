@@ -7,67 +7,187 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/lblInputCarPlate"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        style="@style/PurpleText"
-        android:gravity="center"
-        android:fontFamily="@font/poppinsmedium"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/border"
-        android:text="TextView" />
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-    <TextView
-        android:id="@+id/lblInputVehicle"
+        <TextView
+            android:id="@+id/InputCarPlate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            style="@style/PurpleText"
+            android:layout_weight="60"
+            android:gravity="center"
+            android:fontFamily="@font/poppinsmedium"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="Car Plate:" />
+
+        <TextView
+            android:id="@+id/lblInputCarPlate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            style="@style/GreenText"
+            android:layout_weight="40"
+            android:gravity="center"
+            android:fontFamily="@font/poppinsmedium"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="TextView" />
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        style="@style/PurpleText"
-        android:fontFamily="@font/poppinsmedium"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/border"
-        android:text="TextView" />
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-    <TextView
-        android:id="@+id/lblInputStart"
+        <TextView
+            android:id="@+id/InputVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            style="@style/PurpleText"
+            android:layout_weight="60"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="Vehicle Type:" />
+
+        <TextView
+            android:id="@+id/lblInputVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_weight="40"
+            style="@style/GreenText"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="TextView" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        style="@style/PurpleText"
-        android:fontFamily="@font/poppinsmedium"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/border"
-        android:text="TextView" />
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-    <TextView
-        android:id="@+id/lblInputEnd"
+        <TextView
+            android:id="@+id/InputStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_weight="60"
+            style="@style/PurpleText"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="Start Date:" />
+
+        <TextView
+            android:id="@+id/lblInputStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            style="@style/GreenText"
+            android:layout_weight="40"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="TextView" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        style="@style/PurpleText"
-        android:fontFamily="@font/poppinsmedium"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/border"
-        android:text="TextView" />
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-    <TextView
-        android:id="@+id/lblDuration"
+        <TextView
+            android:id="@+id/InputEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_weight="60"
+            style="@style/PurpleText"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="End Date:" />
+
+        <TextView
+            android:id="@+id/lblInputEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_weight="40"
+            style="@style/GreenText"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="TextView" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:fontFamily="@font/poppinsmedium"
-        style="@style/PurpleText"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/border"
-        android:text="TextView" />
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/Duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_weight="60"
+            android:gravity="center"
+            android:fontFamily="@font/poppinsmedium"
+            style="@style/PurpleText"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="Duration:" />
+
+        <TextView
+            android:id="@+id/lblDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_weight="40"
+            android:gravity="center"
+            android:fontFamily="@font/poppinsmedium"
+            style="@style/GreenText"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/squarewhite"
+            android:text="TextView" />
+
+
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

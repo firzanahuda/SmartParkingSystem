@@ -1,10 +1,13 @@
 package com.example.smartparkingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,31 +25,41 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BookingDisplay<HttpClient> extends AppCompatActivity {
 
-    TextView textStartInput, textEndInput, textVehiclePNInput, textVehicleTypeInput, textStartTimeInput, textEndTimeInput;
-    FetchBookingAdapter fetchBookingAdapter;
-    public static ArrayList<BookingClass> bookingClassArrayList = new ArrayList<>();
+    //TextView textStartInput, textEndInput, textVehiclePNInput, textVehicleTypeInput, textStartTimeInput, textEndTimeInput;
+    //FetchBookingAdapter fetchBookingAdapter;
+    //public static ArrayList<BookingClass> bookingClassArrayList = new ArrayList<>();
 
-    BookingClass booking;
+    List<BookingDisplayClass> bookingDisplayList;
+    RecyclerView recyclerView;
+    //BookingClass booking;
     private User user;
-    String username;
+    String username, station;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.platecar_list_item);
+        setContentView(R.layout.activity_booking_display);
 
-        fetchBookingAdapter = new FetchBookingAdapter(this, bookingClassArrayList);
+
+        recyclerView = findViewById(R.id.recylcerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        bookingDisplayList = new ArrayList<>();
+
+        /*fetchBookingAdapter = new FetchBookingAdapter(this, bookingClassArrayList);
         textStartInput = findViewById(R.id.textStartInput);
         textEndInput = findViewById(R.id.textEndInput);
         textVehiclePNInput = findViewById(R.id.textVehiclePNInput);
         textVehicleTypeInput = findViewById(R.id.textVehicleTypeInput);
         textEndTimeInput = findViewById(R.id.textEndTimeInput);
-        textStartTimeInput = findViewById(R.id.textStartTimeInput);
+        textStartTimeInput = findViewById(R.id.textStartTimeInput);*/
 
 
 
@@ -63,9 +76,34 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        bookingClassArrayList.clear();
                         try{
 
+                            Log.e("anyText",response);
+                            //converting the string to json array object
+                            JSONArray array = new JSONArray(response);
+
+                            //traversing through all the object
+                            for (int i = 0; i < array.length(); i++) {
+
+                                //getting product object from json array
+                                JSONObject booking = array.getJSONObject(i);
+
+                                //adding the product to product list
+                                bookingDisplayList.add(new BookingDisplayClass(
+                                        booking.getString("Plate_Number"),
+                                        booking.getString("Starting_Date"),
+                                        booking.getString("End_Date"),
+                                        booking.getString("Start_Time"),
+                                        booking.getString("End_Time"),
+                                        booking.getString("Vehicle_Type"),
+                                        booking.getString("Station")
+                                ));
+                            }
+
+                            //creating adapter object and setting it to recyclerview
+                            BookingDisplayAdapter adapter = new BookingDisplayAdapter(BookingDisplay.this, bookingDisplayList);
+                            recyclerView.setAdapter(adapter);
+                            /*
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("booking");
@@ -81,6 +119,7 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
                                     String startTime = obj.getString("Start_Time");
                                     String endTime = obj.getString("End_Time");
                                     String vehicle_Type = obj.getString("Vehicle_Type");
+                                    //String station = obj.getString("station");
 
 
                                     textStartInput.append(startDate);
@@ -93,10 +132,8 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
 
                                     booking = new BookingClass(startDate, endDate, carPlate, duration);
                                     bookingClassArrayList.add(booking);
-                                    fetchBookingAdapter.notifyDataSetChanged();
+                                    fetchBookingAdapter.notifyDataSetChanged();*/
 
-                                }
-                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.smartparkingsystem.databinding.ActivityMapsBinding;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.IOException;
 import java.util.List;
@@ -52,23 +54,71 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Geocoder geocoder = new Geocoder(MapsActivity.this);
                     try{
                         addressList = geocoder.getFromLocationName(location,1);
+                        BookingClass.getInstance().setStation(location);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     Address address = addressList.get(0);
 
-                    Fragment fragment = new BookFragment();
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
-                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                        @Override
-                        public boolean onMarkerClick(@NonNull Marker marker) {
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
-                            return false;
-                        }
-                    });
+                    if(location.equals("Bukit Beruang") || location.equals("bukit beruang")){
+
+                        Fragment fragment = new BookFragment();
+
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(@NonNull Marker marker) {
+
+                                BookingClass.getInstance().setStation(location);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                                return false;
+                            }
+                        });
+
+                    }else if (location.equals("Mitc Melaka") || location.equals("mitc melaka")){
+
+                        Fragment fragment = new MitcFragment();
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(@NonNull Marker marker) {
+                                BookingClass.getInstance().setStation(location);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                                return false;
+                            }
+                        });
+
+                    }else if(location.equals("Dataran Pahlawan Melaka") || location.equals("dataran pahlawan melaka") ||
+                            location.equals("Dataran Pahlawan") || location.equals("dataran pahlawan")){
+
+                        Fragment fragment = new DataranPahlawanFragment();
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(@NonNull Marker marker) {
+                                BookingClass.getInstance().setStation(location);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                                return false;
+                            }
+                        });
+
+                    }else{
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+
+                        Toast.makeText(getApplicationContext(), "There is no Smart Parking Available in this location", Toast.LENGTH_SHORT).show();
+                    }
+
 
                 }
                 return false;

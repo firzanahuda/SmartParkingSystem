@@ -61,7 +61,7 @@ public class Booking extends AppCompatActivity {
     TextView tvStart, tvEnd;
     int startHour, startMinute, endHour, endMinute;
     private User user;
-    String username;
+    String username, station;
 
     private BookingClass bookings;
     private Vector<BookingClass> booking;
@@ -117,7 +117,7 @@ public class Booking extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
-                            fnAdd();
+                            fnRecyclerView();
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -127,8 +127,17 @@ public class Booking extends AppCompatActivity {
                 binding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Booking.this, BookingDisplay.class);
-                        startActivity(intent);
+
+                        try {
+                            fnAdd();
+                            Intent intent = new Intent(Booking.this, BookingDisplay.class);
+                            startActivity(intent);
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+
                     }
                 });
 
@@ -275,9 +284,6 @@ public class Booking extends AppCompatActivity {
     }
 
 
-
-
-
     private void fnInvokeTimePickerEnd(){
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 Booking.this,
@@ -376,7 +382,8 @@ public class Booking extends AppCompatActivity {
     private void fnFormValidation() {
     }
 
-    private void fnAdd() throws ParseException {
+    private void fnRecyclerView() throws ParseException {
+
         //textInputCarPlate = findViewById(R.id.carPlate);
         //textInputVehicle = findViewById(R.id.vehicle);
         textInputStart = findViewById(R.id.start);
@@ -425,6 +432,58 @@ public class Booking extends AppCompatActivity {
         booking.add(bookings);
         adapter.notifyItemInserted(booking.size());
 
+    }
+
+    private void fnAdd() throws ParseException {
+        //textInputCarPlate = findViewById(R.id.carPlate);
+        //textInputVehicle = findViewById(R.id.vehicle);
+        textInputStart = findViewById(R.id.start);
+        textInputEnd = findViewById(R.id.end);
+        tvStart = findViewById(R.id.startTime);
+        tvEnd = findViewById(R.id.endTime);
+
+        username = User.getInstance().getUsername();
+        station = BookingClass.getInstance().getStation();
+
+        String carPlate, vehicle, start, end, startTime, endTime;
+
+        carPlate = carplate;
+        vehicle = item;
+        start = String.valueOf(textInputStart.getText().toString());
+        end = String.valueOf(textInputEnd.getText().toString());
+        startTime = String.valueOf(tvStart.getText().toString());
+        endTime = String.valueOf(tvEnd.getText().toString());
+
+
+        // Creating a SimpleDateFormat object
+        // to parse time in the format HH:MM:SS
+        SimpleDateFormat simpleDateFormat
+                = new SimpleDateFormat("HH:mm");
+
+        // Parsing the Time Period
+        Date dateStart = simpleDateFormat.parse(startTime);
+        Date dateEnd = simpleDateFormat.parse(endTime);
+
+        // Calculating the difference in milliseconds
+        long differenceInMilliSeconds
+                = Math.abs(dateEnd.getTime() - dateStart.getTime());
+
+        // Calculating the difference in Hours
+        long differenceInHours
+                = (differenceInMilliSeconds / (60 * 60 * 1000))
+                % 24;
+
+        // Calculating the difference in Minutes
+        long differenceInMinutes
+                = (differenceInMilliSeconds / (60 * 1000)) % 60;
+
+        String duration = differenceInHours + " hours " + differenceInMinutes + " minutes ";
+
+        /*bookings = new BookingClass(carPlate,vehicle,start,end, duration);
+
+        booking.add(bookings);
+        adapter.notifyItemInserted(booking.size());*/
+
         if(!carPlate.equals("") && !vehicle.equals("") && !start.equals("") && !end.equals("")) {
 
             Handler handler = new Handler(Looper.getMainLooper());
@@ -433,7 +492,7 @@ public class Booking extends AppCompatActivity {
                 public void run() {
                     //Starting Write and Read data with URL
                     //Creating array for parameters
-                    String[] field = new String[8];
+                    String[] field = new String[9];
                     field[0] = "carPlate";
                     field[1] = "vehicle";
                     field[2] = "start";
@@ -442,8 +501,10 @@ public class Booking extends AppCompatActivity {
                     field[5] = "username";
                     field[6] = "startTime";
                     field[7] = "endTime";
+                    field[8] = "station";
+
                     //Creating array for data
-                    String[] data = new String[8];
+                    String[] data = new String[9];
                     data[0] = carPlate;
                     data[1] = vehicle;
                     data[2] = start;
@@ -452,6 +513,7 @@ public class Booking extends AppCompatActivity {
                     data[5] = username;
                     data[6] = startTime;
                     data[7] = endTime;
+                    data[8] = station;
 
                     PutData putData = new PutData("http://192.168.8.122/loginregister/booking.php", "POST", field, data);
                     if (putData.startPut()) {
