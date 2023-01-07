@@ -1,13 +1,18 @@
 package com.example.smartparkingsystem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +51,15 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_display);
 
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize the back button
+        actionBar.setHomeAsUpIndicator(R.drawable.mybutton);
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         recyclerView = findViewById(R.id.recylcerView);
         recyclerView.setHasFixedSize(true);
@@ -53,20 +67,22 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
 
         bookingDisplayList = new ArrayList<>();
 
-        /*fetchBookingAdapter = new FetchBookingAdapter(this, bookingClassArrayList);
-        textStartInput = findViewById(R.id.textStartInput);
-        textEndInput = findViewById(R.id.textEndInput);
-        textVehiclePNInput = findViewById(R.id.textVehiclePNInput);
-        textVehicleTypeInput = findViewById(R.id.textVehicleTypeInput);
-        textEndTimeInput = findViewById(R.id.textEndTimeInput);
-        textStartTimeInput = findViewById(R.id.textStartTimeInput);*/
-
-
-
         retrieveData();
 
     }
 
+    // this event will enable the back
+    // function to the button on press
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+
+        return true;
+    }
 
     public void retrieveData(){
 
@@ -103,36 +119,6 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
                             //creating adapter object and setting it to recyclerview
                             BookingDisplayAdapter adapter = new BookingDisplayAdapter(BookingDisplay.this, bookingDisplayList);
                             recyclerView.setAdapter(adapter);
-                            /*
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("booking");
-
-                            if(success.equals("1")){
-                                for (int i = 0; i < jsonArray.length(); i++){
-                                    JSONObject obj = jsonArray.getJSONObject(i);
-
-                                    String carPlate = obj.getString("Plate_Number");
-                                    String startDate = obj.getString("Starting_Date");
-                                    String endDate = obj.getString("End_Date");
-                                    String duration = obj.getString("Duration");
-                                    String startTime = obj.getString("Start_Time");
-                                    String endTime = obj.getString("End_Time");
-                                    String vehicle_Type = obj.getString("Vehicle_Type");
-                                    //String station = obj.getString("station");
-
-
-                                    textStartInput.append(startDate);
-                                    textEndInput.append(endDate);
-                                    textVehiclePNInput.append(carPlate);
-                                    textStartTimeInput.append(startTime);
-                                    textEndTimeInput.append(endTime);
-                                    textVehicleTypeInput.append(vehicle_Type);
-
-
-                                    booking = new BookingClass(startDate, endDate, carPlate, duration);
-                                    bookingClassArrayList.add(booking);
-                                    fetchBookingAdapter.notifyDataSetChanged();*/
 
                         } catch (JSONException e) {
                             e.printStackTrace();

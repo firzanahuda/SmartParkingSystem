@@ -479,11 +479,6 @@ public class Booking extends AppCompatActivity {
 
         String duration = differenceInHours + " hours " + differenceInMinutes + " minutes ";
 
-        /*bookings = new BookingClass(carPlate,vehicle,start,end, duration);
-
-        booking.add(bookings);
-        adapter.notifyItemInserted(booking.size());*/
-
         if(!carPlate.equals("") && !vehicle.equals("") && !start.equals("") && !end.equals("")) {
 
             Handler handler = new Handler(Looper.getMainLooper());

@@ -70,4 +70,5 @@ public class BookingDisplayClass {
     public void setStation(String station) {
         this.station = station;
     }
+
 }

@@ -3,25 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CurrentFragment">
+    tools:context=".QRCodeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center_horizontal"
-        android:src="@drawable/flower" />
+        android:layout_height="394dp"
+        android:layout_marginTop="150dp">
+
+    </ImageView>
 
     <TextView
+        android:id="@+id/ListTextView"
+        style="@style/PurpleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="oops... There is no current activity yet"
-        android:layout_marginTop="400dp"
-        android:textSize="15sp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/poppinsbold"
         android:gravity="center"
-        style="@style/PurpleText"></TextView>
+        android:text="QR CODE"
+        android:textSize="30sp"
+
+        tools:targetApi="jelly_bean" />
 
 </FrameLayout>

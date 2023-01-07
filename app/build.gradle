@@ -4,6 +4,11 @@ plugins {
 }
 
 android {
+
+    aaptOptions {
+        cruncherEnabled = false
+    }
+
     namespace 'com.example.smartparkingsystem'
     compileSdk 32
 

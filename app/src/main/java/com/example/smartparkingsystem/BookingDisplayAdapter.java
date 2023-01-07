@@ -10,15 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import java.util.Vector;
 
 public class BookingDisplayAdapter extends RecyclerView.Adapter<BookingDisplayAdapter.BookingDisplayHolder>{
 
 
-    private Context mCtx;
+    private BookingDisplay mCtx;
     private List<BookingDisplayClass> bookingDisplayList;
 
-    public BookingDisplayAdapter(Context mCtx, List<BookingDisplayClass> bookingDisplayList) {
+    public BookingDisplayAdapter(BookingDisplay mCtx, List<BookingDisplayClass> bookingDisplayList) {
         this.mCtx = mCtx;
         this.bookingDisplayList = bookingDisplayList;
     }
