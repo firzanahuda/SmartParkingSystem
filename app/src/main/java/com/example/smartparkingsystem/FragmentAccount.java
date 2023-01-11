@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,6 +135,7 @@ public class FragmentAccount extends Fragment {
 
                 try{
 
+                    Log.e("anyText", response);
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
                     JSONArray jsonArray = jsonObject.getJSONArray("profile");

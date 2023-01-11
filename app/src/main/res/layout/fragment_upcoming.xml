@@ -5,9 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".UpcomingFragment">
 
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="378dp"
+        android:layout_height="69dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/squareorange"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:text="Your Upcoming Activities will be shown below once you have done booking"
+        android:textColor="@color/white"></TextView>
+
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerView"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="745dp"

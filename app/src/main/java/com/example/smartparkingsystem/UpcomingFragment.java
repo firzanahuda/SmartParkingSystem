@@ -56,13 +56,20 @@ public class UpcomingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.fragment_upcoming, container, false);
-
-        recyclerView = v.findViewById(R.id.recylcerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         upcomingList = new ArrayList<>();
+        retrieveData();
+
+            v = inflater.inflate(R.layout.fragment_upcoming, container, false);
+
+            recyclerView = v.findViewById(R.id.recylcerView);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            //v = inflater.inflate(R.layout.fragment_empty_upcoming, container, false);
+
+
+
+        //upcomingList = new ArrayList<>();
 
         /*edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +79,7 @@ public class UpcomingFragment extends Fragment {
             }
         });*/
 
-        retrieveData();
+        //retrieveData();
 
 
             return v;
@@ -111,6 +118,7 @@ public class UpcomingFragment extends Fragment {
                                 upcoming.getString("Plate_Number")
                         ));
                     }
+
 
                     //creating adapter object and setting it to recyclerview
                     UpcomingAdapter adapter = new UpcomingAdapter(getContext(), upcomingList);

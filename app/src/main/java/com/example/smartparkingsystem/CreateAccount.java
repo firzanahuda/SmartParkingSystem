@@ -109,7 +109,7 @@ public class CreateAccount extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();*/
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Successfully Completing Your Profile", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                                 }
 
                             }

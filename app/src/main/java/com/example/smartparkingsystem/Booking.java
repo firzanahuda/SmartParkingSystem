@@ -405,27 +405,44 @@ public class Booking extends AppCompatActivity {
 
         // Creating a SimpleDateFormat object
         // to parse time in the format HH:MM:SS
-        SimpleDateFormat simpleDateFormat
-                = new SimpleDateFormat("HH:mm");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:aa");
+
+        String calculateStart = start + " " + startTime;
+        String calculateEnd = end + " " + endTime;
 
         // Parsing the Time Period
-        Date dateStart = simpleDateFormat.parse(startTime);
-        Date dateEnd = simpleDateFormat.parse(endTime);
+        Date dateStart = simpleDateFormat.parse(calculateStart);
+        Date dateEnd = simpleDateFormat.parse(calculateEnd);
 
-        // Calculating the difference in milliseconds
-        long differenceInMilliSeconds
-                = Math.abs(dateEnd.getTime() - dateStart.getTime());
+        // Calculate time difference
+        // in milliseconds
+        long different = dateEnd.getTime() - dateStart.getTime();
 
-        // Calculating the difference in Hours
-        long differenceInHours
-                = (differenceInMilliSeconds / (60 * 60 * 1000))
-                % 24;
+        // Calculate time difference in
+        // seconds, minutes, hours, years,
+        // and days
 
-        // Calculating the difference in Minutes
-        long differenceInMinutes
-                = (differenceInMilliSeconds / (60 * 1000)) % 60;
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
 
-        String duration = differenceInHours + " hours " + differenceInMinutes + " minutes ";
+        //long elapsedDays = different / daysInMilli;
+        //different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        String duration = elapsedHours + " hours " + elapsedMinutes + " minutes ";
+
+
+
 
         bookings = new BookingClass(carPlate,vehicle,start,end, duration);
 
@@ -457,27 +474,40 @@ public class Booking extends AppCompatActivity {
 
         // Creating a SimpleDateFormat object
         // to parse time in the format HH:MM:SS
-        SimpleDateFormat simpleDateFormat
-                = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:aa");
+
+        String calculateStart = start + " " + startTime;
+        String calculateEnd = end + " " + endTime;
 
         // Parsing the Time Period
-        Date dateStart = simpleDateFormat.parse(startTime);
-        Date dateEnd = simpleDateFormat.parse(endTime);
+        Date dateStart = simpleDateFormat.parse(calculateStart);
+        Date dateEnd = simpleDateFormat.parse(calculateEnd);
 
-        // Calculating the difference in milliseconds
-        long differenceInMilliSeconds
-                = Math.abs(dateEnd.getTime() - dateStart.getTime());
+        // Calculate time difference
+        // in milliseconds
+        long different = dateEnd.getTime() - dateStart.getTime();
 
-        // Calculating the difference in Hours
-        long differenceInHours
-                = (differenceInMilliSeconds / (60 * 60 * 1000))
-                % 24;
+        // Calculate time difference in
+        // seconds, minutes, hours, years,
+        // and days
 
-        // Calculating the difference in Minutes
-        long differenceInMinutes
-                = (differenceInMilliSeconds / (60 * 1000)) % 60;
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
 
-        String duration = differenceInHours + " hours " + differenceInMinutes + " minutes ";
+        //long elapsedDays = different / daysInMilli;
+        //different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        String duration = elapsedHours + " hours " + elapsedMinutes + " minutes ";
 
         if(!carPlate.equals("") && !vehicle.equals("") && !start.equals("") && !end.equals("")) {
 
