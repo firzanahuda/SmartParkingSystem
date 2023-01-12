@@ -45,13 +45,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CurrentActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".BookingViewHolder"
             android:exported="false">
             <meta-data

@@ -212,7 +212,7 @@ public class Booking extends AppCompatActivity {
 
     public void retrieveData(){
 
-        String url = "http://192.168.8.122/loginregister/getDataCarPlate.php";
+        String url = "http://10.131.74.52/loginregister/getDataCarPlate.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -540,7 +540,7 @@ public class Booking extends AppCompatActivity {
                     data[7] = endTime;
                     data[8] = station;
 
-                    PutData putData = new PutData("http://192.168.8.122/loginregister/booking.php", "POST", field, data);
+                    PutData putData = new PutData("http://10.131.74.52/loginregister/booking.php", "POST", field, data);
                     if (putData.startPut()) {
                         if (putData.onComplete()) {
                             String result = putData.getResult();

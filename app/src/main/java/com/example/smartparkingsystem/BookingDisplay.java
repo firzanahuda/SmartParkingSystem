@@ -86,7 +86,7 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
 
     public void retrieveData(){
 
-        String url = "http://192.168.8.122/loginregister/getDataBooking.php";
+        String url = "http://10.131.74.52/loginregister/getDataBooking.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override

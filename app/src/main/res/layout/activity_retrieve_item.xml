@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentRetrieve">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="510dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/squarepurple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Batu Beruang Station"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:gravity="left"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="164dp"
+        android:layout_height="164dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.052"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/textStart"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Start Date"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/startTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Start Time"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="34dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+
+        <TextView
+            android:id="@+id/startDate"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txtStartTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="54dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/textEndDate"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="End Date"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/textEndTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="End Time"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="74dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/txtEndDate"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/txtEndTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="94dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/textVehiclePN"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Plate Number"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/textVehicleType"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Vehicle Type"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="134dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/headerParkingSlot"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Parking Slot"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="154dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/txtParkingSlot"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="174dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/headerPenalty"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Penalty"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="194dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/txtPenalty"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_width="389dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="114dp"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+    <TextView
+        android:id="@+id/txtCarPlate"
+        style="@style/WhiteText"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/txtVehicleType"
+        style="@style/WhiteText"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="12sp" />
+
+</LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/qrcode"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="128dp"
+        android:gravity="center"
+        android:text="Pay"
+        android:textColor="@color/purple_200"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="394dp"
+        android:id="@+id/qrcode"
         android:layout_marginTop="150dp">
 
     </ImageView>

@@ -4,61 +4,117 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link QRCodeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.crypto.spec.SecretKeySpec;
+
 public class QRCodeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static SecretKeySpec secretKey;
+    private static byte[] key;
+    List<UpcomingClass> upcomingList;
+    ImageView imgQR;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    QRGenerator qrGenerator;
 
-    public QRCodeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment QRCodeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static QRCodeFragment newInstance(String param1, String param2) {
-        QRCodeFragment fragment = new QRCodeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_q_r_code, container, false);
+        View v = inflater.inflate(R.layout.fragment_q_r_code, container, false);
+
+        imgQR = v.findViewById(R.id.qrcode);
+
+        retrieveData();
+        return v;
+    }
+
+    public void retrieveData(){
+
+        String url = "http://10.131.74.52/loginregister/QRRetrieve.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try{
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+                    JSONArray jsonArray = jsonObject.getJSONArray("carPlate");
+
+                    if(success.equals("1")){
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject obj = jsonArray.getJSONObject(i);
+
+                            String carPlate = obj.getString("Plate_Number");
+                            String type = obj.getString("Vehicle_Type");
+
+                            // create new QRGenerator object
+                            qrGenerator = new QRGenerator(carPlate);
+
+                            // encrypt the carplate
+                            String encryptedCarPlate = qrGenerator.thirdScanEncryption();
+
+                            imgQR.setImageBitmap(qrGenerator.generateQRCode(encryptedCarPlate));
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+                String username = User.getInstance().getUsername();
+
+                Map<String, String> params = new HashMap< >();
+                params.put("Customer_Username", username);
+
+                return params;
+
+            }
+
+        };
+
+        requestQueue.add(request);
     }
 }
