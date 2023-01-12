@@ -65,6 +65,7 @@ public class Booking extends AppCompatActivity {
 
     private BookingClass bookings;
     private Vector<BookingClass> booking;
+    private Vector<BookingDisplayClass> bookingDisplay;
     private ActivityBookingBinding binding;
     private BookingAdapter adapter;
     private DatePickerDialog datePicker;
@@ -212,7 +213,7 @@ public class Booking extends AppCompatActivity {
 
     public void retrieveData(){
 
-        String url = "http://10.131.74.52/loginregister/getDataCarPlate.php";
+        String url = "http://192.168.8.122/loginregister/getDataCarPlate.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -540,7 +541,17 @@ public class Booking extends AppCompatActivity {
                     data[7] = endTime;
                     data[8] = station;
 
-                    PutData putData = new PutData("http://10.131.74.52/loginregister/booking.php", "POST", field, data);
+                    BookingDisplayClass.getInstance().setTextInputCarPlate(carPlate);
+                    BookingDisplayClass.getInstance().setTextInputStart(start);
+                    BookingDisplayClass.getInstance().setTextInputEnd(end);
+                    BookingDisplayClass.getInstance().setTextInputStartTime(startTime);
+                    BookingDisplayClass.getInstance().setTextInputEndTime(endTime);
+                    BookingDisplayClass.getInstance().setStation(station);
+                    BookingDisplayClass.getInstance().setTextInputVehicle(vehicle);
+
+                    //bookingDisplay.add(bookings);
+
+                    PutData putData = new PutData("http://192.168.8.122/loginregister/booking.php", "POST", field, data);
                     if (putData.startPut()) {
                         if (putData.onComplete()) {
                             String result = putData.getResult();

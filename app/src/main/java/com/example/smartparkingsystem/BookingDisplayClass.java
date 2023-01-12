@@ -4,6 +4,17 @@ public class BookingDisplayClass {
 
     private String textInputCarPlate, textInputVehicle, textInputStart, textInputEnd, textInputStartTime, textInputEndTime, station;
 
+    private static final BookingDisplayClass instance = new BookingDisplayClass();
+
+    public static BookingDisplayClass getInstance(){
+        return instance;
+
+    }
+
+    public BookingDisplayClass() {
+        super();
+    }
+
     public BookingDisplayClass(String textInputCarPlate, String textInputStart, String textInputEnd, String textInputStartTime, String textInputEndTime, String textInputVehicle, String station) {
         this.textInputCarPlate = textInputCarPlate;
         this.textInputVehicle = textInputVehicle;

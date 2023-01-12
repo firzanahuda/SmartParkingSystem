@@ -35,12 +35,9 @@ import java.util.Map;
 
 public class BookingDisplay<HttpClient> extends AppCompatActivity {
 
-    //TextView textStartInput, textEndInput, textVehiclePNInput, textVehicleTypeInput, textStartTimeInput, textEndTimeInput;
-    //FetchBookingAdapter fetchBookingAdapter;
-    //public static ArrayList<BookingClass> bookingClassArrayList = new ArrayList<>();
+    TextView textStartInput, textEndInput, textVehiclePNInput, textVehicleTypeInput, textStartTimeInput, textEndTimeInput, textStation;
 
-    List<BookingDisplayClass> bookingDisplayList;
-    RecyclerView recyclerView;
+    BookingDisplayClass booking;
     //BookingClass booking;
     private User user;
     String username, station;
@@ -49,7 +46,7 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_booking_display);
+        setContentView(R.layout.platecar_list_item);
 
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();
@@ -60,14 +57,35 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        textStartInput = findViewById(R.id.textStartInput);
+        textEndInput = findViewById(R.id.textEndInput);
+        textVehiclePNInput = findViewById(R.id.textVehiclePNInput);
+        textVehicleTypeInput = findViewById(R.id.textVehicleTypeInput);
+        textStartTimeInput = findViewById(R.id.textStartTimeInput);
+        textEndTimeInput = findViewById(R.id.textEndTimeInput);
+        textStation = findViewById(R.id.textStation);
 
-        recyclerView = findViewById(R.id.recylcerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        String start = BookingDisplayClass.getInstance().getTextInputStart();
+        String end = BookingDisplayClass.getInstance().getTextInputEnd();
+        String startTime = BookingDisplayClass.getInstance().getTextInputStartTime();
+        String endTime = BookingDisplayClass.getInstance().getTextInputEndTime();
+        String carPlate = BookingDisplayClass.getInstance().getTextInputCarPlate();
+        String type = BookingDisplayClass.getInstance().getTextInputVehicle();
+        String station = BookingDisplayClass.getInstance().getStation();
 
-        bookingDisplayList = new ArrayList<>();
+        textStartInput.append(start);
+        textEndTimeInput.append(endTime);
+        textStartTimeInput.append(startTime);
+        textEndInput.append(end);
+        textVehiclePNInput.append(carPlate);
+        textVehicleTypeInput.append(type);
+        textStation.append(station);
 
-        retrieveData();
+
+
+
+
+
 
     }
 
@@ -84,9 +102,9 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
         return true;
     }
 
-    public void retrieveData(){
+    /*public void retrieveData(){
 
-        String url = "http://10.131.74.52/loginregister/getDataBooking.php";
+        String url = "http://192.168.8.122/loginregister/getDataBooking.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
@@ -116,9 +134,6 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
                                 ));
                             }
 
-                            //creating adapter object and setting it to recyclerview
-                            BookingDisplayAdapter adapter = new BookingDisplayAdapter(BookingDisplay.this, bookingDisplayList);
-                            recyclerView.setAdapter(adapter);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -151,5 +166,5 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
 
 
         requestQueue.add(request);
-    }
+    }*/
 }
