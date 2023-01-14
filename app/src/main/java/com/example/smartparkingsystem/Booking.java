@@ -548,6 +548,7 @@ public class Booking extends AppCompatActivity {
                     BookingDisplayClass.getInstance().setTextInputEndTime(endTime);
                     BookingDisplayClass.getInstance().setStation(station);
                     BookingDisplayClass.getInstance().setTextInputVehicle(vehicle);
+                    BookingDisplayClass.getInstance().setDuration(elapsedHours);
 
                     //bookingDisplay.add(bookings);
 

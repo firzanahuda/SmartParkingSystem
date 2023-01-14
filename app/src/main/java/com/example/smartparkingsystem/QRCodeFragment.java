@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +44,7 @@ public class QRCodeFragment extends Fragment {
     private static byte[] key;
     List<UpcomingClass> upcomingList;
     ImageView imgQR;
+    String username, carPlate;
 
     QRGenerator qrGenerator;
 
@@ -54,8 +58,54 @@ public class QRCodeFragment extends Fragment {
         imgQR = v.findViewById(R.id.qrcode);
 
         retrieveData();
+
         return v;
     }
+
+
+    public void sendData(){
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                String status = "Park";
+                username = User.getInstance().getUsername();
+                //Starting Write and Read data with URL
+                //Creating array for parameters
+                String[] field = new String[3];
+                field[0] = "carPlate";
+                field[1] = "username";
+                field[2] = "status";
+                //Creating array for data
+                String[] data = new String[3];
+                data[0] = carPlate;
+                data[1] = username;
+                data[2] = status;
+
+                PutData putData = new PutData("http://192.168.8.122/loginregister/scanPark.php", "POST", field, data);
+                if (putData.startPut()) {
+                    if (putData.onComplete()) {
+                        String result = putData.getResult();
+                        if(result.equals("Data save")){
+                            //Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+                            Toast.makeText(getContext(),result, Toast.LENGTH_SHORT).show();
+                            Log.e("anyText", result);
+                        }
+                    }
+                }
+                //End Write and Read data with URL
+            }
+        });
+
+    }
+
+
+
 
     public void retrieveData(){
 
@@ -75,7 +125,7 @@ public class QRCodeFragment extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++){
                             JSONObject obj = jsonArray.getJSONObject(i);
 
-                            String carPlate = obj.getString("Plate_Number");
+                            carPlate = obj.getString("Plate_Number");
                             String type = obj.getString("Vehicle_Type");
 
                             // create new QRGenerator object
@@ -85,6 +135,8 @@ public class QRCodeFragment extends Fragment {
                             String encryptedCarPlate = qrGenerator.thirdScanEncryption();
 
                             imgQR.setImageBitmap(qrGenerator.generateQRCode(encryptedCarPlate));
+
+                            sendData();
 
                         }
                     }

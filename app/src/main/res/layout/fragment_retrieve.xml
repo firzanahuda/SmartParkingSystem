@@ -6,13 +6,24 @@
     tools:context=".FragmentRetrieve">
 
     <TextView
-        android:id="@+id/textViewBooking"
-        style="@style/PurpleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:id="@+id/warning"
+        android:layout_width="378dp"
+        android:layout_height="69dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/squareorange"
         android:fontFamily="@font/poppinsbold"
-        android:text="Retrieve"
-        android:textSize="30sp" />
+        android:gravity="center"
+        android:text="You can retrieve your car after you have done payment"
+        android:textColor="@color/white"></TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylcerView"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="745dp"
+        tools:layout_editor_absoluteY="-51dp" />
 
 </RelativeLayout>

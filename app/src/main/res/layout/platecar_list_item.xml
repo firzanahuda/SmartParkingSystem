@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="381dp"
+        android:layout_width="match_parent"
         android:layout_height="327dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
@@ -303,8 +303,8 @@
 
     <TextView
         android:id="@+id/price"
-        android:layout_width="383dp"
-        android:layout_height="142dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="356dp"
         android:layout_marginRight="5dp"
@@ -346,7 +346,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsbold"
-            android:text="RM"
+            android:text="RM 1 / HR"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
@@ -355,7 +355,122 @@
     <LinearLayout
         android:layout_width="389dp"
         android:layout_height="30dp"
-        android:layout_marginTop="374dp"
+        android:layout_marginTop="354dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:textColor="#A4A4A4"
+            android:textSize="15sp" />
+
+
+        <TextView
+
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="RM 5 / 7HR"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="384dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:textColor="#A4A4A4"
+            android:textSize="15sp" />
+
+
+        <TextView
+
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="RM 10 / 12HR"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="414dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStation">
+
+        <TextView
+
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:textColor="#A4A4A4"
+            android:textSize="15sp" />
+
+
+        <TextView
+
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="RM 20 / more than 24HR"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="450dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="100"
@@ -384,7 +499,6 @@
             android:layout_marginRight="10dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsbold"
-            android:text="RM"
             android:textColor="#FF7A00"
             android:textSize="15sp" />
 
@@ -392,10 +506,10 @@
 
     <TextView
         android:id="@+id/warning"
-        android:layout_width="378dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="520dp"
+        android:layout_marginTop="600dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/squareorange"
         android:text="Pay after retrieving the vehicle"

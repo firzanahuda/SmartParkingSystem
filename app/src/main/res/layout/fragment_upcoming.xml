@@ -5,24 +5,33 @@
     android:layout_height="match_parent"
     tools:context=".UpcomingFragment">
 
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:src="@drawable/flower" />
+
     <TextView
-        android:id="@+id/warning"
-        android:layout_width="378dp"
-        android:layout_height="69dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/squareorange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="oops... There is no current activity yet"
+        android:layout_marginTop="400dp"
+        android:textSize="15sp"
         android:fontFamily="@font/poppinsbold"
         android:gravity="center"
-        android:text="Your Upcoming Activities will be shown below once you have done booking"
-        android:textColor="@color/white"></TextView>
+        style="@style/PurpleText"></TextView>
+
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerView"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
+        android:background="@drawable/squarewhite"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="745dp"
         tools:layout_editor_absoluteY="-51dp" />

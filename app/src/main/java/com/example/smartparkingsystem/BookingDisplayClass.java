@@ -4,6 +4,8 @@ public class BookingDisplayClass {
 
     private String textInputCarPlate, textInputVehicle, textInputStart, textInputEnd, textInputStartTime, textInputEndTime, station;
 
+    private long duration;
+
     private static final BookingDisplayClass instance = new BookingDisplayClass();
 
     public static BookingDisplayClass getInstance(){
@@ -82,4 +84,12 @@ public class BookingDisplayClass {
         this.station = station;
     }
 
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
 }
