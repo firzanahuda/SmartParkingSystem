@@ -57,12 +57,14 @@ public class QRCodeFragment extends Fragment {
 
         imgQR = v.findViewById(R.id.qrcode);
 
-        retrieveData();
+        String qrCode = UpcomingClass.getInstance().getQrCode();
+
+        imgQR.setImageBitmap(qrGenerator.generateQRCode(qrCode));
 
         return v;
     }
 
-
+/*
     public void sendData(){
 
         Handler handler = new Handler(Looper.getMainLooper());
@@ -168,5 +170,5 @@ public class QRCodeFragment extends Fragment {
         };
 
         requestQueue.add(request);
-    }
+    }*/
 }

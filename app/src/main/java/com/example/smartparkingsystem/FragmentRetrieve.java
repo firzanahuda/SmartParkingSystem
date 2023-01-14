@@ -78,7 +78,7 @@ public class FragmentRetrieve extends Fragment {
                         String status = retrieve.getString("status");
                         String plateNumber = retrieve.getString("plateNumber");
 
-                        if(status.equals("Park")){
+                        if(status.equals("parked")){
                             retrieveData();
                         }
 

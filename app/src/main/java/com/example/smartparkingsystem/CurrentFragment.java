@@ -24,7 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +80,7 @@ public class CurrentFragment extends Fragment {
                         String status = retrieve.getString("status");
                         String plateNumber = retrieve.getString("plateNumber");
 
-                        if(status.equals("Park")){
+                        if(status.equals("parked")){
                             retrieveData();
                         }
 
@@ -143,8 +145,11 @@ public class CurrentFragment extends Fragment {
                         //adding the product to product list
                         currentList.add(new CurrentClass(
 
-                                current.getString("Station"),
-                                current.getString("Duration")
+                                current.getString("Starting_Date"),
+                                current.getString("End_Date"),
+                                current.getString("Start_Time"),
+                                current.getString("End_Time"),
+                                current.getString("station")
 
 
                         ));

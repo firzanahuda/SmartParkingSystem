@@ -70,7 +70,7 @@ public class RetrieveAdapter extends RecyclerView.Adapter<RetrieveAdapter.Retrie
         qrCodeRetrieve = new QRCodeRetrieve(plateNumber);
 
         // encrypt the carplate
-        String encryptedCarPlate = qrCodeRetrieve.thirdScanEncryption();
+        String encryptedCarPlate = qrCodeRetrieve.fourthScanEncryption();
 
         holder.imageView2.setImageBitmap(qrCodeRetrieve.generateQRCode(encryptedCarPlate));
 

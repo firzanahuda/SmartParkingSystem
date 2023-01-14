@@ -21,6 +21,8 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.Upcomi
     private Context ctx;
     private List<UpcomingClass> upcomingList;
 
+    QRGenerator qrGenerator;
+
     public UpcomingAdapter(Context ctx, List<UpcomingClass> upcomingList) {
         this.ctx = ctx;
         this.upcomingList = upcomingList;
@@ -46,6 +48,15 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.Upcomi
         holder.startTime.setText(upcomingClass.getStartTime());
         holder.endTime.setText(upcomingClass.getEndTime());
         holder.station.setText(upcomingClass.getStation());
+
+        String plateNumber = upcomingClass.getCarPlate();
+        // create new QRGenerator object
+        qrGenerator = new QRGenerator(plateNumber);
+
+        // encrypt the carplate
+        String encryptedCarPlate = qrGenerator.thirdScanEncryption();
+
+        UpcomingClass.getInstance().setQrCode(encryptedCarPlate);
 
         holder.qrcode.setOnClickListener(new View.OnClickListener() {
             @Override

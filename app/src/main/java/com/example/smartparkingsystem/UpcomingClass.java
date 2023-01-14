@@ -2,7 +2,18 @@ package com.example.smartparkingsystem;
 
 public class UpcomingClass {
 
-    private String startDate, endDate, duration, startTime, endTime, station, carPlate;
+    private String startDate, endDate, duration, startTime, endTime, station, carPlate, qrCode;
+
+    private static final UpcomingClass instance = new UpcomingClass();
+
+    public static UpcomingClass getInstance(){
+        return instance;
+
+    }
+
+    public UpcomingClass() {
+        super();
+    }
 
     public UpcomingClass(String startDate, String endDate, String duration, String startTime, String endTime, String station, String carPlate) {
         this.startDate = startDate;
@@ -68,5 +79,13 @@ public class UpcomingClass {
 
     public void setCarPlate(String carPlate) {
         this.carPlate = carPlate;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 }
