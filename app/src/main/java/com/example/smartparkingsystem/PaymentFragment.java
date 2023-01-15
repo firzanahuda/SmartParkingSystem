@@ -40,7 +40,7 @@ import java.util.Map;
 
 public class PaymentFragment extends Fragment {
 
-   String username;
+   String username, carPlate;
    String totalPay;
    TextView bookingpayment, extendPayment, totalPayment;
    View v;
@@ -268,6 +268,52 @@ public class PaymentFragment extends Fragment {
     }
 
 
+
+    public void sendScanning(){
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                String status = "paid";
+                username = User.getInstance().getUsername();
+
+                //Starting Write and Read data with URL
+                //Creating array for parameters
+                String[] field = new String[3];
+                field[0] = "plateNumber";
+                field[1] = "username";
+                field[2] = "status";
+                //Creating array for data
+                String[] data = new String[3];
+                data[0] = carPlate;
+                data[1] = username;
+                data[2] = status;
+
+                PutData putData = new PutData("http://192.168.8.122/loginregister/updatePayment.php", "POST", field, data);
+                if (putData.startPut()) {
+                    if (putData.onComplete()) {
+                        String result = putData.getResult();
+                        if(result.equals("Data save")){
+                            //Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+                            Toast.makeText(getContext(),result, Toast.LENGTH_SHORT).show();
+                            Log.e("anyText", result);
+                        }
+                    }
+                }
+                //End Write and Read data with URL
+            }
+        });
+
+    }
+
+
+
+
     public void sendData(){
 
         Handler handler = new Handler(Looper.getMainLooper());
@@ -335,6 +381,8 @@ public class PaymentFragment extends Fragment {
                         String bookingPayment = obj.getString("bookingPayment");
                         String extend = obj.getString("extend");
                         String total = obj.getString("total");
+                        carPlate = obj.getString("carPlate");
+
 
                         int num = Integer.parseInt(total.replaceAll("[\\D]", ""));
                         num = num/10;

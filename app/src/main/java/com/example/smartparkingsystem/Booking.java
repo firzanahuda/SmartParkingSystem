@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -46,6 +47,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +86,7 @@ public class Booking extends AppCompatActivity {
         linearLayout = findViewById(R.id.linear_layout);
 
         booking = new Vector<>();
-        adapter = new BookingAdapter(getLayoutInflater(),booking);
+        adapter = new BookingAdapter(getLayoutInflater(), booking);
 
         binding = ActivityBookingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -102,7 +104,7 @@ public class Booking extends AppCompatActivity {
         retrieveData();
 
         autoCompleteTextView = findViewById(R.id.auto_complete_text);
-        adapterItems = new ArrayAdapter<String>(this,R.layout.item_list,items);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.item_list, items);
         autoCompleteTextView.setAdapter(adapterItems);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -114,44 +116,44 @@ public class Booking extends AppCompatActivity {
 
         buttonConfirm = findViewById(R.id.buttonConfirm);
 
-                binding.buttonViewBooking.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            fnRecyclerView();
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        binding.buttonViewBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    fnRecyclerView();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-                binding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        binding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                        try {
-                            fnAdd();
-                            Intent intent = new Intent(Booking.this, BookingDisplay.class);
-                            startActivity(intent);
+                try {
+                    fnAdd();
+                    Intent intent = new Intent(Booking.this, BookingDisplay.class);
+                    startActivity(intent);
 
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
 
-                    }
-                });
+            }
+        });
 
         binding.start.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                if(hasFocus){
+                if (hasFocus) {
                     Intent intent = new Intent(Booking.this, StartDate.class);
                     startActivityForResult(intent, 1);
                 }
 
-                if(!hasFocus){
+                if (!hasFocus) {
                     fnFormValidation();
                 }
             }
@@ -169,12 +171,12 @@ public class Booking extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                if(hasFocus){
+                if (hasFocus) {
                     Intent intent = new Intent(Booking.this, EndDate.class);
                     startActivityForResult(intent, 2);
                 }
 
-                if(!hasFocus){
+                if (!hasFocus) {
                     fnFormValidation();
                 }
             }
@@ -211,22 +213,22 @@ public class Booking extends AppCompatActivity {
     }
 
 
-    public void retrieveData(){
+    public void retrieveData() {
 
         String url = "http://192.168.8.122/loginregister/getDataCarPlate.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                try{
+                try {
 
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
                     JSONArray jsonArray = jsonObject.getJSONArray("carPlate");
 
-                    if(success.equals("1")){
-                        for (int i = 0; i < jsonArray.length(); i++){
+                    if (success.equals("1")) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject obj = jsonArray.getJSONObject(i);
 
                             String carPlate1 = obj.getString("Plate_Number1");
@@ -264,7 +266,7 @@ public class Booking extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(Booking.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -272,7 +274,7 @@ public class Booking extends AppCompatActivity {
 
                 username = User.getInstance().getUsername();
 
-                Map<String, String> params = new HashMap< >();
+                Map<String, String> params = new HashMap<>();
                 params.put("Customer_Username", username);
 
                 return params;
@@ -285,7 +287,7 @@ public class Booking extends AppCompatActivity {
     }
 
 
-    private void fnInvokeTimePickerEnd(){
+    private void fnInvokeTimePickerEnd() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 Booking.this,
                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -299,7 +301,7 @@ public class Booking extends AppCompatActivity {
                                 "HH:mm"
                         );
                         try {
-                            Date dateEnd= f24Hours.parse(time);
+                            Date dateEnd = f24Hours.parse(time);
                             SimpleDateFormat f12Hours = new SimpleDateFormat(
                                     "hh:mm:aa"
                             );
@@ -308,7 +310,7 @@ public class Booking extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                },12,0,false
+                }, 12, 0, false
         );
 
         timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -317,7 +319,7 @@ public class Booking extends AppCompatActivity {
 
     }
 
-    private void fnInvokeTimePicker(){
+    private void fnInvokeTimePicker() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 Booking.this,
                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -340,7 +342,7 @@ public class Booking extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                },12,0,false
+                }, 12, 0, false
         );
 
         timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -351,22 +353,22 @@ public class Booking extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==1){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("result");
                 textInputStart.setText(result);
             }
         }
 
-        if(requestCode==2){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("resultEnd");
                 textInputEnd.setText(result);
             }
         }
     }
 
-    ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+    ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -443,9 +445,7 @@ public class Booking extends AppCompatActivity {
         String duration = elapsedHours + " hours " + elapsedMinutes + " minutes ";
 
 
-
-
-        bookings = new BookingClass(carPlate,vehicle,start,end, duration);
+        bookings = new BookingClass(carPlate, vehicle, start, end, duration);
 
         booking.add(bookings);
         adapter.notifyItemInserted(booking.size());
@@ -510,74 +510,146 @@ public class Booking extends AppCompatActivity {
 
         String duration = elapsedHours + " hours " + elapsedMinutes + " minutes ";
 
-        if(!carPlate.equals("") && !vehicle.equals("") && !start.equals("") && !end.equals("")) {
 
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
+        BookingDisplayClass.getInstance().setTextInputCarPlate(carPlate);
+        BookingDisplayClass.getInstance().setTextInputStart(start);
+        BookingDisplayClass.getInstance().setTextInputEnd(end);
+        BookingDisplayClass.getInstance().setTextInputStartTime(startTime);
+        BookingDisplayClass.getInstance().setTextInputEndTime(endTime);
+        BookingDisplayClass.getInstance().setStation(station);
+        BookingDisplayClass.getInstance().setTextInputVehicle(vehicle);
+        BookingDisplayClass.getInstance().setDuration(elapsedHours);
+
+
+        if (!carPlate.equals("") && !vehicle.equals("") && !start.equals("") && !end.equals("")) {
+
+            ArrayList<Integer> bookIDIntList = new ArrayList<>();
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            String url = "http://192.168.8.122/loginregister/getNewBookID.php";
+            StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
                 @Override
-                public void run() {
-                    //Starting Write and Read data with URL
-                    //Creating array for parameters
-                    String[] field = new String[9];
-                    field[0] = "carPlate";
-                    field[1] = "vehicle";
-                    field[2] = "start";
-                    field[3] = "end";
-                    field[4] = "duration";
-                    field[5] = "username";
-                    field[6] = "startTime";
-                    field[7] = "endTime";
-                    field[8] = "station";
+                public void onResponse(String response) {
+                    try {
+                        if (response.equals("No booking yet")) {
+                            bookIDIntList.add(0);
+                        } else {
+                            JSONArray jsonArray = new JSONArray(response);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject bookObj = jsonArray.getJSONObject(i);
+                                //JSONObject scanObj = response.getJSONObject(i);
+                                String bookID = bookObj.getString("ID");
+                                // get substr and convert to int
+                                bookID = bookID.substring(1);
+                                bookID = removeZero(bookID);
+                                int number = Integer.parseInt(bookID);
 
-                    //Creating array for data
-                    String[] data = new String[9];
-                    data[0] = carPlate;
-                    data[1] = vehicle;
-                    data[2] = start;
-                    data[3] = end;
-                    data[4] = duration;
-                    data[5] = username;
-                    data[6] = startTime;
-                    data[7] = endTime;
-                    data[8] = station;
-
-                    BookingDisplayClass.getInstance().setTextInputCarPlate(carPlate);
-                    BookingDisplayClass.getInstance().setTextInputStart(start);
-                    BookingDisplayClass.getInstance().setTextInputEnd(end);
-                    BookingDisplayClass.getInstance().setTextInputStartTime(startTime);
-                    BookingDisplayClass.getInstance().setTextInputEndTime(endTime);
-                    BookingDisplayClass.getInstance().setStation(station);
-                    BookingDisplayClass.getInstance().setTextInputVehicle(vehicle);
-                    BookingDisplayClass.getInstance().setDuration(elapsedHours);
-
-                    //bookingDisplay.add(bookings);
-
-                    PutData putData = new PutData("http://192.168.8.122/loginregister/booking.php", "POST", field, data);
-                    if (putData.startPut()) {
-                        if (putData.onComplete()) {
-                            String result = putData.getResult();
-                            if(result.equals("Booking Success!")){
-                                Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
-                                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                //startActivity(intent);
-                                //finish();
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
+                                bookIDIntList.add(number);
                             }
                         }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    //End Write and Read data with URL
+                    // get the largest number and create the new ID
+                    int max = Collections.max(bookIDIntList) + 1;
+                    String bookingID;
+                    if (max >= 10000 && max <= 99999) {
+                        bookingID = "B" + Integer.toString(max);
+                    } else if (max >= 1000 && max < 10000) {
+                        bookingID = "B0" + Integer.toString(max);
+                    } else if (max >= 100 && max < 1000) {
+                        bookingID = "B00" + Integer.toString(max);
+                    } else if (max >= 10 && max < 100) {
+                        bookingID = "B000" + Integer.toString(max);
+                    } else {
+                        bookingID = "B0000" + Integer.toString(max);
+                    }
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Starting Write and Read data with URL
+                            //Creating array for parameters
+                            String[] field = new String[10];
+                            field[0] = "carPlate";
+                            field[1] = "vehicle";
+                            field[2] = "start";
+                            field[3] = "end";
+                            field[4] = "duration";
+                            field[5] = "username";
+                            field[6] = "startTime";
+                            field[7] = "endTime";
+                            field[8] = "station";
+                            field[9] = "bookingID";
+
+                            //Creating array for data
+                            String[] data = new String[10];
+                            data[0] = carPlate;
+                            data[1] = vehicle;
+                            data[2] = start;
+                            data[3] = end;
+                            data[4] = duration;
+                            data[5] = username;
+                            data[6] = startTime;
+                            data[7] = endTime;
+                            data[8] = station;
+                            data[9] = bookingID;
+
+
+
+                            //bookingDisplay.add(bookings);
+
+                            PutData putData = new PutData("http://192.168.8.122/loginregister/booking.php", "POST", field, data);
+                            if (putData.startPut()) {
+                                if (putData.onComplete()) {
+                                    String result = putData.getResult();
+                                    if (result.equals("Booking Success!")) {
+                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                        //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        //startActivity(intent);
+                                        //finish();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                            //End Write and Read data with URL
+                        }
+                    });
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "All Fields Required !", Toast.LENGTH_SHORT).show();
                 }
             });
+
+            requestQueue.add(jsonObjectRequest);
+
         }
-        else{
-            Toast.makeText(getApplicationContext(), "All Fields Required !", Toast.LENGTH_SHORT).show();
-        }
-
-
-
     }
 
+    // remove the leading zero of string during retrieve of scan ID
+    public static String removeZero(String str) {
 
+        // Count leading zeros
+
+        // Initially setting loop counter to 0
+        int i = 0;
+        while (i < str.length() && str.charAt(i) == '0')
+            i++;
+
+        // Converting string into StringBuffer object
+        // as strings are immutable
+        StringBuffer sb = new StringBuffer(str);
+
+        // The StringBuffer replace function removes
+        // i characters from given index (0 here)
+        sb.replace(0, i, "");
+
+        // Returning string after removing zeros
+        return sb.toString();
+    }
 }

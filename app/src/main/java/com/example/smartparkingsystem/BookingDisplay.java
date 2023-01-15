@@ -128,19 +128,23 @@ public class BookingDisplay<HttpClient> extends AppCompatActivity {
             @Override
             public void run() {
 
+                String carPlate = BookingDisplayClass.getInstance().getTextInputCarPlate();
+
                 String status = "Not Paid";
                 username = User.getInstance().getUsername();
                 //Starting Write and Read data with URL
                 //Creating array for parameters
-                String[] field = new String[3];
+                String[] field = new String[4];
                 field[0] = "total";
                 field[1] = "username";
                 field[2] = "status";
+                field[3] = "carPlate";
                 //Creating array for data
-                String[] data = new String[3];
+                String[] data = new String[4];
                 data[0] = totalPrice;
                 data[1] = username;
                 data[2] = status;
+                data[3] = carPlate;
 
                 PutData putData = new PutData("http://192.168.8.122/loginregister/paymentBooking.php", "POST", field, data);
                 if (putData.startPut()) {
