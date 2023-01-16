@@ -2,7 +2,7 @@ package com.example.smartparkingsystem;
 
 public class User {
 
-    private String firstName, lastName, phoneNum, icNum, carNumber, carPlate, carPlate2, carPlate3, carPlate4, carPlate5, username;
+    private String firstName, lastName, phoneNum, icNum, carNumber, carPlate, carPlate2, carPlate3, carPlate4, carPlate5, username, bookingID, timeleftformat;
 
     private static final User instance = new User();
 
@@ -115,5 +115,21 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getBookingID() {
+        return bookingID;
+    }
+
+    public void setBookingID(String bookingID) {
+        this.bookingID = bookingID;
+    }
+
+    public String getTimeleftformat() {
+        return timeleftformat;
+    }
+
+    public void setTimeleftformat(String timeleftformat) {
+        this.timeleftformat = timeleftformat;
     }
 }

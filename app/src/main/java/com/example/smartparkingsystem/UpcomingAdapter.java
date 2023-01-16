@@ -2,10 +2,13 @@ package com.example.smartparkingsystem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,23 +52,18 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.Upcomi
         holder.endTime.setText(upcomingClass.getEndTime());
         holder.station.setText(upcomingClass.getStation());
 
-        String plateNumber = upcomingClass.getCarPlate();
-        // create new QRGenerator object
-        qrGenerator = new QRGenerator(plateNumber);
+        String qrcode = upcomingClass.getCarPlate();
+
+        qrGenerator = new QRGenerator(qrcode);
 
         // encrypt the carplate
         String encryptedCarPlate = qrGenerator.thirdScanEncryption();
 
-        UpcomingClass.getInstance().setQrCode(encryptedCarPlate);
+        Bitmap bitmap = qrGenerator.generateQRCode(encryptedCarPlate);
+        holder.qrcode.setImageBitmap(bitmap);
 
-        holder.qrcode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment myFragment = new QRCodeFragment();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
-            }
-        });
+        Log.e("anyText", encryptedCarPlate);
+
     }
 
     @Override
@@ -76,7 +74,7 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.Upcomi
     class UpcomingViewHolder extends RecyclerView.ViewHolder {
 
         TextView startTime, endTime, duration, startDate, endDate, station, carPlate;
-        Button qrcode;
+        ImageView qrcode;
 
         public UpcomingViewHolder(View itemView) {
             super(itemView);

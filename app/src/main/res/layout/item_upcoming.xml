@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="333dp"
+        android:layout_height="450dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
@@ -251,9 +251,10 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageView
+
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="150dp"
         android:layout_marginTop="220dp"
         android:layout_marginEnd="120dp"
         android:id="@+id/qrcode"
@@ -264,7 +265,7 @@
 
         app:layout_constraintTop_toBottomOf="@+id/station">
 
-    </androidx.appcompat.widget.AppCompatButton>
+    </ImageView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

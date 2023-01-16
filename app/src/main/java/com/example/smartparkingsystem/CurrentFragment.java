@@ -45,19 +45,20 @@ public class CurrentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         currentList = new ArrayList<>();
-        status();
+        //status();
 
         v = inflater.inflate(R.layout.fragment_current, container, false);
 
         recyclerView = v.findViewById(R.id.recylcerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        retrieveData();
 
         return v;
     }
 
 
-    public void status() {
+    /*public void status() {
 
         String url = "http://192.168.8.122/loginregister/status.php";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -117,7 +118,7 @@ public class CurrentFragment extends Fragment {
 
         requestQueue.add(request);
 
-    }
+    }*/
 
 
 

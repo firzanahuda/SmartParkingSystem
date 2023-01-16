@@ -17,7 +17,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     private Context ctx;
     private List<HistoryClass> historyList;
 
-    public HistoryAdapter(Context ctx, List<HistoryClass> upcomingList) {
+    public HistoryAdapter(Context ctx, List<HistoryClass> historyList) {
         this.ctx = ctx;
         this.historyList = historyList;
     }
@@ -47,7 +47,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     @Override
     public int getItemCount() {
-        return 0;
+        return historyList.size();
     }
 
     class HistoryViewHolder extends RecyclerView.ViewHolder {

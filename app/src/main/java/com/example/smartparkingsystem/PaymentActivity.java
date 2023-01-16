@@ -1,16 +1,18 @@
 package com.example.smartparkingsystem;
 
-import android.os.Bundle;
-
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,20 +33,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PaymentFragment extends Fragment {
+public class PaymentActivity extends AppCompatActivity {
 
-   String username, carPlate;
-   String totalPay;
-   TextView bookingpayment, extendPayment, totalPayment;
-   View v;
-   Button payment;
+    String username, carPlate, plateNumber, bookingID;
+    String totalPay;
+    TextView bookingpayment, extendPayment, totalPayment;
+    View v;
+    Button payment;
 
     String PublishableKey = "pk_test_51MPSdPDBT7fQ7TQlbaKw4HpmCIfxiRQgIWanGmPWSlGTICOZpH1cmtFATKk5KdEB4Wby2I9Z2L5YBvXTNBW9AROE007JPUNFRK";
     String SecretKey = "sk_test_51MPSdPDBT7fQ7TQlsZgrBBvgoxVKijNU3J9zypgblHSe1Ix5ZvEa8dSFhxODYpvpv1ybRmQnHCyOqf0RrTqGKsXq00eovqtVxh";
@@ -54,22 +54,24 @@ public class PaymentFragment extends Fragment {
     PaymentSheet paymentSheet;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_payment);
 
-        v = inflater.inflate(R.layout.fragment_payment, container, false);
+        plateNumber = getIntent().getStringExtra("carPlate");
+        Log.e("carPlate", plateNumber);
 
-        bookingpayment = v.findViewById(R.id.bookingpayment);
-        extendPayment = v.findViewById(R.id.extendPayment);
-        totalPayment = v.findViewById(R.id.totalPayment);
-        payment = v.findViewById(R.id.paymentflow);
+
+        bookingpayment = findViewById(R.id.bookingpayment);
+        extendPayment = findViewById(R.id.extendPayment);
+        totalPayment = findViewById(R.id.totalPayment);
+        payment = findViewById(R.id.paymentflow);
 
         retrieveData();
 
-        PaymentConfiguration.init(getContext(), PublishableKey);
+        PaymentConfiguration.init(getApplicationContext(), PublishableKey);
 
-        paymentSheet = new PaymentSheet(this,paymentSheetResult -> {
+        paymentSheet = new PaymentSheet(this, paymentSheetResult -> {
 
             onPaymentResult(paymentSheetResult);
         });
@@ -92,7 +94,7 @@ public class PaymentFragment extends Fragment {
 
                             CustomerID = object.getString("id");
 
-                            Toast.makeText(getContext(), CustomerID, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), CustomerID, Toast.LENGTH_SHORT).show();
 
                             getEmphericalKey();
 
@@ -106,7 +108,7 @@ public class PaymentFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
             }
         }){
@@ -123,11 +125,13 @@ public class PaymentFragment extends Fragment {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(request);
 
-        return v;
+
     }
+
+
 
 
     private void paymentFlow() {
@@ -142,8 +146,9 @@ public class PaymentFragment extends Fragment {
 
         if(paymentSheetResult instanceof PaymentSheetResult.Completed){
 
-            Toast.makeText(getContext(),"Payment Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Payment Success", Toast.LENGTH_SHORT).show();
             sendData();
+            sendScanning();
         }
     }
 
@@ -160,7 +165,7 @@ public class PaymentFragment extends Fragment {
 
                             EphericalKey = object.getString("id");
 
-                            Toast.makeText(getContext(), CustomerID, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), CustomerID, Toast.LENGTH_SHORT).show();
 
                             getClientSecret(CustomerID, EphericalKey);
 
@@ -174,7 +179,7 @@ public class PaymentFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
             }
         }) {
@@ -202,7 +207,7 @@ public class PaymentFragment extends Fragment {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(request);
     }
 
@@ -219,7 +224,7 @@ public class PaymentFragment extends Fragment {
 
                             ClientSecret = object.getString("client_secret");
 
-                            Toast.makeText(getContext(), ClientSecret, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), ClientSecret, Toast.LENGTH_SHORT).show();
 
 
 
@@ -233,7 +238,7 @@ public class PaymentFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Connecting....", Toast.LENGTH_SHORT).show();
 
             }
         }) {
@@ -263,7 +268,7 @@ public class PaymentFragment extends Fragment {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(request);
     }
 
@@ -282,16 +287,18 @@ public class PaymentFragment extends Fragment {
                 //Starting Write and Read data with URL
                 //Creating array for parameters
                 String[] field = new String[3];
-                field[0] = "plateNumber";
-                field[1] = "username";
-                field[2] = "status";
+                //field[0] = "plateNumber";
+                field[0] = "username";
+                field[1] = "status";
+                field[2] = "bookingID";
                 //Creating array for data
                 String[] data = new String[3];
-                data[0] = carPlate;
-                data[1] = username;
-                data[2] = status;
+                //data[0] = carPlate;
+                data[0] = username;
+                data[1] = status;
+                data[2] = bookingID;
 
-                PutData putData = new PutData("http://192.168.8.122/loginregister/updatePayment.php", "POST", field, data);
+                PutData putData = new PutData("http://192.168.8.122/loginregister/RetrieveScanning.php", "POST", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         String result = putData.getResult();
@@ -300,7 +307,7 @@ public class PaymentFragment extends Fragment {
 
                         }
                         else{
-                            Toast.makeText(getContext(),result, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
                             Log.e("anyText", result);
                         }
                     }
@@ -328,15 +335,17 @@ public class PaymentFragment extends Fragment {
                 String date = currentTime.toString().trim();
                 //Starting Write and Read data with URL
                 //Creating array for parameters
-                String[] field = new String[3];
+                String[] field = new String[4];
                 field[0] = "date";
                 field[1] = "username";
                 field[2] = "status";
+                field[3] = "bookingID";
                 //Creating array for data
                 String[] data = new String[3];
                 data[0] = date;
                 data[1] = username;
                 data[2] = status;
+                data[3] = bookingID;
 
                 PutData putData = new PutData("http://192.168.8.122/loginregister/updatePayment.php", "POST", field, data);
                 if (putData.startPut()) {
@@ -347,7 +356,7 @@ public class PaymentFragment extends Fragment {
 
                         }
                         else{
-                            Toast.makeText(getContext(),result, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
                             Log.e("anyText", result);
                         }
                     }
@@ -363,7 +372,7 @@ public class PaymentFragment extends Fragment {
     public void retrieveData(){
 
         String url = "http://192.168.8.122/loginregister/RetrievePayment.php";
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -382,6 +391,7 @@ public class PaymentFragment extends Fragment {
                         String extend = obj.getString("extend");
                         String total = obj.getString("total");
                         carPlate = obj.getString("carPlate");
+                        bookingID = obj.getString("bookingID");
 
 
                         int num = Integer.parseInt(total.replaceAll("[\\D]", ""));
@@ -407,7 +417,7 @@ public class PaymentFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
 
@@ -418,6 +428,7 @@ public class PaymentFragment extends Fragment {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("Customer_Username", username);
+                params.put("Plate_Number", plateNumber);
 
                 return params;
 
@@ -429,4 +440,5 @@ public class PaymentFragment extends Fragment {
 
         requestQueue.add(request);
     }
+
 }

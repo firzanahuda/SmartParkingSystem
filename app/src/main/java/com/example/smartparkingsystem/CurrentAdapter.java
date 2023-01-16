@@ -1,23 +1,27 @@
 package com.example.smartparkingsystem;
 
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
@@ -26,21 +30,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentViewHolder>{
+
+public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentViewHolder> {
 
     private Context ctx;
     private List<CurrentClass> currentList;
     private long mStartTimeInMillis;
     private long mTimeLeftInMillis;
     private long mEndTime;
+    private EditText mEditTextInput;
+    private TextView mTextViewCountDown;
+    private Button mButtonSet;
+    private Button mButtonStartPause;
+
+    private CountDownTimer mCountDownTimer;
+
+    private boolean mTimerRunning;
+
+
+    // add for extend
+    private Button btnExtend;
+    private EditText edtExtend;
 
     // notification
     NotificationManagerCompat notificationManagerCompat;
     Notification notification;
 
-    private CountDownTimer mCountDownTimer;
-
-    private boolean mTimerRunning;
 
     public CurrentAdapter(Context ctx, List<CurrentClass> currentList) {
         this.ctx = ctx;
@@ -67,64 +82,133 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
         String startTime = currentClass.getStart_Time();
         String endTime = currentClass.getEnd_Time();
 
-        // Creating a SimpleDateFormat object
-        // to parse time in the format HH:MM:SS
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:aa");
-
-        String calculateStart = startDate + " " + startTime;
         String calculateEnd = endDate + " " + endTime;
 
-        // Parsing the Time Period
-        Date dateStart = null;
+
+        //countDown(calculateEnd);
+
+        Date dateEndDate = new Date();
+
+        // change string to date
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:aa");
         try {
-            dateStart = simpleDateFormat.parse(calculateStart);
+            dateEndDate = sdf.parse(calculateEnd);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Date dateEnd = null;
-        try {
-            dateEnd = simpleDateFormat.parse(calculateEnd);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        // Calculate time difference
-        // in milliseconds
-        long different = dateEnd.getTime() - dateStart.getTime();
-
-        // Calculate time difference in
-        // seconds, minutes, hours, years,
-        // and days
-
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        //long elapsedDays = different / daysInMilli;
-        //different = different % daysInMilli;
-
-        long elapsedHours = different / hoursInMilli;
-        different = different % hoursInMilli;
-
-        long elapsedMinutes = different / minutesInMilli;
-        different = different % minutesInMilli;
-
-        long elapsedSeconds = different / secondsInMilli;
-
-        String duration = elapsedHours + " hours " + elapsedMinutes + " minutes ";
+        // take the end date - current time
+        final long[] diff = {dateEndDate.getTime() - System.currentTimeMillis()};
 
 
-        holder.extend.setOnClickListener(new View.OnClickListener() {
+        // start the timer again
+        new CountDownTimer(diff[0], 1000) {
             @Override
-            public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment myFragment = new ExtendFragment();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+            public void onTick(long millisUntilFinished) {
+                diff[0] = millisUntilFinished;
+                int days = (int) (diff[0] / 1000) / 3600 / 24;
+                int hours = (int) (diff[0] / 1000) / 3600 % 24;
+                int minutes = (int) ((diff[0] / 1000) % 3600) / 60;
+                int seconds = (int) (diff[0] / 1000) % 60;
+
+                if (days == 0 && hours == 1 && minutes == 0 && seconds == 0) {
+                    // send notificaiton if 1 hour left
+                    //fnCloseNotification();
+
+                    // notification
+                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
+                        NotificationManager manager = (NotificationManager) getSystemService(NotificationManager.class);
+                        manager.createNotificationChannel(channel);
+                    }
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(mTextViewCountDown.getContext(), "myCh")
+                            .setSmallIcon(android.R.drawable.star_on)
+                            .setContentTitle("First Notification")
+                            .setContentText("Hello World");
+
+                    notification = builder.build();
+                    notificationManagerCompat = NotificationManagerCompat.from(mTextViewCountDown.getContext());
+                    // notification till here
+                    notificationManagerCompat.notify(1, notification);*/
+
+                }
+
+
+                String timeLeftFormatted;
+
+                timeLeftFormatted = String.format(Locale.getDefault(),
+                        "%02d:%02d:%02d", days, hours, minutes);
+
+                Log.e("time", timeLeftFormatted);
+
+                holder.txtTimer.setText(timeLeftFormatted);
+
+
+                // the timer text
+                //txtDisplay.setText(timeLeftFormatted);
+            }
+
+            @Override
+            public void onFinish() {
+                // give warning notification if times up
+                //fnWarnNotification();
+
+                // notification
+                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager manager = (NotificationManager) getSystemService(NotificationManager.class);
+                    manager.createNotificationChannel(channel);
+                }
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(mTextViewCountDown.getContext(), "myCh")
+                        .setSmallIcon(android.R.drawable.star_on)
+                        .setContentTitle("Times Up!")
+                        .setContentText("Your booking time for vehicle is up.");
+
+                notification = builder.build();
+                notificationManagerCompat = NotificationManagerCompat.from(mTextViewCountDown.getContext());
+                // notification till here
+                notificationManagerCompat.notify(2, notification);*/
+
+
+                // set to Penalty
+            }
+        }.start();
+
+
+        holder.extend.setOnClickListener(view -> {
+
+            int selectedPosition = holder.getAdapterPosition();
+
+            if (selectedPosition == position) {
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("startDate", startDate);
+                bundle.putString("endDate", endDate);
+                bundle.putString("startTime", startTime);
+                bundle.putString("endTime", endTime);
+                Intent intent = new Intent(view.getContext(), ExtendActivity.class);
+                intent.putExtras(bundle);
+                view.getContext().startActivity(intent);
+
+                /*intent.putExtra("startDate", startDate);
+                intent.putExtra("endDate", endDate);
+                intent.putExtra("startTime", startTime);
+                intent.putExtra("endTime", endTime);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                view.getContext().startActivity(intent);*/
+
             }
         });
 
+    }
+
+    private Object getSystemService(Class<NotificationManager> notificationManagerClass) {
+        return null;
     }
 
     @Override
@@ -146,152 +230,65 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
             txtTimer = itemView.findViewById(R.id.txtTimer);
 
 
-
         }
     }
 
-    /*
 
-    // add for extend
-    // extend the time
-    // limitation, can only be done if stop
-    private void extendTime(long minutes)
+
+/*
+    // notification
+    public void fnCloseNotification()
     {
-        pauseTimer();
-        long millisInput = minutes * 60000;
-        mStartTimeInMillis = mTimeLeftInMillis + millisInput;
-        resetTimer();
-        startTimer();
-        closeKeyboard();
-    }
 
-    private void setTime(long milliseconds) {
-        pauseTimer();
-        mStartTimeInMillis = milliseconds;
-        resetTimer();
-        startTimer();
-    }
-
-    private void startTimer() {
-        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
-
-        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                mTimeLeftInMillis = millisUntilFinished;
-                updateCountDownText();
-            }
-
-            @Override
-            public void onFinish() {
-                mTimerRunning = false;
-            }
-        }.start();
-
-        mTimerRunning = true;
-    }
-
-    private void pauseTimer() {
-        if (mTimerRunning == true)
-        {
-            mCountDownTimer.cancel();
+        NotificationManagerCompat notificationManagerCompat;
+        Notification notification;
+        // notification
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = (NotificationManager) getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
         }
-        mTimerRunning = false;
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mTextViewCountDown.getContext(), "myCh")
+                .setSmallIcon(android.R.drawable.star_on)
+                .setContentTitle("First Notification")
+                .setContentText("Hello World");
+
+        notification = builder.build();
+        notificationManagerCompat = NotificationManagerCompat.from(mTextViewCountDown.getContext());
+        // notification till here
+        notificationManagerCompat.notify(1, notification);
     }
 
-    private void resetTimer() {
-        mTimeLeftInMillis = mStartTimeInMillis;
-        updateCountDownText();
-    }
+    // warning notification
+    public void fnWarnNotification()
+    {
 
-    private void updateCountDownText() {
-        int days = (int) (mTimeLeftInMillis / 1000) / 3600 / 24;
-        int hours = (int) (mTimeLeftInMillis / 1000) / 3600 % 24;
-        int minutes = (int) ((mTimeLeftInMillis / 1000) % 3600) / 60;
-        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
-
-        String timeLeftFormatted;
-
-        timeLeftFormatted = String.format(Locale.getDefault(),
-                "%02d:%02d:%02d", days, hours, minutes);
-
-        mTextViewCountDown.setText(timeLeftFormatted);
-
-        if (days == 0 && hours == 1 && minutes == 0 && seconds == 0)
-        {
-            // System.out.println("Notification done");
-            // notification
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
-                NotificationManager manager = getSystemService(NotificationManager.class);
-                manager.createNotificationChannel(channel);
-            }
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx.getApplicationContext(), "myCh")
-                    .setSmallIcon(android.R.drawable.star_on)
-                    .setContentTitle("First Notification")
-                    .setContentText("Hello World");
-
-            notification = builder.build();
-            notificationManagerCompat = NotificationManagerCompat.from(ctx.getApplicationContext());
-            // notification till here
-            notificationManagerCompat.notify(1, notification);
+        NotificationManagerCompat notificationManagerCompat;
+        Notification notification;
+        // notification
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = (NotificationManager) getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
         }
-    }
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mTextViewCountDown.getContext(), "myCh")
+                .setSmallIcon(android.R.drawable.star_on)
+                .setContentTitle("Times Up!")
+                .setContentText("Your booking time for vehicle is up.");
 
-    private void closeKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putLong("startTimeInMillis", mStartTimeInMillis);
-        editor.putLong("millisLeft", mTimeLeftInMillis);
-        editor.putBoolean("timerRunning", mTimerRunning);
-        editor.putLong("endTime", mEndTime);
-
-        editor.apply();
-
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-
-        mStartTimeInMillis = prefs.getLong("startTimeInMillis", 600000);
-        mTimeLeftInMillis = prefs.getLong("millisLeft", mStartTimeInMillis);
-        mTimerRunning = prefs.getBoolean("timerRunning", false);
-
-        updateCountDownText();
-
-        if (mTimerRunning) {
-            mEndTime = prefs.getLong("endTime", 0);
-            mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
-
-            if (mTimeLeftInMillis <= 0) {
-                mTimeLeftInMillis = 0;
-                mTimerRunning = false;
-                updateCountDownText();
-            } else {
-                startTimer();
-            }
-        }
+        notification = builder.build();
+        notificationManagerCompat = NotificationManagerCompat.from(mTextViewCountDown.getContext());
+        // notification till here
+        notificationManagerCompat.notify(2, notification);
     }*/
+
+
+
+
+
+
 }
 
 

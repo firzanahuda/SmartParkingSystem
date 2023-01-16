@@ -74,43 +74,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        dialog = new Dialog(Login.this);
-        dialog.setContentView(R.layout.profile_dialogue);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background));
-        }
-        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background));
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
-
-        Button okay = dialog.findViewById(R.id.btn_yes);
-        Button later = dialog.findViewById(R.id.btn_later);
-
-        okay.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceType")
-            @Override
-            public void onClick(View v) {
-
-                int intValue = 1;
-                Intent myIntent = new Intent(Login.this, MainActivity.class);
-                myIntent.putExtra("intVariableName", intValue);
-                startActivity(myIntent);
-                finish();
-            }
-        });
-
-        later.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                int intValue = 2;
-                Intent myIntent = new Intent(Login.this, MainActivity.class);
-                myIntent.putExtra("intVariableName", intValue);
-                startActivity(myIntent);
-                finish();
-            }
-        });
 
 
 
@@ -147,7 +110,50 @@ public class Login extends AppCompatActivity {
                                     String result = putData.getResult();
                                     if(result.equals("Login Success")){
 
+
+                                        dialog = new Dialog(Login.this);
                                         dialog.show();
+                                        dialog.setContentView(R.layout.profile_dialogue);
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                                            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background));
+                                        }
+                                        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background));
+                                        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        dialog.setCancelable(false);
+                                        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+
+                                        Button okay = dialog.findViewById(R.id.btn_yes);
+                                        Button later = dialog.findViewById(R.id.btn_later);
+
+                                        okay.setOnClickListener(new View.OnClickListener() {
+                                            @SuppressLint("ResourceType")
+                                            @Override
+                                            public void onClick(View v) {
+
+                                                int intValue = 1;
+                                                Intent myIntent = new Intent(Login.this, MainActivity.class);
+                                                myIntent.putExtra("intVariableName", intValue);
+                                                startActivity(myIntent);
+                                                finish();
+                                            }
+                                        });
+
+                                        later.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+
+                                                int intValue = 2;
+                                                Intent myIntent = new Intent(Login.this, MainActivity.class);
+                                                myIntent.putExtra("intVariableName", intValue);
+                                                startActivity(myIntent);
+                                                finish();
+                                            }
+                                        });
+
+
+
+
+
 
                                     }
                                     else{

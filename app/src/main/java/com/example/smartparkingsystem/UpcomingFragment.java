@@ -42,6 +42,7 @@ public class UpcomingFragment extends Fragment {
     View v;
     List<UpcomingClass> upcomingList;
     RecyclerView recyclerView;
+    QRGenerator qrGenerator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,6 +108,8 @@ public class UpcomingFragment extends Fragment {
                                 upcoming.getString("End_Time"),
                                 upcoming.getString("Station"),
                                 upcoming.getString("Plate_Number")
+
+
                         ));
                     }
 

@@ -2,7 +2,7 @@ package com.example.smartparkingsystem;
 
 public class RetrieveClass {
 
-    private String startDate, endDate, vehicleType, startTime, endTime, parkingSlot, penalty, carPlate;
+    private String startDate, endDate, vehicleType, startTime, endTime, parkingSlot, penalty, carPlate, status, plateNumber;
 
     public RetrieveClass(String startDate, String endDate, String vehicleType, String startTime, String endTime, String carPlate) {
         this.startDate = startDate;
@@ -13,6 +13,11 @@ public class RetrieveClass {
        // this.parkingSlot = parkingSlot;
         this.carPlate = carPlate;
         //this.penalty = penalty;
+    }
+
+    public RetrieveClass(String status, String plateNumber){
+        this.status = status;
+        this.plateNumber = plateNumber;
     }
 
     public String getStartDate() {
@@ -77,5 +82,21 @@ public class RetrieveClass {
 
     public void setPenalty(String penalty) {
         this.penalty = penalty;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
     }
 }

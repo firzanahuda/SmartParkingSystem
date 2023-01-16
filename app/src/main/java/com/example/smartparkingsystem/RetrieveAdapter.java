@@ -1,6 +1,8 @@
 package com.example.smartparkingsystem;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -35,7 +38,12 @@ public class RetrieveAdapter extends RecyclerView.Adapter<RetrieveAdapter.Retrie
 
     private Context ctx;
     private List<RetrieveClass> retrieveList;
+
+
     QRCodeRetrieve qrCodeRetrieve;
+    QRGenerator qrGenerator;
+
+
 
     public RetrieveAdapter(Context ctx, List<RetrieveClass> retrieveList) {
         this.ctx = ctx;
@@ -64,22 +72,31 @@ public class RetrieveAdapter extends RecyclerView.Adapter<RetrieveAdapter.Retrie
         holder.parkingSlot.setText(retrieveClass.getParkingSlot());
         holder.penalty.setText(retrieveClass.getPenalty());
 
-        String plateNumber = retrieveClass.getCarPlate();
 
-        // create new QRGenerator object
-        qrCodeRetrieve = new QRCodeRetrieve(plateNumber);
+        String plateNumber = retrieveClass.getCarPlate();
+        String qrcode = retrieveClass.getCarPlate();
+
+        qrGenerator = new QRGenerator(qrcode);
 
         // encrypt the carplate
-        String encryptedCarPlate = qrCodeRetrieve.fourthScanEncryption();
+        String encryptedCarPlate = qrGenerator.thirdScanEncryption();
 
-        holder.imageView2.setImageBitmap(qrCodeRetrieve.generateQRCode(encryptedCarPlate));
+        Bitmap bitmap = qrGenerator.generateQRCode(encryptedCarPlate);
+        holder.imageView2.setImageBitmap(bitmap);
 
         holder.pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                Intent intent = new Intent(v.getContext(), PaymentActivity.class);
+                intent.putExtra("carPlate", retrieveClass.getCarPlate());
+                v.getContext().startActivity(intent);
+
+
+
+                /*AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 Fragment myFragment = new PaymentFragment();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();*/
             }
         });
 

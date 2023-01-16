@@ -1,8 +1,12 @@
 package com.example.smartparkingsystem;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -35,6 +42,7 @@ public class FragmentRetrieve extends Fragment {
     String username;
     View v;
     List<RetrieveClass> retrieveList;
+    List<RetrieveClass> statusList;
     RecyclerView recyclerView;
 
 
@@ -43,7 +51,8 @@ public class FragmentRetrieve extends Fragment {
                              Bundle savedInstanceState) {
 
         retrieveList = new ArrayList<>();
-        status();
+
+        retrieveData();
 
         v = inflater.inflate(R.layout.fragment_retrieve, container, false);
 
@@ -76,11 +85,7 @@ public class FragmentRetrieve extends Fragment {
                         JSONObject retrieve = array.getJSONObject(i);
 
                         String status = retrieve.getString("status");
-                        String plateNumber = retrieve.getString("plateNumber");
-
-                        if(status.equals("parked")){
-                            retrieveData();
-                        }
+                        String carPlate = retrieve.getString("plateNumber");
 
                     }
 
@@ -116,7 +121,6 @@ public class FragmentRetrieve extends Fragment {
         requestQueue.add(request);
 
     }
-
 
 
 
@@ -191,5 +195,10 @@ public class FragmentRetrieve extends Fragment {
         requestQueue.add(request);
 
     }
+
+
+
+
+
 
 }

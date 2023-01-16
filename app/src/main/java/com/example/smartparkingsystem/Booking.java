@@ -15,6 +15,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -63,7 +64,7 @@ public class Booking extends AppCompatActivity {
     TextView tvStart, tvEnd;
     int startHour, startMinute, endHour, endMinute;
     private User user;
-    String username, station;
+    String username, station, stationID;
 
     private BookingClass bookings;
     private Vector<BookingClass> booking;
@@ -452,6 +453,310 @@ public class Booking extends AppCompatActivity {
 
     }
 
+
+    public void retrieveStationID() {
+
+        String url = "http://192.168.8.122/loginregister/retrieveStationID.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+
+                    Log.e("anyText", response);
+                    //converting the string to json array object
+                    JSONArray array = new JSONArray(response);
+
+                    //traversing through all the object
+                    for (int i = 0; i < array.length(); i++) {
+
+                        //getting product object from json array
+                        JSONObject retrieve = array.getJSONObject(i);
+
+                        stationID = retrieve.getString("stationID");
+
+                    }
+
+                    fnGetBookID(carplate, stationID);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+                username = User.getInstance().getUsername();
+
+                Map<String, String> params = new HashMap<>();
+                params.put("station", station);
+
+                return params;
+
+            }
+
+        };
+
+        requestQueue.add(request);
+
+    }
+
+
+    // need to provide the StationID and Carplate number
+    // 1. When booking confirmed, use the carplate to get the booking_ID from the Booking table,
+    // and also the Vehicle_Size from the customer_vehicle.
+    public void fnGetBookID(String carplate, String stationID)
+    {
+        ArrayList<String> bookingID = new ArrayList<>();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://192.168.8.122/loginregister/getBookingIDOCR.php?carplate=" + carplate;
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject scanObj = jsonArray.getJSONObject(i);
+                        //JSONObject scanObj = response.getJSONObject(i);
+                        String bookID = scanObj.getString("ID");
+                        bookingID.add(bookID);
+
+                        // put into the retrieve vehicle size function to be continue used
+                        fnGetVehicleSize(carplate, bookingID.get(0), stationID);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+    public void fnGetVehicleSize(String carplate, String bookingID, String stationID)
+    {
+        ArrayList<String> vehicleSize = new ArrayList<>();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://192.168.8.122/loginregister/getVehicleSize.php?carplate=" + carplate;
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    Log.e("Error", response);
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject scanObj = jsonArray.getJSONObject(i);
+                        //JSONObject scanObj = response.getJSONObject(i);
+                        String curSize = scanObj.getString("Vehicle_Type");
+                        vehicleSize.add(curSize);
+
+                        // used both string to get the floor, code, capacity and status
+                        fnParkingLot(vehicleSize.get(0), stationID, bookingID);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    // 2. use the vehicle size and Station ID to get the floor, code and capacity, and status (if not full only pick)
+    public void fnParkingLot(String vehicleSize, String stationID, String bookingID)
+    {
+        ArrayList<Integer> floorList = new ArrayList<>();
+        ArrayList<String> codeList = new ArrayList<>();
+        ArrayList<Integer> capacityList = new ArrayList<>();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://192.168.8.122/loginregister/getParkingLot.php?vehicleSize=" + vehicleSize + "&stationID=" + stationID;
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    Log.e("anyText", response);
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject scanObj = jsonArray.getJSONObject(i);
+                        //JSONObject scanObj = response.getJSONObject(i);
+                        Integer curFloor = scanObj.getInt("Floor");
+                        String curCode = scanObj.getString("Code");
+                        Integer curCapacity = scanObj.getInt("Capacity");
+                        floorList.add(curFloor);
+                        codeList.add(curCode);
+                        capacityList.add(curCapacity);
+
+
+                    }
+                    // use the Parking_Station_ID, floor and code, capacity to check with Booking_Parking_Lot table
+                    // to save the sequence in an array
+                    fnCheckSequence(stationID, floorList.get(0), codeList.get(0), capacityList.get(0), bookingID);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    // 3. use the Parking_Station_ID, floor and code to check with Booking_Parking_Lot table to save the sequence in an array,
+    // (use not in an arrray) to get the sequence, after that only change the status of the parking_lot status whether it is full or available
+    // --> how to determine if the particular parking code and floor is full? (set status in Parking_Lot table?)
+    // then insert everything (include bookingID) into the booking_parking_lot table
+    public void fnCheckSequence(String stationID, int floor, String code, int capacity, String bookingID)
+    {
+        ArrayList<Integer> sequenceList = new ArrayList<>();
+        final Integer[] correctSequence = new Integer[1];
+        correctSequence[0] = 0;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://192.168.8.122/loginregister/getSequence.php?stationID=" + stationID + "&floor=" + floor + "&code=" + code;
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    if (response.equals("No book parking yet")){
+                        sequenceList.add(0);
+                    }
+                    else{
+                        Log.e("anyText", response);
+                        JSONArray jsonArray = new JSONArray(response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject scanObj = jsonArray.getJSONObject(i);
+                            //JSONObject scanObj = response.getJSONObject(i);
+                            int curSequence = scanObj.getInt("Sequence");
+
+                            sequenceList.add(curSequence);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if (sequenceList.get(0) == 0)
+                {
+                    // as no one park in that floor and code, the sequence is 1
+                    correctSequence[0] = 1;
+                }
+                else
+                {
+                    // check which number is smaller than the capacity but is not used
+                    // then set it to the correctSequence[0]
+                    Collections.sort(sequenceList);
+
+                    for (int j = 0; j < sequenceList.size(); j++)
+                    {
+                        int curSequence = sequenceList.get(j);
+                        int supposeSequence = j+1;
+                        // if not equals to j + 1, means (j+1) sequence is left open
+                        if (curSequence != supposeSequence)
+                        {
+                            correctSequence[0] = supposeSequence;
+                            break;
+                        }
+                    }
+
+                    // if all is same, correctSequence[0] = 0, then set it to sequenceList.size() + 1
+                    if (correctSequence[0] == 0)
+                    {
+                        correctSequence[0] = sequenceList.size() + 1;
+                    }
+                }
+
+                // go to the saving booking_parking_lot row (use BookingID, stationID, floor, code, sequence)
+                fnInsertBookPark(bookingID, stationID, floor, code, correctSequence[0]);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    // insert new row into booking_parking_lot row (use BookingID, stationID, floor, code, sequence)
+    public void fnInsertBookPark(String bookingID, String stationID, int floor, String code, int sequence)
+    {
+        // insert all into the scanning database
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                // Starting Write and Read data with URL
+                // Creating array for parameters
+                String[] field = new String[5];
+                field[0] = "bookingID";
+                field[1] = "stationID";
+                field[2] = "floor";
+                field[3] = "code";
+                field[4] = "sequence";
+
+                // Creating array for data
+                String[] data = new String[5];
+                data[0] = bookingID;
+                data[1] = stationID;
+                data[2] = String.valueOf(floor);
+                data[3] = code;
+                data[4] = String.valueOf(sequence);
+
+                PutData putData = new PutData("http://192.168.8.122/loginregister/insertNewBookPark.php", "POST", field, data);
+                if(putData.startPut()) {
+                    if(putData.onComplete()) {
+                        String result = putData.getResult();
+                        if(result.equals("Insert book park row success")) {
+                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                //End Write and Read Data with URL
+            }
+        });
+    }
+
+
     private void fnAdd() throws ParseException {
         //textInputCarPlate = findViewById(R.id.carPlate);
         //textInputVehicle = findViewById(R.id.vehicle);
@@ -566,6 +871,8 @@ public class Booking extends AppCompatActivity {
                         bookingID = "B0000" + Integer.toString(max);
                     }
 
+                    User.getInstance().setBookingID(bookingID);
+
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
                         @Override
@@ -607,6 +914,7 @@ public class Booking extends AppCompatActivity {
                                     String result = putData.getResult();
                                     if (result.equals("Booking Success!")) {
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                        retrieveStationID();
                                         //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         //startActivity(intent);
                                         //finish();

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentFragment">
+    tools:context=".PaymentActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -22,7 +22,7 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:weightSum="100"
-  >
+        >
 
         <TextView
             android:id="@+id/txtFloorHeader"

@@ -42,7 +42,7 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
 
         historyList = new ArrayList<>();
-        retrieveData();
+
 
         v = inflater.inflate(R.layout.fragment_history, container, false);
 
@@ -50,12 +50,14 @@ public class HistoryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        retrieveData();
+
         return v;
     }
 
     public void retrieveData() {
 
-        String url = "http://192.168.8.122/loginregister/getUpcomingData.php";
+        String url = "http://192.168.8.122/loginregister/getHistoryData.php";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

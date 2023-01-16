@@ -1,5 +1,6 @@
 package com.example.smartparkingsystem;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -57,7 +58,15 @@ public class QRCodeFragment extends Fragment {
 
         imgQR = v.findViewById(R.id.qrcode);
 
-        String qrCode = UpcomingClass.getInstance().getQrCode();
+        String qrCode = UpcomingClass.getInstance().getSaveQRCode();
+
+        // create new QRGenerator object
+        //qrGenerator = new QRGenerator(qrCode);
+
+        // encrypt the carplate
+        //String encryptedCarPlate = qrGenerator.thirdScanEncryption();
+
+        Log.e("anyText", qrCode);
 
         imgQR.setImageBitmap(qrGenerator.generateQRCode(qrCode));
 

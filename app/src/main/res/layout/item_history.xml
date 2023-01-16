@@ -1,119 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HistoryFragment">
+    android:layout_height="match_parent">
+
 
     <TextView
-        android:id="@+id/price"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="168dp"
+        android:layout_height="250dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/squarepurple"></TextView>
+        android:background="@drawable/squarepurple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
         android:id="@+id/station"
-        android:layout_width="230dp"
-        android:layout_height="38dp"
-        android:layout_marginLeft="27dp"
+        style="@style/WhiteText"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/squarewhite"
         android:fontFamily="@font/poppinsbold"
-        android:gravity="center_vertical"
-        android:text="Station"
-        android:textColor="@color/white" />
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station">
+
+        <TextView
+            android:id="@+id/textStart"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Start Date"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textEnd"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="End Date"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="44dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station">
+
+        <TextView
+            android:id="@+id/startDate"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/endDate"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="74dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station">
+
+        <TextView
+            android:id="@+id/textStartTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Start Time"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textEndTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="End Time"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="104dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station">
+
+        <TextView
+            android:id="@+id/startTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/endTime"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="134dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station">
+
+        <TextView
+            android:id="@+id/textVehiclePN"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Plate Number"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/Duration"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Duration"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="164dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station">
+
+        <TextView
+            android:id="@+id/carPlate"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/duration"
+            style="@style/WhiteText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="#69BB01"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
 
 
 
-    <TextView
-        android:id="@+id/startTime"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="50dp"
-        android:text = "start time"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:fontFamily="@font/poppinsbold"
-        android:background="@drawable/squarewhite" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:background="@drawable/squarewhite"
-        android:id="@+id/endTime"
-        android:text = "end time"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:fontFamily="@font/poppinsbold"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="270dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:background="@drawable/squarewhite"
-        android:id="@+id/duration"
-        android:text = "--- Duration ---"
-        android:textSize="10sp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:fontFamily="@font/poppinsbold"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="150dp"/>
-
-    <TextView
-        android:id="@+id/startDate"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="80dp"
-        android:text = "start date"
-        android:gravity="center"
-        android:textColor="#69BB01"
-        android:fontFamily="@font/poppinsbold"
-        android:background="@drawable/squarewhite" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:background="@drawable/squarewhite"
-        android:id="@+id/endDate"
-        android:text = "end time"
-        android:gravity="center"
-        android:textColor="#69BB01"
-        android:fontFamily="@font/poppinsbold"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="270dp"/>
-
-
-
-    <TextView
-        android:id="@+id/carPlate"
-        android:layout_width="wrap_content"
-        android:layout_height="49dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/squarewhite"
-        android:fontFamily="@font/poppinsbold"
-        android:gravity="center"
-        android:text="carplate"
-        android:textColor="#FF7A00" />
-
-    <TextView
-        android:id="@+id/totalPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="49dp"
-        android:layout_marginLeft="250dp"
-        android:textSize="20sp"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/squarewhite"
-        android:fontFamily="@font/poppinsbold"
-        android:gravity="center"
-        android:text="total price"
-        android:textColor="#FF7A00" />
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
