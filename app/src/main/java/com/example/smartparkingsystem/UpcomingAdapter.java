@@ -50,7 +50,7 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.Upcomi
         holder.duration.setText(upcomingClass.getDuration());
         holder.startTime.setText(upcomingClass.getStartTime());
         holder.endTime.setText(upcomingClass.getEndTime());
-        holder.station.setText(upcomingClass.getStation());
+        holder.station.setText(upcomingClass.getStation() + " Station");
 
         String qrcode = upcomingClass.getCarPlate();
 

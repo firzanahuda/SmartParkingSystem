@@ -76,11 +76,15 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
         CurrentClass currentClass = currentList.get(position);
 
         holder.station.append(currentClass.getStation() + " Station");
+        holder.carplate.append(currentClass.getCarPlate());
+        holder.txtFloor.append(currentClass.getFloor());
+        holder.txtParking.append(currentClass.getCode() + " 00" + currentClass.getSequence());
 
         String startDate = currentClass.getStarting_Date();
         String endDate = currentClass.getEnd_Date();
         String startTime = currentClass.getStart_Time();
         String endTime = currentClass.getEnd_Time();
+        String carPlate = currentClass.getCarPlate();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
@@ -191,6 +195,7 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
                 bundle.putString("endDate", endDate);
                 bundle.putString("startTime", startTime);
                 bundle.putString("endTime", endTime);
+                bundle.putString("carPlate", carPlate);
                 Intent intent = new Intent(view.getContext(), ExtendActivity.class);
                 intent.putExtras(bundle);
                 view.getContext().startActivity(intent);
@@ -218,16 +223,19 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
 
     class CurrentViewHolder extends RecyclerView.ViewHolder {
 
-        TextView station, txtTimer;
+        TextView station, txtTimer, carplate, txtFloor, txtParking;
         Button extend;
 
         public CurrentViewHolder(View itemView) {
             super(itemView);
 
             station = itemView.findViewById(R.id.txtStation);
-
+            carplate = itemView.findViewById(R.id.carPlate);
             extend = itemView.findViewById(R.id.extend);
             txtTimer = itemView.findViewById(R.id.txtTimer);
+            txtFloor = itemView.findViewById(R.id.txtFloor);
+            txtParking = itemView.findViewById(R.id.txtParking);
+
 
 
         }

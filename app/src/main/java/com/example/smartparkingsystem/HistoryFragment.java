@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -35,6 +37,13 @@ public class HistoryFragment extends Fragment {
     View v;
     List<HistoryClass> historyList;
     RecyclerView recyclerView;
+    ImageView imageView;
+    TextView textView;
+    //filtered list
+    List<HistoryClass> filteredList= new ArrayList<HistoryClass>();
+
+    //filters
+    List<String> filters = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +54,9 @@ public class HistoryFragment extends Fragment {
 
 
         v = inflater.inflate(R.layout.fragment_history, container, false);
+
+        imageView = v.findViewById(R.id.retrieve);
+        textView = v.findViewById(R.id.textretrieve);
 
         recyclerView = v.findViewById(R.id.recylcerView);
         recyclerView.setHasFixedSize(true);
@@ -84,13 +96,42 @@ public class HistoryFragment extends Fragment {
                                 history.getString("Start_Time"),
                                 history.getString("End_Time"),
                                 history.getString("Station"),
-                                history.getString("Plate_Number")
+                                history.getString("Plate_Number"),
+                                history.getString("totalPrice"),
+                                history.getString("status")
                         ));
+
+                    }
+
+                    filters.add("done");
+
+                    //now filter the original list
+
+                    for(int i = 0 ; i<historyList.size() ; i++){
+
+                        HistoryClass item = historyList.get(i);
+
+                        if(filters.contains(item.getStatus())){
+
+                            filteredList.add(item);
+
+                        }
+                    }
+
+                    if(filteredList.size() == 0){
+
+                        imageView.setVisibility(View.VISIBLE);
+                        textView.setVisibility(View.VISIBLE);
+
+                    }else
+                    {
+                        imageView.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
                     }
 
 
                     //creating adapter object and setting it to recyclerview
-                    HistoryAdapter adapter = new HistoryAdapter(getContext(), historyList);
+                    HistoryAdapter adapter = new HistoryAdapter(getContext(), filteredList);
                     recyclerView.setAdapter(adapter);
 
 

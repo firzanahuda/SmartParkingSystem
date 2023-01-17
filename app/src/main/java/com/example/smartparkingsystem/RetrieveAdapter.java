@@ -69,8 +69,8 @@ public class RetrieveAdapter extends RecyclerView.Adapter<RetrieveAdapter.Retrie
         holder.vehicleType.setText(retrieveClass.getVehicleType());
         holder.startTime.setText(retrieveClass.getStartTime());
         holder.endTime.setText(retrieveClass.getEndTime());
-        holder.parkingSlot.setText(retrieveClass.getParkingSlot());
-        holder.penalty.setText(retrieveClass.getPenalty());
+        holder.parkingSlot.setText((retrieveClass.getFloor() + retrieveClass.getCode() + "00" + retrieveClass.getSequence()));
+
 
 
         String plateNumber = retrieveClass.getCarPlate();

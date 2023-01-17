@@ -8,19 +8,41 @@
     <TextView
         android:id="@+id/warning"
         android:layout_width="378dp"
-        android:layout_height="69dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/squareorange"
         android:fontFamily="@font/poppinsbold"
         android:gravity="center"
+        android:textSize="10sp"
         android:text="You can retrieve your car after you have done payment"
         android:textColor="@color/white"></TextView>
 
+    <ImageView
+        android:id="@+id/retrieve"
+        android:layout_width="184dp"
+        android:layout_height="251dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:src="@drawable/carpo" />
+
+
+    <TextView
+        android:id="@+id/textretrieve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Oops... There is no Retrieve Activity yet"
+        android:layout_marginTop="300dp"
+        android:textSize="15sp"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        style="@style/PurpleText"></TextView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerView"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="745dp"

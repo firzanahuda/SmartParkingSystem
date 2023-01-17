@@ -20,90 +20,137 @@
             android:id="@+id/ListTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="0dp"
             android:fontFamily="@font/poppinsbold"
             android:gravity="center"
-            android:text="Create Your Profile"
-            android:textSize="27sp"
+            android:text="My Profile"
+            android:textSize="20sp"
             style="@style/PurpleText" />
 
         <EditText
             android:id="@+id/edtFirstName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:ems="10"
-            android:hint="First Name"
+            android:layout_marginTop="10dp"
+            android:hint=" First Name"
+            android:textSize="17sp"
+            android:background="@drawable/bg_round"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/edtLastName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
             android:ems="10"
-            android:hint="Last Name"
+            android:textSize="17sp"
+            android:background="@drawable/bg_round"
+            android:hint=" Last Name"
             android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/edtNoPhone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
             android:ems="10"
-            android:hint="Phone Number"
+            android:textSize="17sp"
+            android:background="@drawable/bg_round"
+            android:hint=" Phone Number"
             android:inputType="textPhonetic" />
+
         <EditText
             android:id="@+id/edtNoIC"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_round"
+            android:layout_marginTop="5dp"
             android:ems="10"
-            android:hint="IC Number"
+            android:textSize="17sp"
+            android:hint=" IC Number"
             android:inputType="textPhonetic" />
 
         <TextView
-            android:id="@+id/carNumber"
-            android:layout_marginTop="40dp"
+            android:id="@+id/warning"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Number of car:" />
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/squarepurple"
+            android:fontFamily="@font/poppinsbold"
+            android:gravity="center"
+            android:textSize="8sp"
+            android:text="Please fill in Car Plate Number will capital letters without spacing. Maximum 5!"
+            android:textColor="@color/white"></TextView>
+
+        <TextView
+            android:id="@+id/carNumber"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:textSize="17sp"
+            android:layout_height="20dp"
+            android:text=" Number of car:" />
 
         <Spinner
             android:id="@+id/spnState"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_round"
+            android:layout_height="50dp"
             android:entries="@array/number_arrays" />
 
         <EditText
             android:id="@+id/carPlateNum"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:ems="10"
-            android:hint="Car Plate Number 1"
+            android:background="@drawable/bg_round"
+            android:layout_marginTop="5dp"
+            android:hint=" Car Plate Number 1"
+            android:textSize="17sp"
             android:inputType="textPersonName" />
         <EditText
             android:id="@+id/carPlateNum2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_round"
+            android:layout_marginTop="5dp"
             android:ems="10"
-            android:hint="Car Plate Number 2"
+            android:hint=" Car Plate Number 2"
+            android:textSize="17sp"
             android:inputType="textPersonName" />
         <EditText
             android:id="@+id/carPlateNum3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_round"
+            android:layout_marginTop="5dp"
+            android:textSize="17sp"
             android:ems="10"
-            android:hint="Car Plate Number 3"
+            android:hint=" Car Plate Number 3"
             android:inputType="textPersonName" />
         <EditText
             android:id="@+id/carPlateNum4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_round"
+            android:textSize="17sp"
             android:ems="10"
-            android:hint="Car Plate Number 4"
+            android:hint=" Car Plate Number 4"
             android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/carPlateNum5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="17sp"
+            android:background="@drawable/bg_round"
+            android:layout_marginTop="5dp"
             android:ems="10"
-            android:hint="Car Plate Number 5"
+            android:hint=" Car Plate Number 5"
             android:inputType="textPersonName" />
 
 

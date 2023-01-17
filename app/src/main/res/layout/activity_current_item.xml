@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="430dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/bg_round">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="190dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
@@ -90,7 +94,6 @@
             android:layout_height="50dp"
             android:background="@color/black"
             android:gravity="center"
-            android:text="5"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="50"
@@ -104,7 +107,6 @@
             android:layout_height="50dp"
             android:background="@color/black"
             android:gravity="center"
-            android:text="A001"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_weight="50"
@@ -114,12 +116,39 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtStation">
+
+        <TextView
+            android:id="@+id/carPlate"
+            android:layout_width="52dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="50"
+            style="@style/GreenText"
+            android:textAlignment="center"
+            android:textSize="17sp"
+
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
         <TextView
 
             android:id="@+id/txtTimer"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="145dp"
             android:layout_weight="100"
             android:gravity="center_horizontal"
             android:text="00:00:00"
@@ -131,8 +160,8 @@
 
     <LinearLayout
         android:layout_width="389dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="210dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:weightSum="100"
@@ -177,6 +206,23 @@
 
     </LinearLayout>
 
+    <TextView
+
+        android:id="@+id/retrieve"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="250dp"
+        android:layout_weight="100"
+        android:gravity="center"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
+        android:text="QR Code for retrieving car >"
+        style="@style/GreenText"
+        android:textAlignment="center"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtStation"/>
 
 
     <androidx.appcompat.widget.AppCompatButton

@@ -41,7 +41,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         holder.duration.setText(historyClass.getDuration());
         holder.startTime.setText(historyClass.getStartTime());
         holder.endTime.setText(historyClass.getEndTime());
-        holder.station.setText(historyClass.getStation());
+        holder.station.setText(historyClass.getStation() + " Station");
+        holder.total.setText("RM " + historyClass.getTotalPrice());
 
     }
 
@@ -52,7 +53,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     class HistoryViewHolder extends RecyclerView.ViewHolder {
 
-        TextView startTime, endTime, duration, startDate, endDate, station, carPlate;
+        TextView startTime, endTime, duration, startDate, endDate, station, carPlate, total;
 
         public HistoryViewHolder(View itemView) {
             super(itemView);
@@ -64,6 +65,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             this.endDate = itemView.findViewById(R.id.endDate);
             this.station = itemView.findViewById(R.id.station);
             this.carPlate = itemView.findViewById(R.id.carPlate);
+            this.total = itemView.findViewById(R.id.total);
 
 
 

@@ -267,7 +267,6 @@
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40dp"
-            android:text="5 A001"
             android:layout_marginTop="0dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"

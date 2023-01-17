@@ -44,6 +44,8 @@ public class FragmentRetrieve extends Fragment {
     List<RetrieveClass> retrieveList;
     List<RetrieveClass> statusList;
     RecyclerView recyclerView;
+    ImageView imageView;
+    TextView textView;
 
 
     @Override
@@ -56,6 +58,8 @@ public class FragmentRetrieve extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_retrieve, container, false);
 
+        imageView = v.findViewById(R.id.retrieve);
+        textView = v.findViewById(R.id.textretrieve);
         recyclerView = v.findViewById(R.id.recylcerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -152,16 +156,30 @@ public class FragmentRetrieve extends Fragment {
                                 retrieve.getString("vehicle_Type"),
                                 retrieve.getString("Start_Time"),
                                 retrieve.getString("End_Time"),
-                                //retrieve.getString("Parking_Lot"),
-                                //retrieve.getString("Penalty"),
-                                retrieve.getString("Plate_Number")
+                                retrieve.getString("Plate_Number"),
+                                retrieve.getString("floor"),
+                                retrieve.getString("code"),
+                                retrieve.getString("sequence"),
+                                retrieve.getString("status")
                         ));
                     }
+
 
 
                     //creating adapter object and setting it to recyclerview
                     RetrieveAdapter adapter = new RetrieveAdapter(getContext(), retrieveList);
                     recyclerView.setAdapter(adapter);
+
+                    if(retrieveList.size() == 0){
+
+                        imageView.setVisibility(View.VISIBLE);
+                        textView.setVisibility(View.VISIBLE);
+
+                    }else
+                    {
+                        imageView.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
+                    }
 
 
                 } catch (JSONException e) {

@@ -6,22 +6,32 @@
     tools:context=".HistoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+
+    <ImageView
+        android:id="@+id/retrieve"
+        android:layout_width="184dp"
+        android:layout_height="251dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:src="@drawable/carpo" />
+
+
     <TextView
-        android:id="@+id/warning"
-        android:layout_width="378dp"
-        android:layout_height="69dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/squareorange"
+        android:id="@+id/textretrieve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Oops... There is no History Activity yet"
+        android:layout_marginTop="300dp"
+        android:textSize="13sp"
         android:fontFamily="@font/poppinsbold"
         android:gravity="center"
-        android:text="Your History Activities will be shown below once you have done booking"
-        android:textColor="@color/white"></TextView>
+        style="@style/PurpleText"></TextView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerView"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="745dp"

@@ -6,21 +6,39 @@
     tools:context=".UpcomingFragment">
 
 
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="378dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/squareorange"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:text="Please scan QRCode after you have parked your car"
+        android:textColor="@color/white"></TextView>
+
+
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center_horizontal"
-        android:src="@drawable/flower" />
+        android:id="@+id/retrieve"
+        android:layout_width="184dp"
+        android:layout_height="251dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:src="@drawable/carpo" />
+
 
     <TextView
+        android:id="@+id/textretrieve"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="oops... There is no current activity yet"
-        android:layout_marginTop="400dp"
-        android:textSize="15sp"
+        android:text="Oops... There is no Upcoming Activity yet"
+        android:layout_marginTop="300dp"
+        android:textSize="13sp"
         android:fontFamily="@font/poppinsbold"
         android:gravity="center"
         style="@style/PurpleText"></TextView>
@@ -29,7 +47,7 @@
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerView"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:background="@drawable/squarewhite"
         android:layout_height="match_parent"

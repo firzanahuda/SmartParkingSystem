@@ -2,7 +2,7 @@ package com.example.smartparkingsystem;
 
 public class HistoryClass {
 
-    private String startTime, endTime, duration, startDate, endDate, station, carPlate;
+    private String startTime, endTime, duration, startDate, endDate, station, carPlate, totalPrice, status;
 
     private static final HistoryClass instance = new HistoryClass();
 
@@ -15,7 +15,8 @@ public class HistoryClass {
         super();
     }
 
-    public HistoryClass(String startTime, String endTime, String duration, String startDate, String endDate, String station, String carPlate) {
+    public HistoryClass(String startTime, String endTime, String duration, String startDate, String endDate, String station, String carPlate,
+                        String totalPrice, String status) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
@@ -23,6 +24,8 @@ public class HistoryClass {
         this.endDate = endDate;
         this.station = station;
         this.carPlate = carPlate;
+        this.totalPrice = totalPrice;
+        this.status = status;
     }
 
     public String getStartTime() {
@@ -79,5 +82,21 @@ public class HistoryClass {
 
     public void setCarPlate(String carPlate) {
         this.carPlate = carPlate;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

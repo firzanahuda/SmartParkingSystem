@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -37,7 +39,15 @@ public class CurrentFragment extends Fragment {
     String username;
     View v;
     List<CurrentClass> currentList;
+    //filtered list
+    List<CurrentClass> filteredList= new ArrayList<CurrentClass>();
+
+    //filters
+    List<String> filters = new ArrayList<String>();
     RecyclerView recyclerView;
+
+    ImageView imageView;
+    TextView textView;
 
 
 
@@ -49,6 +59,8 @@ public class CurrentFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_current, container, false);
 
+        imageView = v.findViewById(R.id.retrieve);
+        textView = v.findViewById(R.id.textretrieve);
         recyclerView = v.findViewById(R.id.recylcerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -145,20 +157,48 @@ public class CurrentFragment extends Fragment {
 
                         //adding the product to product list
                         currentList.add(new CurrentClass(
-
                                 current.getString("Starting_Date"),
                                 current.getString("End_Date"),
                                 current.getString("Start_Time"),
                                 current.getString("End_Time"),
-                                current.getString("station")
-
+                                current.getString("station"),
+                                current.getString("carPlate"),
+                                current.getString("floor"),
+                                current.getString("code"),
+                                current.getString("sequence"),
+                                current.getString("status")
 
                         ));
                     }
 
+                    filters.add("parked");
+
+                    //now filter the original list
+
+                    for(int i = 0 ; i<currentList.size() ; i++){
+
+                        CurrentClass item = currentList.get(i);
+
+                        if(filters.contains(item.getStatus())){
+
+                            filteredList.add(item);
+
+                        }
+                    }
+
+                    if(filteredList.size() == 0){
+
+                        imageView.setVisibility(View.VISIBLE);
+                        textView.setVisibility(View.VISIBLE);
+
+                    }else
+                    {
+                        imageView.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
+                    }
 
                     //creating adapter object and setting it to recyclerview
-                    CurrentAdapter adapter = new CurrentAdapter(getContext(), currentList);
+                    CurrentAdapter adapter = new CurrentAdapter(getContext(), filteredList);
                     recyclerView.setAdapter(adapter);
 
 

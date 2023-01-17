@@ -8,9 +8,31 @@
     <!-- TODO: Update blank fragment layout -->
 
 
+    <ImageView
+        android:id="@+id/retrieve"
+        android:layout_width="184dp"
+        android:layout_height="251dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:src="@drawable/carpo" />
+
+
+    <TextView
+        android:id="@+id/textretrieve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Oops... There is no Current Activity yet"
+        android:layout_marginTop="300dp"
+        android:textSize="13sp"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        style="@style/PurpleText"></TextView>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerView"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
 
         android:layout_height="match_parent"

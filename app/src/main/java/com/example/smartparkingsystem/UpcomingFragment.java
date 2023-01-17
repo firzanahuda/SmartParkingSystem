@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,13 @@ public class UpcomingFragment extends Fragment {
     List<UpcomingClass> upcomingList;
     RecyclerView recyclerView;
     QRGenerator qrGenerator;
+    ImageView imageView;
+    TextView textView;
+    //filtered list
+    List<UpcomingClass> filteredList= new ArrayList<UpcomingClass>();
+
+    //filters
+    List<String> filters = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +60,9 @@ public class UpcomingFragment extends Fragment {
         retrieveData();
 
             v = inflater.inflate(R.layout.fragment_upcoming, container, false);
+
+        imageView = v.findViewById(R.id.retrieve);
+        textView = v.findViewById(R.id.textretrieve);
 
             recyclerView = v.findViewById(R.id.recylcerView);
             recyclerView.setHasFixedSize(true);
@@ -107,16 +118,47 @@ public class UpcomingFragment extends Fragment {
                                 upcoming.getString("Start_Time"),
                                 upcoming.getString("End_Time"),
                                 upcoming.getString("Station"),
-                                upcoming.getString("Plate_Number")
+                                upcoming.getString("Plate_Number"),
+                                upcoming.getString("status")
 
 
                         ));
                     }
 
 
-                    //creating adapter object and setting it to recyclerview
-                    UpcomingAdapter adapter = new UpcomingAdapter(getContext(), upcomingList);
-                    recyclerView.setAdapter(adapter);
+                    filters.add("parked");
+                    filters.add("paid");
+                    filters.add("retrieve");
+                    filters.add("done");
+
+                    //now filter the original list
+
+                    for(int i = 0 ; i<upcomingList.size() ; i++) {
+
+                        UpcomingClass item = upcomingList.get(i);
+
+                        if (filters.contains(item.getStatus())) {
+
+                            filteredList.add(item);
+                            UpcomingAdapter adapter = new UpcomingAdapter(getContext(), filteredList);
+                            recyclerView.setAdapter(adapter);
+
+                            imageView.setVisibility(View.GONE);
+                            textView.setVisibility(View.GONE);
+
+                        } else {
+
+                            List<UpcomingClass> filtered = new ArrayList<UpcomingClass>();
+                            UpcomingAdapter adapter = new UpcomingAdapter(getContext(), filtered);
+                            recyclerView.setAdapter(adapter);
+
+                            imageView.setVisibility(View.VISIBLE);
+                            textView.setVisibility(View.VISIBLE);
+
+                        }
+                    }
+
+
 
 
                 } catch (JSONException e) {

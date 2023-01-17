@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartParkingSystem</string>
+    <string name="app_name"></string>
     <string name="login">Login</string>
     <string name="UserName">UserName</string>
     <string name="password">Password</string>

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="320dp">
 
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
@@ -83,26 +83,24 @@
 
         <TextView
             android:id="@+id/startDate"
-            style="@style/WhiteText"
+            style="@style/OrangeText"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="0dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
-            android:textColor="#69BB01"
             android:textSize="15sp" />
 
 
         <TextView
             android:id="@+id/endDate"
-            style="@style/WhiteText"
+            style="@style/OrangeText"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_marginRight="30dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
-            android:textColor="#69BB01"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -155,26 +153,24 @@
 
         <TextView
             android:id="@+id/startTime"
-            style="@style/WhiteText"
+            style="@style/OrangeText"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="0dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
-            android:textColor="#69BB01"
             android:textSize="15sp" />
 
 
         <TextView
             android:id="@+id/endTime"
-            style="@style/WhiteText"
+            style="@style/OrangeText"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_marginRight="30dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
-            android:textColor="#69BB01"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -216,6 +212,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="389dp"
         android:layout_height="30dp"
         android:layout_marginTop="164dp"
@@ -227,26 +224,59 @@
 
         <TextView
             android:id="@+id/carPlate"
-            style="@style/WhiteText"
+            style="@style/OrangeText"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="0dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
-            android:textColor="#69BB01"
             android:textSize="15sp" />
 
 
         <TextView
             android:id="@+id/duration"
-            style="@style/WhiteText"
+            style="@style/OrangeText"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_marginRight="30dp"
             android:layout_weight="50"
             android:fontFamily="@font/poppinsmedium"
-            android:textColor="#69BB01"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="389dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="204dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station">
+
+        <TextView
+            android:id="@+id/textTotalPrice"
+            style="@style/GreenText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Total Price"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/total"
+            style="@style/GreenText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="50"
+            android:fontFamily="@font/poppinsbold"
             android:textSize="15sp" />
 
     </LinearLayout>
