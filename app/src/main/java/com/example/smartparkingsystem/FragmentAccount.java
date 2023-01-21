@@ -39,7 +39,7 @@ public class FragmentAccount extends Fragment {
     String username;
     Button edtProfilebtn, edtPassword;
 
-    TextView nameuser;
+    TextView nameuser, logout;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -100,9 +100,21 @@ public class FragmentAccount extends Fragment {
         edtProfilebtn = v.findViewById(R.id.edtProfilebtn);
         edtPassword = v.findViewById(R.id.edtPassword);
         nameuser = v.findViewById(R.id.username);
+        logout = v.findViewById(R.id.logout);
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), Login.class);
+                startActivity(intent);
+
+            }
+        });
 
         username = User.getInstance().getUsername();
-        nameuser.append(username);
+        nameuser.append("@" + username);
 
         edtProfilebtn.setOnClickListener(new View.OnClickListener() {
             @Override

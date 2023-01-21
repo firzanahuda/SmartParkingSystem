@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import com.example.smartparkingsystem.databinding.ActivityEndDateBinding;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class EndDate extends AppCompatActivity {
 
     ActivityEndDateBinding binding;
@@ -29,12 +33,16 @@ public class EndDate extends AppCompatActivity {
         calendarView = (CalendarView) findViewById(R.id.calendar);
         myDate = (TextView) findViewById(R.id.dateend);
 
+        calendarView.setMinDate(System.currentTimeMillis() - 1000);
+
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 String date = dayOfMonth + "/" + (month+1) + "/" + year;
                 myDate.setText(date);
+
+
             }
         });
 

@@ -2,12 +2,7 @@ package com.example.smartparkingsystem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -33,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,9 +38,12 @@ public class PaymentActivity extends AppCompatActivity {
 
     String username, carPlate, plateNumber, bookingID;
     String totalPay;
-    TextView bookingpayment, extendPayment, totalPayment;
+    TextView textplatenumber, parkingstation, start, endTime, duration, parkingslot, penalty;
+    TextView normalDay, holiday, normalHour, holidayHour, Total;
     View v;
     Button payment;
+    int Tot;
+    int jumlah;
 
     String PublishableKey = "pk_test_51MPSdPDBT7fQ7TQlbaKw4HpmCIfxiRQgIWanGmPWSlGTICOZpH1cmtFATKk5KdEB4Wby2I9Z2L5YBvXTNBW9AROE007JPUNFRK";
     String SecretKey = "sk_test_51MPSdPDBT7fQ7TQlsZgrBBvgoxVKijNU3J9zypgblHSe1Ix5ZvEa8dSFhxODYpvpv1ybRmQnHCyOqf0RrTqGKsXq00eovqtVxh";
@@ -52,6 +51,7 @@ public class PaymentActivity extends AppCompatActivity {
     String EphericalKey;
     String ClientSecret;
     PaymentSheet paymentSheet;
+    String Normal_Price_Per_Hour, Holiday_Price_Per_Hour, Normal_Price_Per_Day, Holiday_Price_Per_Day, Penalty_Price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +61,22 @@ public class PaymentActivity extends AppCompatActivity {
         plateNumber = getIntent().getStringExtra("carPlate");
         Log.e("carPlate", plateNumber);
 
+        textplatenumber = findViewById(R.id.textPlateNumber);
+        parkingstation = findViewById(R.id.parkingStation);
+        start = findViewById(R.id.start);
+        endTime = findViewById(R.id.endTime);
+        //duration = findViewById(R.id.duration);
+        parkingslot = findViewById(R.id.parkingslot);
+        penalty = findViewById(R.id.penalty);
+        payment = findViewById(R.id.pay);
 
-        bookingpayment = findViewById(R.id.bookingpayment);
-        extendPayment = findViewById(R.id.extendPayment);
-        totalPayment = findViewById(R.id.totalPayment);
-        payment = findViewById(R.id.paymentflow);
+        normalDay = findViewById(R.id.normalDay);
+        holiday = findViewById(R.id.holiday);
+        normalHour = findViewById(R.id.normalHour);
+        holidayHour = findViewById(R.id.holidayhour);
+        Total = findViewById(R.id.Total);
+
+        //jumlah = Integer.parseInt(Tot);
 
         retrieveData();
 
@@ -147,8 +158,8 @@ public class PaymentActivity extends AppCompatActivity {
         if(paymentSheetResult instanceof PaymentSheetResult.Completed){
 
             Toast.makeText(getApplicationContext(),"Payment Success", Toast.LENGTH_SHORT).show();
-            sendData();
-            sendScanning();
+
+            fnGetBookingID(carPlate);
         }
     }
 
@@ -260,7 +271,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("customer", CustomerID);
-                params.put("amount", totalPay + "00");
+                params.put("amount", Tot + "00");
                 params.put("currency", "MYR");
                 params.put("automatic_payment_methods[enabled]", "true");
 
@@ -274,7 +285,7 @@ public class PaymentActivity extends AppCompatActivity {
 
 
 
-    public void sendScanning(){
+    public void sendScanning(String bookingID){
 
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
@@ -321,7 +332,7 @@ public class PaymentActivity extends AppCompatActivity {
 
 
 
-    public void sendData(){
+    public void sendData(String bookingID){
 
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
@@ -341,7 +352,7 @@ public class PaymentActivity extends AppCompatActivity {
                 field[2] = "status";
                 field[3] = "bookingID";
                 //Creating array for data
-                String[] data = new String[3];
+                String[] data = new String[4];
                 data[0] = date;
                 data[1] = username;
                 data[2] = status;
@@ -367,7 +378,44 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+    public void fnGetBookingID(String carplate)
+    {
+        // for getting the scan number
+        //ArrayList<Integer> scanIDIntList = new ArrayList<>();
+        ArrayList<String> bookingID = new ArrayList<>();
 
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://192.168.8.122/loginregister/getBookingIDOCR.php?carplate=" + carplate;
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject scanObj = jsonArray.getJSONObject(i);
+                        //JSONObject scanObj = response.getJSONObject(i);
+                        String bookID = scanObj.getString("ID");
+                        bookingID.add(bookID);
+
+                        // check whether the carplate exist in the scanning database
+                        sendScanning(bookingID.get(0));
+                        sendData(bookingID.get(0));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
 
     public void retrieveData(){
 
@@ -387,26 +435,32 @@ public class PaymentActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject obj = jsonArray.getJSONObject(i);
 
-                        String bookingPayment = obj.getString("bookingPayment");
-                        String extend = obj.getString("extend");
-                        String total = obj.getString("total");
+                        String startDate = obj.getString("Starting_Date");
+                        String endDate = obj.getString("End_Date");
+                        String startTime = obj.getString("Start_Time");
+                        String endtime = obj.getString("End_Time");
+                        String parkingStation = obj.getString("station");
                         carPlate = obj.getString("carPlate");
+                        String Duration = obj.getString("duration");
+                        String floor = obj.getString("floor");
+                        String code = obj.getString("code");
+                        String sequence = obj.getString("sequence");
+
                         bookingID = obj.getString("bookingID");
 
 
-                        int num = Integer.parseInt(total.replaceAll("[\\D]", ""));
-                        num = num/10;
+                        textplatenumber.append(carPlate);
+                        parkingstation.append(parkingStation);
+                        start.append(startDate + " " + startTime);
+                        endTime.append(endDate + endtime);
+                        //duration.append(Duration);
+                        parkingslot.append(floor + code + sequence);
 
-                        totalPay = String.valueOf(num);
-                        System.out.println(totalPay);
+                        priceUpdate();
 
-                        if(extend.equals(""))
-                            extend = "0";
+                        User.getInstance().setBooking(bookingID);
 
-                        bookingpayment.append(bookingPayment);
-                        extendPayment.append(extend);
-                        totalPayment.append(total);
-
+                        fnGetPenaltyTable(carPlate);
                     }
 
                 } catch (JSONException e) {
@@ -440,5 +494,205 @@ public class PaymentActivity extends AppCompatActivity {
 
         requestQueue.add(request);
     }
+
+    public void priceUpdate(){
+
+        String url = "http://192.168.8.122/loginregister/priceUpdate.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try{
+
+                    Log.e("anyText",response);
+
+                    //converting the string to json array object
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        JSONObject obj = jsonArray.getJSONObject(i);
+
+                        String ID = obj.getString("ID");
+                        Normal_Price_Per_Hour = obj.getString("Normal_Price_Per_Hour");
+                        Holiday_Price_Per_Hour = obj.getString("Holiday_Price_Per_Hour");
+                        Normal_Price_Per_Day = obj.getString("Normal_Price_Per_Day");
+                        Holiday_Price_Per_Day = obj.getString("Holiday_Price_Per_Day");
+                        Penalty_Price = obj.getString("Penalty_Price");
+
+
+
+
+                    }
+
+                    dayUpdate();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                username = User.getInstance().getUsername();
+
+                Map<String, String> params = new HashMap<>();
+                params.put("Customer_Username", username);
+                params.put("Plate_Number", plateNumber);
+
+                return params;
+
+            }
+
+        };
+
+
+
+        requestQueue.add(request);
+
+    }
+
+    public void dayUpdate()
+    {
+
+        String url = "http://192.168.8.122/loginregister/dayUpdate.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try{
+
+                    Log.e("anyText",response);
+
+                    //converting the string to json array object
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject obj = jsonArray.getJSONObject(i);
+
+                        String Normal_Hour = obj.getString("Normal_Hour");
+                        String Normal_Day = obj.getString("Normal_Day");
+                        String Holi_Hour = obj.getString("Holi_Hour");
+                        String Holi_Day = obj.getString("Holi_Day");
+                        Tot = obj.getInt("Total");
+
+
+                       /* if (car.equals(""))
+                            penalty.append("No");
+                        else
+                            penalty.append(Penalty_Price);*/
+
+                        normalDay.append("RM " + Normal_Price_Per_Day + " x " + Normal_Day + " days");
+                        holiday.append("RM " + Holiday_Price_Per_Day + " x " + Holi_Day + " days");
+                        normalHour.append("RM " + Normal_Price_Per_Hour + " x " + Normal_Hour + " days");
+                        holidayHour.append("RM " + Holiday_Price_Per_Hour + " x " + Holi_Hour + " days");
+                        Total.append(String.valueOf(Tot));
+
+
+                       // double d=Double.parseDouble("Tot");
+
+                       // jumlah = (Tot);
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                username = User.getInstance().getUsername();
+
+                Map<String, String> params = new HashMap<>();
+                params.put("Customer_Username", username);
+                params.put("Plate_Number", plateNumber);
+
+                return params;
+
+            }
+
+        };
+
+
+
+        requestQueue.add(request);
+
+
+
+    }
+
+    public void fnGetPenaltyTable(String carplate)
+    {
+        ArrayList<String> carplateList = new ArrayList<>();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://192.168.8.122/loginregister/getAllPenaltyCarPlate.php";
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    if (response.equals("No overtime yet")){
+                        carplateList.add("0");
+                    }
+                    else{
+                        JSONArray jsonArray = new JSONArray(response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject scanObj = jsonArray.getJSONObject(i);
+                            //JSONObject scanObj = response.getJSONObject(i);
+                            String curCarplate = scanObj.getString("Plate_Number");
+
+                            carplateList.add(curCarplate);
+                        }
+                    }
+
+                    // if you carplate is in the Arraylist, show the Yes
+                    boolean carplateExist = carplateList.contains(carplate);
+
+                    // set the Payment interface status
+                    if(carplateExist)
+                    {
+                        penalty.append("Yes");
+                    }
+                    else
+                    {
+                        penalty.append("No");
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
+
 
 }

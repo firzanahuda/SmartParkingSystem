@@ -186,6 +186,10 @@ public class CurrentFragment extends Fragment {
                         }
                     }
 
+                    //creating adapter object and setting it to recyclerview
+                    CurrentAdapter adapter = new CurrentAdapter(getContext(), filteredList);
+                    recyclerView.setAdapter(adapter);
+
                     if(filteredList.size() == 0){
 
                         imageView.setVisibility(View.VISIBLE);
@@ -197,9 +201,7 @@ public class CurrentFragment extends Fragment {
                         textView.setVisibility(View.GONE);
                     }
 
-                    //creating adapter object and setting it to recyclerview
-                    CurrentAdapter adapter = new CurrentAdapter(getContext(), filteredList);
-                    recyclerView.setAdapter(adapter);
+
 
 
                 } catch (JSONException e) {

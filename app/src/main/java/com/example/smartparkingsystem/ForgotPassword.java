@@ -49,6 +49,12 @@ public class ForgotPassword extends AppCompatActivity {
                 password = String.valueOf(textInputEditTextPassword.getText());
                 forgotPassword = String.valueOf(textInputEditTextForgotPassword.getText());
 
+                if(!username.isEmpty() && !password.isEmpty()){
+                    buttonReset.setEnabled(true);
+                    buttonReset.setBackgroundResource(R.drawable.squarepurple);
+
+                }
+
                 if(!username.equals("") && !password.equals("")&& !forgotPassword.equals("")) {
 
                     Handler handler = new Handler(Looper.getMainLooper());

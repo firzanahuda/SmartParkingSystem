@@ -5,124 +5,411 @@
     android:layout_height="match_parent"
     tools:context=".PaymentActivity">
 
-    <!-- TODO: Update blank fragment layout -->
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_marginTop="30dp"
+      android:background="@drawable/boxpurple"
+      android:text="Parking details"
+      style="@style/WhiteText"
+      android:fontFamily="@font/poppinsbold"
+      android:padding="10sp"
+      android:textSize="15sp"/>
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="90dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100">
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textStart"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/squarepurple"></TextView>
-
-    <LinearLayout
-        android:layout_width="389dp"
         android:layout_height="30dp"
-        android:layout_marginTop="30dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        >
-
-        <TextView
-            android:id="@+id/txtFloorHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="50"
-            android:layout_marginLeft="20dp"
-            android:text="Booking Payment:"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/bookingpayment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="50"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:layout_marginStart="13dp"
+        android:fontFamily="@font/poppinsmedium"
+        android:text="Vehicle Plate Number"
+        android:textSize="15sp" />
 
 
-    <LinearLayout
-        android:layout_width="389dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="70dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="50"
-            android:layout_marginLeft="20dp"
-            android:text="Extend Payment:"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/extendPayment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="50"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="389dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="110dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="50"
-            android:layout_marginLeft="20dp"
-            android:text="Total Payment:"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/totalPayment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="50"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-
-        android:id="@+id/paymentflow"
+    <TextView
+        android:id="@+id/textPlateNumber"
+        style="@style/GreenText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:text="PAY"
-        android:textColor="@color/purple_200"
-        />
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="120dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100">
+
+    <TextView
+        android:id="@+id/startDate"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="15sp"
+        android:layout_marginStart="15sp"
+        android:text="Parking Station"/>
+
+
+    <TextView
+        android:id="@+id/parkingStation"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="150dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+  >
+
+    <TextView
+        android:id="@+id/textStartTime"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:layout_marginStart="15sp"
+        android:text="Start Date Time"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/start"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="180dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+  >
+
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/black"
+        android:text="End Date Time"
+        android:layout_marginStart="15sp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/endTime"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="210dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+      >
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/black"
+        android:text="Parking Slot"
+        android:layout_marginStart="15sp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/parkingslot"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="240dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+      >
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/black"
+        android:text="Penalty"
+        android:layout_marginStart="15sp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/penalty"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_marginTop="300dp"
+      android:background="@drawable/boxpurple"
+      android:text="Payment Calculation"
+      style="@style/WhiteText"
+      android:fontFamily="@font/poppinsbold"
+      android:padding="10sp"
+      android:textSize="15sp"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="360dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+      >
+
+    <TextView
+
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:layout_marginStart="15sp"
+        android:text="Normal Day"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/normalDay"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsbold"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="390dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+      >
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/black"
+        android:text="Holiday"
+        android:layout_marginStart="15sp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/holiday"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="420dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+      >
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/black"
+        android:text="Normal Hour"
+        android:layout_marginStart="15sp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/normalHour"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="450dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+      >
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/black"
+        android:text="Holiday Hour"
+        android:layout_marginStart="15sp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/holidayhour"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp"
+      android:layout_marginTop="480dp"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:weightSum="100"
+      >
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsbold"
+        style="@style/OrangeText"
+        android:text="Total"
+        android:layout_marginStart="15sp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/Total"
+        style="@style/GreenText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="50"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="#69BB01"
+        android:textSize="15sp" />
+
+  </LinearLayout>
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/pay"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="550dp"
+      android:text="PAY"
+      style="@style/PurpleText"/>
+
+
 
 </FrameLayout>

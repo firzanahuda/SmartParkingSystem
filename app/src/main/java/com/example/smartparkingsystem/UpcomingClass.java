@@ -15,8 +15,7 @@ public class UpcomingClass {
         super();
     }
 
-    public UpcomingClass(String startDate, String endDate, String duration, String startTime, String endTime, String station, String carPlate,
-                         String status) {
+    public UpcomingClass(String startDate, String endDate, String duration, String startTime, String endTime, String station, String carPlate) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.duration = duration;
@@ -24,7 +23,6 @@ public class UpcomingClass {
         this.endTime = endTime;
         this.station = station;
         this.carPlate = carPlate;
-        this.status = status;
     }
 
     public String getStartDate() {

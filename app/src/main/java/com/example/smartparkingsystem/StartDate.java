@@ -27,6 +27,8 @@ public class StartDate extends AppCompatActivity {
         calendarView = (CalendarView) findViewById(R.id.calendar);
         myDate = (TextView) findViewById(R.id.dateend);
 
+        calendarView.setMinDate(System.currentTimeMillis() - 1000);
+
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

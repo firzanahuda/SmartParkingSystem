@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,17 +19,33 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentViewHolder> {
@@ -55,6 +72,7 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
     // notification
     NotificationManagerCompat notificationManagerCompat;
     Notification notification;
+    final AtomicLong i = new AtomicLong();
 
 
     public CurrentAdapter(Context ctx, List<CurrentClass> currentList) {
@@ -118,25 +136,7 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
                 int seconds = (int) (diff[0] / 1000) % 60;
 
                 if (days == 0 && hours == 1 && minutes == 0 && seconds == 0) {
-                    // send notificaiton if 1 hour left
-                    //fnCloseNotification();
 
-                    // notification
-                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
-                        NotificationManager manager = (NotificationManager) getSystemService(NotificationManager.class);
-                        manager.createNotificationChannel(channel);
-                    }
-
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(mTextViewCountDown.getContext(), "myCh")
-                            .setSmallIcon(android.R.drawable.star_on)
-                            .setContentTitle("First Notification")
-                            .setContentText("Hello World");
-
-                    notification = builder.build();
-                    notificationManagerCompat = NotificationManagerCompat.from(mTextViewCountDown.getContext());
-                    // notification till here
-                    notificationManagerCompat.notify(1, notification);*/
 
                 }
 
@@ -157,63 +157,20 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
 
             @Override
             public void onFinish() {
-                // give warning notification if times up
-                //fnWarnNotification();
 
-                // notification
-                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
-                    NotificationManager manager = (NotificationManager) getSystemService(NotificationManager.class);
-                    manager.createNotificationChannel(channel);
-                }
-
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(mTextViewCountDown.getContext(), "myCh")
-                        .setSmallIcon(android.R.drawable.star_on)
-                        .setContentTitle("Times Up!")
-                        .setContentText("Your booking time for vehicle is up.");
-
-                notification = builder.build();
-                notificationManagerCompat = NotificationManagerCompat.from(mTextViewCountDown.getContext());
-                // notification till here
-                notificationManagerCompat.notify(2, notification);*/
-
+                String carPlate = currentClass.getCarPlate();
 
                 // set to Penalty
+
+//                holder.extend.setEnabled(false);
+                fnGetBookingIDPenalty(carPlate);
+
             }
         }.start();
 
 
-        holder.extend.setOnClickListener(view -> {
-
-            int selectedPosition = holder.getAdapterPosition();
-
-            if (selectedPosition == position) {
 
 
-                Bundle bundle = new Bundle();
-                bundle.putString("startDate", startDate);
-                bundle.putString("endDate", endDate);
-                bundle.putString("startTime", startTime);
-                bundle.putString("endTime", endTime);
-                bundle.putString("carPlate", carPlate);
-                Intent intent = new Intent(view.getContext(), ExtendActivity.class);
-                intent.putExtras(bundle);
-                view.getContext().startActivity(intent);
-
-                /*intent.putExtra("startDate", startDate);
-                intent.putExtra("endDate", endDate);
-                intent.putExtra("startTime", startTime);
-                intent.putExtra("endTime", endTime);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                view.getContext().startActivity(intent);*/
-
-            }
-        });
-
-    }
-
-    private Object getSystemService(Class<NotificationManager> notificationManagerClass) {
-        return null;
     }
 
     @Override
@@ -231,7 +188,7 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
 
             station = itemView.findViewById(R.id.txtStation);
             carplate = itemView.findViewById(R.id.carPlate);
-            extend = itemView.findViewById(R.id.extend);
+            //extend = itemView.findViewById(R.id.extend);
             txtTimer = itemView.findViewById(R.id.txtTimer);
             txtFloor = itemView.findViewById(R.id.txtFloor);
             txtParking = itemView.findViewById(R.id.txtParking);
@@ -240,6 +197,270 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.CurrentV
 
         }
     }
+
+
+
+
+    public void fnGetBookingIDPenalty(String carplate)
+    {
+        ArrayList<String> bookingIDList = new ArrayList<>();
+        RequestQueue requestQueue = Volley.newRequestQueue(ctx);
+        String url = "http://192.168.8.122/loginregister/getBookingIDTimer.php?carplate=" + carplate;
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject scanObj = jsonArray.getJSONObject(i);
+                        //JSONObject scanObj = response.getJSONObject(i);
+                        String curBookingID = scanObj.getString("Booking_ID");
+                        bookingIDList.add(curBookingID);
+
+
+                        // used both string to get the floor, code, capacity and status
+                        fnGetPenaltyPrice(bookingIDList.get(0), carplate);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+
+    // get the Penalty price
+    public void fnGetPenaltyPrice(String bookingID, String carplate)
+    {
+        ArrayList<Double> penaltyPriceList = new ArrayList<>();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(ctx);
+        String url = "http://192.168.8.122/loginregister/getPenaltyPrice.php";
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    if (response.equals("No prices yet")){
+                        penaltyPriceList.add((double) 0);
+                    }
+                    else{
+                        JSONArray jsonArray = new JSONArray(response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject scanObj = jsonArray.getJSONObject(i);
+                            //JSONObject scanObj = response.getJSONObject(i);
+                            Double curPenalty = scanObj.getDouble("Penalty_Price");
+
+                            penaltyPriceList.add(curPenalty);
+
+                        }
+                    }
+
+                    // run the next function
+                    fnPenaltyTotal(bookingID, carplate, penaltyPriceList.get(0));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    // update the total at the Payment table
+    public void fnPenaltyTotal(String bookingID, String carplate, Double penaltyPrice)
+    {
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                // Starting Write and Read data with URL
+                // Creating array for php parameters
+                String[] field = new String[2];
+                field[0] = "bookingID";
+                field[1] = "penaltyPrice";
+
+
+                // Creating data for php
+                String[] data = new String[2];
+                data[0] = bookingID;
+                data[1] = String.valueOf(penaltyPrice);
+
+                PutData putData = new PutData("http://192.168.8.122/loginregister/paymentPenaltyUpdate.php", "POST", field, data);
+
+                if(putData.startPut()){
+                    if(putData.onComplete()) {
+                        String result = putData.getResult();
+                        if(result.equals("Status updated")) {
+                            Toast.makeText(ctx, result, Toast.LENGTH_SHORT).show();
+                            // insert a new row into Overtime_Vehicle
+                            fnInsertOvertime(carplate);
+                        }
+                        else {
+                            Toast.makeText(ctx, result, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public void fnInsertOvertime(String carplate)
+    {
+        ArrayList<Integer> penaltyIDIntList = new ArrayList<>();
+        RequestQueue requestQueue = Volley.newRequestQueue(ctx);
+        String url = "http://192.168.8.122/loginregister/getNewPenaltyID.php";
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    if (response.equals("No overtime vehicle yet")){
+                        penaltyIDIntList.add(0);
+                    }
+                    else{
+                        JSONArray jsonArray = new JSONArray(response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject scanObj = jsonArray.getJSONObject(i);
+                            //JSONObject scanObj = response.getJSONObject(i);
+                            String penaltyID = scanObj.getString("ID");
+                            // get substr and convert to int
+                            penaltyID = penaltyID.substring(1);
+                            penaltyID = removeZero(penaltyID);
+                            int number = Integer.parseInt(penaltyID);
+
+                            penaltyIDIntList.add(number);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                // get the largest number and create the new ID
+                int max = Collections.max(penaltyIDIntList) + 1;
+                String newPenaltyID;
+
+                if (max >= 1000 && max < 10000)
+                {
+                    newPenaltyID = "O" + Integer.toString(max);
+                }
+                else if (max >= 100 && max < 1000)
+                {
+                    newPenaltyID = "O0" + Integer.toString(max);
+                }
+                else if (max >= 10 && max < 100)
+                {
+                    newPenaltyID = "O00" + Integer.toString(max);
+                }
+                else
+                {
+                    newPenaltyID = "O000" + Integer.toString(max);
+                }
+
+                // insert all into the scanning database
+                Handler handler = new Handler();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Starting Write and Read data with URL
+                        // Creating array for parameters
+                        String[] field = new String[2];
+                        field[0] = "penaltyID";
+                        field[1] = "carplate";
+
+                        // Creating array for data
+                        String[] data = new String[2];
+                        data[0] = newPenaltyID;
+                        data[1] = carplate;
+
+
+                        PutData putData = new PutData("http://192.168.8.122/loginregister/insertOvertime.php", "POST", field, data);
+                        if(putData.startPut()) {
+                            if(putData.onComplete()) {
+                                String result = putData.getResult();
+                                if(result.equals("Insert Scan row success")) {
+                                    //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                        //End Write and Read Data with URL
+                    }
+                });
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public static String removeZero(String str)
+    {
+
+        // Count leading zeros
+
+        // Initially setting loop counter to 0
+        int i = 0;
+        while (i < str.length() && str.charAt(i) == '0')
+            i++;
+
+        // Converting string into StringBuffer object
+        // as strings are immutable
+        StringBuffer sb = new StringBuffer(str);
+
+        // The StringBuffer replace function removes
+        // i characters from given index (0 here)
+        sb.replace(0, i, "");
+
+        // Returning string after removing zeros
+        return sb.toString();
+    }
+
+    public class Mycountdowntimer extends CountDownTimer{
+
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public Mycountdowntimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    }
+
 
 
 

@@ -118,45 +118,27 @@ public class UpcomingFragment extends Fragment {
                                 upcoming.getString("Start_Time"),
                                 upcoming.getString("End_Time"),
                                 upcoming.getString("Station"),
-                                upcoming.getString("Plate_Number"),
-                                upcoming.getString("status")
+                                upcoming.getString("Plate_Number")
 
 
                         ));
                     }
 
+                    if(upcomingList.size() == 0){
 
-                    filters.add("parked");
-                    filters.add("paid");
-                    filters.add("retrieve");
-                    filters.add("done");
+                        imageView.setVisibility(View.VISIBLE);
+                        textView.setVisibility(View.VISIBLE);
 
-                    //now filter the original list
-
-                    for(int i = 0 ; i<upcomingList.size() ; i++) {
-
-                        UpcomingClass item = upcomingList.get(i);
-
-                        if (filters.contains(item.getStatus())) {
-
-                            filteredList.add(item);
-                            UpcomingAdapter adapter = new UpcomingAdapter(getContext(), filteredList);
-                            recyclerView.setAdapter(adapter);
-
-                            imageView.setVisibility(View.GONE);
-                            textView.setVisibility(View.GONE);
-
-                        } else {
-
-                            List<UpcomingClass> filtered = new ArrayList<UpcomingClass>();
-                            UpcomingAdapter adapter = new UpcomingAdapter(getContext(), filtered);
-                            recyclerView.setAdapter(adapter);
-
-                            imageView.setVisibility(View.VISIBLE);
-                            textView.setVisibility(View.VISIBLE);
-
-                        }
+                    }else
+                    {
+                        imageView.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
                     }
+
+                    UpcomingAdapter adapter = new UpcomingAdapter(getContext(), upcomingList);
+                    recyclerView.setAdapter(adapter);
+
+
 
 
 

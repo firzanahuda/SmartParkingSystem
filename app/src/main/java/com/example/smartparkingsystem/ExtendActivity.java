@@ -27,6 +27,9 @@ import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,18 +43,30 @@ public class ExtendActivity extends AppCompatActivity {
     EditText extendhours;
     String carPlate, start, end, startDate, startTime, endDate, endTime, sDate, eDate;
     Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extend);
 
-        extendhours = findViewById(R.id.extendhours);
+        extendhours = findViewById(R.id.insert);
         button = findViewById(R.id.send);
+
+        //extendTime(hour, end, start, caplate);
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v) {
+            public void onClick(View v) {
+
+                String extendedhour = String.valueOf(extendhours.getText());
+                Long varLong=Long.parseLong(extendedhour);
+
+                try {
+                    parseData(varLong);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
 
             }
@@ -59,10 +74,10 @@ public class ExtendActivity extends AppCompatActivity {
 
     }
 
-    private void parseData(long hours) throws ParseException{
+    private void parseData(long hours) throws ParseException {
 
         Bundle bundle = getIntent().getExtras();
-        if(bundle!= null){
+        if (bundle != null) {
             startDate = bundle.getString("startDate");
             endDate = bundle.getString("endDate");
             startTime = bundle.getString("startTime");
@@ -78,32 +93,74 @@ public class ExtendActivity extends AppCompatActivity {
         }
 
 
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate = String.valueOf(formatter.parse(startDate));
-        String enDate = String.valueOf(formatter.parse(endDate));
+        Date changedStartDate = new Date();
+        Date changedEndDate = new Date();
+
+        // startDate
+        try {
+            changedStartDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDate);
+            changedEndDate = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
 
 
-        Format f = new SimpleDateFormat("hh:mm");
-        String strResult = f.format(startTime);
-        String endResult = f.format(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        start = strDate + " " + strResult;
-        end = enDate + " " + endResult;
+        SimpleDateFormat sdfF = new SimpleDateFormat("dd-MM-yyyy");
+
+
+        String DateStart = sdfF.format(changedStartDate);
+        String DateEnd = sdfF.format(changedEndDate);
+
+        if (startTime.contains("am"))
+        {
+            startTime = startTime.substring(0, 5) + ":00";
+        }
+        else if (startTime.contains("pm"))
+        {
+            String hour = startTime.substring(0, 2);
+            int hourInt = Integer.parseInt(hour);
+
+            hourInt += 12;
+
+            startTime = Integer.toString(hourInt) + startTime.substring(2,5)  + ":00";
+        }
+
+
+        if (endTime.contains("am"))
+        {
+            endTime = endTime.substring(0, 5) + ":00";
+        }
+        else if (endTime.contains("pm"))
+        {
+            String hour = endTime.substring(0, 2);
+            int hourInt = Integer.parseInt(hour);
+
+            hourInt += 12;
+
+            endTime = Integer.toString(hourInt) + endTime.substring(2,5)  + ":00";
+        }
+
+
+        start = DateStart + " " + startTime;
+        end = DateEnd + " " + endTime;
+
 
         extendTime(hours, end, start, carPlate);
+
+
+
+
 
     }
 
 
-
-
-
+    /////////////////////// start here
     // when the confirmed hour button is pressed, passed Date format endDate, startDate, carplate, and
     // entered hours
     // past the same format of endDate from currentActivity to the ExtendedActivity
     // extend function
-    private void extendTime(long hours, String endDate, String startDate, String carplate)
-    {
+    private void extendTime(long hours, String endDate, String startDate, String carplate) {
         // the end date
         Date passEndDate = new Date();
 
@@ -128,11 +185,10 @@ public class ExtendActivity extends AppCompatActivity {
     }
 
     // Method 1: get the bookingID with carplate, check with Scanning table if Status == "parked"
-    public void fnGetBookingIDTimer(String carplate, String newEndDate, String startDate)
-    {
+    public void fnGetBookingIDTimer(String carplate, String newEndDate, String startDate) {
         ArrayList<String> bookingIDList = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.4/smartparkingsystem/getBookingIDTimer.php?carplate=" + carplate;
+        String url = "http://192.168.8.122/loginregister/getBookingIDTimer.php?carplate=" + carplate;
         StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
@@ -144,6 +200,19 @@ public class ExtendActivity extends AppCompatActivity {
                         //JSONObject scanObj = response.getJSONObject(i);
                         String curBookingID = scanObj.getString("Booking_ID");
                         bookingIDList.add(curBookingID);
+
+
+                        Date passEndDate = new Date();
+                        // make the endDate to the database format
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        try {
+                            passEndDate = sdf.parse(newEndDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        String updateEndDate = sdt.format(passEndDate);
 
                         // used both string to get the floor, code, capacity and status
                         fnUpdateBookingEndDate(bookingIDList.get(0), newEndDate, startDate);
@@ -163,25 +232,70 @@ public class ExtendActivity extends AppCompatActivity {
     }
 
     // Method 2: use the bookingID to update the EndDate in the booking Table
+    // change the newEndDate format to what is accepted in DateTime format sql
     public void fnUpdateBookingEndDate(String bookingID, String newEndDate, String startDate)
     {
+        Date changedEndDate = new Date();
+
+        DateFormat f = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat time = new SimpleDateFormat("HH:mm a");
+        try {
+            changedEndDate = f.parse(newEndDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String endingDate = date.format(changedEndDate);
+        String endingTime = time.format(changedEndDate);
+
+        String endHourSubstring = endingTime.substring(0, 2);
+        int endHourInt = Integer.parseInt(endHourSubstring);
+
+        if (endHourInt > 12)
+        {
+            endHourInt -= 12;
+
+            // convert to string and put a 0 in front
+            if (endHourInt < 10)
+            {
+                endHourSubstring = "0" + Integer.toString(endHourInt) + endingTime.substring(2);
+
+            }
+            else
+                endHourSubstring = Integer.toString(endHourInt) + endingTime.substring(2);
+        }
+        else
+        {
+            if (endHourInt < 10)
+            {
+                endHourSubstring = "0" + Integer.toString(endHourInt) + endingTime.substring(2);
+
+            }
+            else
+                endHourSubstring = Integer.toString(endHourInt) + endingTime.substring(2);
+        }
+
+
         Handler handler = new Handler();
+        String finalEndHourSubstring = endHourSubstring;
         handler.post(new Runnable() {
             @Override
             public void run() {
                 // Starting Write and Read data with URL
                 // Creating array for php parameters
-                String[] field = new String[2];
+                String[] field = new String[3];
                 field[0] = "bookingID";
-                field[1] = "newEndDate";
+                field[1] = "endDate";
+                field[2] = "endTime";
 
                 // Creating data for php
-                String[] data = new String[2];
+                String[] data = new String[3];
                 data[0] = bookingID;
-                data[1] = newEndDate;
+                data[1] = endingDate;
+                data[2] = finalEndHourSubstring;
 
                 // set the status == "done"
-                PutData putData = new PutData("http://192.168.0.4/smartparkingsystem/extendEndDateUpdate.php", "POST", field, data);
+                PutData putData = new PutData("http://192.168.8.122/loginregister/extendEndDateUpdate.php", "POST", field, data);
 
                 if(putData.startPut()){
                     if(putData.onComplete()) {
@@ -204,12 +318,11 @@ public class ExtendActivity extends AppCompatActivity {
     // get the extended price at the Payment table, update the price of it (extended price + new price)
     // how do I differentiate for weekday and weekend???
     // get the price for weekday and weekend
-    public void getPaymentPrices(String bookingID, String newEndDate, String startDate)
-    {
+    public void getPaymentPrices(String bookingID, String newEndDate, String startDate) {
         ArrayList<Double> totalList = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.4/smartparkingsystem/getPaymentDetails.php?bookingID=" + bookingID;
+        String url = "http://192.168.8.122/loginregister/getPaymentDetails.php?bookingID=" + bookingID;
         StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
@@ -220,12 +333,13 @@ public class ExtendActivity extends AppCompatActivity {
                         JSONObject scanObj = jsonArray.getJSONObject(i);
                         //JSONObject scanObj = response.getJSONObject(i);
                         Double curTotal = scanObj.getDouble("Total");
-                        Double curBookingPayment = scanObj.getDouble("BookingPayment");
-                        Double curExtendPrice = scanObj.getDouble("Extend");
                         totalList.add(curTotal);
+
+                        // past all parameter
+                        fnGetWeekPrices(bookingID, newEndDate, startDate, totalList.get(0));
                     }
-                    // past all parameter
-                    fnGetWeekPrices(bookingID, newEndDate, startDate, totalList.get(0));
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -243,27 +357,25 @@ public class ExtendActivity extends AppCompatActivity {
     // get the all 4 types of prices
     // use startdate and endDate calculate weekday and weekend numbers, also the weekday hour and weekend hours
     // update the Payment Total, Extend, weekday number, weekend number, weekday hour, weekend hour
-    public void fnGetWeekPrices(String bookingID, String newEndDate, String startDate, Double total)
-    {
+    public void fnGetWeekPrices(String bookingID, String newEndDate, String startDate, Double total) {
         ArrayList<Double> normalHourPriceList = new ArrayList<>();
         ArrayList<Double> normalDayPriceList = new ArrayList<>();
         ArrayList<Double> holiHourPriceList = new ArrayList<>();
         ArrayList<Double> holiDayPriceList = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.4/smartparkingsystem/getAllPrices.php";
+        String url = "http://192.168.8.122/loginregister/getAllPrices.php";
         StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    if (response.equals("No prices yet")){
+                    if (response.equals("No prices yet")) {
                         normalHourPriceList.add((double) 0);
                         normalDayPriceList.add((double) 0);
                         holiHourPriceList.add((double) 0);
                         holiDayPriceList.add((double) 0);
-                    }
-                    else{
+                    } else {
                         JSONArray jsonArray = new JSONArray(response);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject scanObj = jsonArray.getJSONObject(i);
@@ -301,8 +413,7 @@ public class ExtendActivity extends AppCompatActivity {
     // calculate the weekday, weekend, hours number
     // calculate the prices in total
     // use bookingID, update the Payment Total, Extend, weekday number, weekend number, weekday hour, weekend hour
-    public void fnCalculatePrices(String bookingID, String newEndDate, String startDate, Double total, Double norHourPrice, Double norDayPrice, Double holiHourPrice, Double holiDayPrice)
-    {
+    public void fnCalculatePrices(String bookingID, String newEndDate, String startDate, Double total, Double norHourPrice, Double norDayPrice, Double holiHourPrice, Double holiDayPrice) {
         int normalDay = 0, normalHour = 0, holiDay = 0, holiHour = 0;
         double priceNormalDay = 0, priceNormalHour = 0, priceHoliDay = 0, priceHoliHour = 0;
 
@@ -342,13 +453,10 @@ public class ExtendActivity extends AppCompatActivity {
         int dow = c.get(Calendar.DAY_OF_WEEK); // Sunday is 1
 
         // for start hour
-        if (dow == 1 || dow == 7)
-        {
+        if (dow == 1 || dow == 7) {
             int curHour = 24 - startHour;
             holiHour += curHour;
-        }
-        else
-        {
+        } else {
             int curHour = 24 - startHour;
             normalHour += curHour;
         }
@@ -358,11 +466,9 @@ public class ExtendActivity extends AppCompatActivity {
         c.setTime(dateEndDate);
         int endDow = c.get(Calendar.DAY_OF_WEEK);
 
-        if (endDow == 1 || endDow == 7)
-        {
+        if (endDow == 1 || endDow == 7) {
             holiHour += endHour;
-        }
-        else
+        } else
             normalHour += endHour;
 
         // take the number of daysDiff / 7 to get the number weeks [holiday = num * 2, normal day = nu, * 5]
@@ -374,20 +480,16 @@ public class ExtendActivity extends AppCompatActivity {
         holiDay = (int) (numOfWeek * 2);
         normalDay = (int) (numOfWeek * 5);
 
-        for (int i = 0; i < leftDays; i++)
-        {
+        for (int i = 0; i < leftDays; i++) {
             dow++;
 
-            if (dow > 7)
-            {
+            if (dow > 7) {
                 dow -= 7;
             }
 
-            if (dow != 1 || dow != 7)
-            {
+            if (dow != 1 || dow != 7) {
                 normalDay++;
-            }
-            else
+            } else
                 holiDay++;
         }
 
@@ -407,8 +509,7 @@ public class ExtendActivity extends AppCompatActivity {
     }
 
     // update the database
-    public void fnUpdatePayment(String bookingID, Double total, int normalDay, int normalHour, int holiDay, int holiHour)
-    {
+    public void fnUpdatePayment(String bookingID, Double total, int normalDay, int normalHour, int holiDay, int holiHour) {
         Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
@@ -432,15 +533,14 @@ public class ExtendActivity extends AppCompatActivity {
                 data[4] = String.valueOf(holiDay);
                 data[5] = String.valueOf(holiHour);
 
-                PutData putData = new PutData("http://10.131.76.38/smartparkingsystem/paymentPricesUpdate.php", "POST", field, data);
+                PutData putData = new PutData("http://192.168.8.122/loginregister/paymentPricesUpdate.php", "POST", field, data);
 
-                if(putData.startPut()){
-                    if(putData.onComplete()) {
+                if (putData.startPut()) {
+                    if (putData.onComplete()) {
                         String result = putData.getResult();
-                        if(result.equals("Status updated")) {
+                        if (result.equals("Status updated")) {
                             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -449,3 +549,8 @@ public class ExtendActivity extends AppCompatActivity {
         });
     }
 }
+
+
+
+
+

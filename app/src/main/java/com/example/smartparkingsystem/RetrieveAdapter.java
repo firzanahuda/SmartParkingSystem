@@ -79,7 +79,7 @@ public class RetrieveAdapter extends RecyclerView.Adapter<RetrieveAdapter.Retrie
         qrGenerator = new QRGenerator(qrcode);
 
         // encrypt the carplate
-        String encryptedCarPlate = qrGenerator.thirdScanEncryption();
+        String encryptedCarPlate = qrGenerator.fourthScanEncryption();
 
         Bitmap bitmap = qrGenerator.generateQRCode(encryptedCarPlate);
         holder.imageView2.setImageBitmap(bitmap);

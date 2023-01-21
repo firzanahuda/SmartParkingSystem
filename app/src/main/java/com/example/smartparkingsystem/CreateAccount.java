@@ -29,13 +29,13 @@ public class CreateAccount extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // calling the action bar
-        ActionBar actionBar = getSupportActionBar();
+        //ActionBar actionBar = getSupportActionBar();
 
         // Customize the back button
-        actionBar.setHomeAsUpIndicator(R.drawable.mybutton);
+        //actionBar.setHomeAsUpIndicator(R.drawable.mybutton);
 
         // showing the back button in action bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
 
 
 

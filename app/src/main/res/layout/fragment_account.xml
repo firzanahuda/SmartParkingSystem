@@ -6,12 +6,21 @@
     tools:context=".FragmentAccount"
     android:id="@+id/fragmentAccount">
 
-    <include layout="@layout/toolbar" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#D9D9D9"
+        android:text="Logout"
+        android:id="@+id/logout"
+        android:gravity="right"
+        style="@style/PurpleText"
+        android:fontFamily="@font/poppinsbold"
+        android:padding="9sp"
+        android:textSize="15sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_toolbar"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_marginTop="50dp"
